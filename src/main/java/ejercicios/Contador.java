@@ -14,10 +14,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class Contador extends Application {
-
-    private Button btMas, btMenos, btCero;
-    private Label numero;
-
+    Button btMas, btMenos, btCero;
+    Label numero;
 
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -72,6 +70,8 @@ public class Contador extends Application {
             e.printStackTrace();
         }
     }
+
+
 
     private int numPulsaciones = 0;
 
