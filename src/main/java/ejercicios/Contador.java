@@ -1,6 +1,8 @@
 package ejercicios;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -54,6 +56,8 @@ public class Contador extends Application {
             btCero.getStyleClass().add("boton");
             btCero.setOnAction(e -> botonPulsado(0));
 
+            numPulsaciones.addListener((obs, oldvalue, newvalue) -> {numero.setText(String.valueOf(newvalue));});
+
             raiz.getChildren().addAll(btMenos, btCero, btMas);
             raiz.getStyleClass().add("raiz");
 
@@ -72,16 +76,15 @@ public class Contador extends Application {
 
 
 
-    private int numPulsaciones = 0;
+    IntegerProperty numPulsaciones = new SimpleIntegerProperty(0);
 
     private void botonPulsado(int opcion) {
         if (opcion == 1) {
-            numero.setText(String.valueOf(++numPulsaciones));
+            numPulsaciones.set(numPulsaciones.get() + 1);
         } else if  (opcion == -1) {
-            numero.setText(String.valueOf(--numPulsaciones));
+            numPulsaciones.set(numPulsaciones.get() - 1);
         } else {
-            numPulsaciones = 0;
-            numero.setText("0");
+            numPulsaciones.set(0);
         }
     }
 

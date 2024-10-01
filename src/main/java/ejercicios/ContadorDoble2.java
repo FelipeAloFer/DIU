@@ -13,6 +13,6 @@ public class ContadorDoble2 extends Application {
         contador1.start(escenarioPrincipal);
         contador2.start(escenarioPrincipal2);
 
-        contador1.numero.textProperty().bindBidirectional(contador2.numero.textProperty());
+        contador1.numPulsaciones.bindBidirectional(contador2.numPulsaciones);
     }
 }
