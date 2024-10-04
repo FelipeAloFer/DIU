@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="raiz" alignment="CENTER" spacing="20.0" styleClass="contador.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pack.scenebuilder.controller.HelloController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER" prefHeight="4.0" prefWidth="200.0">
+            <children>
+                <Button fx:id="btnMenos" mnemonicParsing="false" onAction="#botonmenos" text="-">
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="btnCero" mnemonicParsing="false" onAction="#botoncero" text="0">
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="btnMas" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#botonmas" text="+" textAlignment="RIGHT">
+                    <HBox.margin>
+                        <Insets right="3.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+        <Label fx:id="numero" alignment="TOP_CENTER" text="0" />
+        <TextField fx:id="cuadro" onKeyPressed="#handleKeyPressed" promptText="Introduce un numero" />
+        <ProgressBar fx:id="barra" prefWidth="200.0" progress="0.0" />
+    </children>
+</VBox>

@@ -1,0 +1,29 @@
+#btnMas {
+    -fx-background-color: black;
+    -fx-text-background-color: white;
+    -fx-text-fill: white;
+}
+
+#btnCero {
+    -fx-background-color: black;
+    -fx-text-background-color: white;
+    -fx-text-fill: white;
+}
+
+#btnMenos {
+    -fx-background-color: black;
+    -fx-text-background-color: white;
+    -fx-text-fill: white;
+}
+
+#raiz{
+    -fx-background-color: red;
+}
+
+#contenedor{
+    -fx-background-color: red;
+}
+
+#numero{
+    -fx-text-background-color: blue;
+}
