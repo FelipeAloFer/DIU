@@ -7,7 +7,7 @@
 #btnCero {
     -fx-background-color: black;
     -fx-text-background-color: white;
-    -fx-text-fill: white;
+        -fx-text-fill: white;
 }
 
 #btnMenos {
