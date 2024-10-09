@@ -11,10 +11,10 @@ module pack.scenebuilder {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens pack.scenebuilder to javafx.fxml;
-    exports pack.scenebuilder;
-    exports Agenda;
     opens Agenda to javafx.fxml;
-    exports Agenda.controller;
     opens Agenda.controller to javafx.fxml;
+    opens Agenda.modelo to javafx.fxml;
+
+    exports Agenda.controller;
+    exports Agenda.modelo;
 }
