@@ -32,15 +32,11 @@ public class PersonOverviewController {
     // Reference to the main application.
     private MainApp mainApp;
 
-    @FXML
-    private void handleDeletePerson() {
-        int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
-            personTable.getItems().remove(selectedIndex);
-        } else {
-            Alert alerta = new Alert(Alert.AlertType.ERROR, "No hay ninguna persona seleccionada.");
-            alerta.show();
-        }
+    /**
+     * The constructor.
+     * The constructor is called before the initialize() method.
+     */
+    public PersonOverviewController() {
     }
 
     private void showPersonDetails(Person person) {
@@ -64,11 +60,40 @@ public class PersonOverviewController {
         }
     }
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
-    public PersonOverviewController() {
+    @FXML
+    private void handleDeletePerson() {
+        int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            personTable.getItems().remove(selectedIndex);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes tener seleccionada a una persona para borrrarla");
+            alert.show();
+        }
+    }
+
+    @FXML
+    private void handleNewPerson() {
+        Person tempPerson = new Person();
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+        if (okClicked) {
+            mainApp.getPersonData().add(tempPerson);
+        }
+    }
+
+    @FXML
+    private void handleEditPerson() {
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+            if (okClicked) {
+                showPersonDetails(selectedPerson);
+            }
+
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes tener seleccionada a una persona para editarla");
+            alert.show();
+        }
     }
 
     /**
