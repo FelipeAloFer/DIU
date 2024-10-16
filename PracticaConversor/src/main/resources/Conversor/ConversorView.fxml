@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Conversor.controller.ConversorController">
+    <children>
+        <Label layoutX="176.0" layoutY="45.0" text="CONVERSOR MONEDAS">
+            <font>
+                <Font name="DejaVu Serif Condensed Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="117.0" layoutY="107.0" text="EUROS">
+            <font>
+                <Font name="DejaVu Serif Condensed Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="374.0" layoutY="107.0" text="DOLARES">
+            <font>
+                <Font name="DejaVu Serif Condensed Bold" size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="euros" layoutX="73.0" layoutY="172.0" promptText="Introduce euros" />
+        <TextField fx:id="resultado" layoutX="343.0" layoutY="172.0" prefHeight="29.0" prefWidth="173.0" promptText="Conversión a dolares" />
+    </children>
+</AnchorPane>
