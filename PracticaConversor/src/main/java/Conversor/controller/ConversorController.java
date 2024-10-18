@@ -1,21 +1,12 @@
 package Conversor.controller;
 
-import Conversor.modelo.Moneda;
-import Modelo.ExcepcionMoneda;
-import Modelo.MonedaVO;
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import Conversor.modelo.ConversorModelo;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-import java.util.ArrayList;
-
 public class ConversorController {
-    Moneda moneda;
-    Main main;
-
+    ConversorModelo modelo;
     @FXML
     protected TextField cuadroEuros;
 
@@ -23,13 +14,14 @@ public class ConversorController {
     protected TextField cuadroResultado;
 
     @FXML
-    public void conversion(Moneda dolar) throws ExcepcionMoneda {
-        FloatProperty multiplicador = dolar.getMultiplicador();
+    public void accionarConversion(KeyEvent event) {
+        if (event.getCode() == javafx.scene.input.KeyCode.ENTER) {
+            float resultado = modelo.conversor(Float.valueOf(cuadroEuros.getText()));
+            cuadroResultado.setText(String.valueOf(resultado));
+        }
+    }
 
-        IntegerProperty euros = new SimpleIntegerProperty(Integer.parseInt(cuadroEuros.getText()));
-
-        IntegerProperty resultado = new SimpleIntegerProperty((int) (euros.get() * multiplicador.get()));
-
-        cuadroResultado.setText(resultado.toString());
+    public void setController(ConversorModelo modelo) {
+        this.modelo = modelo;
     }
 }
