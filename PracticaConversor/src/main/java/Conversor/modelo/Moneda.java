@@ -1,17 +1,27 @@
 package Conversor.modelo;
 
+import Modelo.ExcepcionMoneda;
 import Modelo.MonedaVO;
+import Modelo.repository.MonedaRepository;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
+
+import java.util.ArrayList;
 
 public class Moneda {
-    MonedaVO monedaVO;
 
     String nombre;
-    float multiplicador;
+    FloatProperty multiplicador;
+    ArrayList<Moneda> listaMonedas = new ArrayList<Moneda>();
 
-    public Moneda(String nombre, float multiplicador) {
+    public Moneda(String nombre, FloatProperty multiplicador) {
         this.nombre = nombre;
         this.multiplicador = multiplicador;
     }
+
+//    public void añadirMoneda(Moneda dolar) throws ExcepcionMoneda {
+//        listaMonedas.add(dolar);
+//    }
 
     public String getNombre() {
         return this.nombre;
@@ -21,11 +31,11 @@ public class Moneda {
         this.nombre = nombre;
     }
 
-    public float getMultiplicador() {
+    public FloatProperty getMultiplicador() {
         return this.multiplicador;
     }
 
-    public void setMultiplicador(float multiplicador) {
+    public void setMultiplicador(FloatProperty multiplicador) {
         this.multiplicador = multiplicador;
     }
 

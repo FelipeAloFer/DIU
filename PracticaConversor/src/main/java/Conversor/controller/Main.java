@@ -3,18 +3,28 @@ package Conversor.controller;
 import Conversor.modelo.Moneda;
 import Modelo.ExcepcionMoneda;
 import Modelo.MonedaVO;
+import Modelo.repository.MonedaRepository;
 import Modelo.repository.impl.MonedaRepositoryImpl;
 import javafx.application.Application;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
     ConversorController controller = new ConversorController();
+    MonedaRepositoryImpl monedaRepositoryImpl = new MonedaRepositoryImpl();
+    Moneda moneda;
 
+
+    protected ArrayList<Moneda> listaMonedas = new ArrayList<>();
     private Stage primaryStage;
     private AnchorPane  conversorView;
 
@@ -22,14 +32,6 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Conversor");
         initConversorView();
-        try {
-            MonedaRepositoryImpl monedarepositoryImpl = new MonedaRepositoryImpl();
-            MonedaVO monedaPrueba = new MonedaVO("prueba", 1.2F);
-            monedarepositoryImpl.addMoneda(monedaPrueba);
-        } catch (ExcepcionMoneda var5) {
-            ExcepcionMoneda e = var5;
-            System.out.println(e.imprimirMensaje());
-        }
     }
 
     // Initializes the root layout
@@ -49,7 +51,19 @@ public class Main extends Application {
         }
     }
 
-//    public void conversion() {
-//        controller.
-//    }
+
+    public Moneda cambioMonedaVO(MonedaVO dolarVO) throws ExcepcionMoneda {
+        ArrayList<MonedaVO> listaMonedasVO = monedaRepositoryImpl.ObtenerListaMonedas();
+        dolarVO = listaMonedasVO.get(0);
+        String nombre = dolarVO.getNombre();
+        FloatProperty multiplicador = new SimpleFloatProperty(dolarVO.getMultiplicador());
+        Moneda dolar = new Moneda(nombre, multiplicador);
+        return dolar;
+    }
+
+    public Moneda obtenerMultiplicador() throws ExcepcionMoneda {
+        ArrayList<MonedaVO> listaMonedas = monedaRepositoryImpl.ObtenerListaMonedas();
+        Moneda dolar = cambioMonedaVO(listaMonedas.get(0));
+        return dolar;
+    }
 }

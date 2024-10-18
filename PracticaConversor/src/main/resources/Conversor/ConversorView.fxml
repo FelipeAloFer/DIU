@@ -25,7 +25,7 @@
                 <Font name="DejaVu Serif Condensed Bold" size="20.0" />
             </font>
         </Label>
-        <TextField fx:id="euros" layoutX="73.0" layoutY="172.0" promptText="Introduce euros" />
-        <TextField fx:id="resultado" layoutX="343.0" layoutY="172.0" prefHeight="29.0" prefWidth="173.0" promptText="Conversión a dolares" />
+        <TextField fx:id="cuadroEuros" layoutX="73.0" layoutY="172.0" onKeyPressed="#" promptText="Introduce euros" />
+        <TextField fx:id="cuadroResultado" layoutX="343.0" layoutY="172.0" prefHeight="29.0" prefWidth="173.0" promptText="Conversión a dolares" />
     </children>
 </AnchorPane>
