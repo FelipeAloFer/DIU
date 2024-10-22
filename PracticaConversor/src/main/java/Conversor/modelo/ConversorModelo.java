@@ -3,11 +3,13 @@ package Conversor.modelo;
 import Modelo.ExcepcionMoneda;
 import Modelo.MonedaVO;
 import Modelo.repository.MonedaRepository;
+import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
 public class ConversorModelo {
     ArrayList<MonedaVO> monedas;
+    MonedaRepository monedaRepository;
 
     public ConversorModelo() {
     }
@@ -17,6 +19,10 @@ public class ConversorModelo {
     }
 
     public Float conversor(Float euros) {
-        return (euros * monedas.get(0).getMultiplicador());
+        if (monedas != null) {
+            return (euros * monedas.get(0).getMultiplicador());
+        } else {
+            return null;
+        }
     }
 }

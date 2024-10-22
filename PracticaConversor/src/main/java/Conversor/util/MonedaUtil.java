@@ -6,15 +6,12 @@ import Modelo.MonedaVO;
 import java.util.ArrayList;
 
 public class MonedaUtil {
-    static ArrayList<Moneda> monedas = new ArrayList<>();
+    static ArrayList<Moneda> monedas1 = new ArrayList<>();
 
-    public MonedaUtil() {
-
+    public static ArrayList<Moneda> convertir(ArrayList<MonedaVO> monedas) {
+        for (MonedaVO moneda : monedas) {
+            monedas1.add(new Moneda(monedas.get(0).getNombre(), monedas.get(0).getMultiplicador()));
+        }
+        return monedas1;
     }
-
-//    public static ArrayList<Moneda> parse(ArrayList<MonedaVO> monedasVO) {
-//        for (MonedaVO moneda : monedasVO) {
-//            monedas.add();
-//        }
-//    }
 }

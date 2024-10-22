@@ -6,6 +6,7 @@ import Modelo.repository.impl.MonedaRepositoryImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.io.IOException;
 public class Main extends Application {
     private Stage primaryStage;
     private AnchorPane  conversorView;
+
     MonedaRepositoryImpl monedaRepositoryImpl = new MonedaRepositoryImpl();
     ConversorModelo modelo = new ConversorModelo();
 
@@ -32,6 +34,10 @@ public class Main extends Application {
             modelo.setConversorModelo(monedaRepositoryImpl);
             ConversorController controller = loader.getController();
             controller.setController(modelo);
+        } catch (ExcepcionMoneda e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("No se pudo conectar con la base de datos");
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
