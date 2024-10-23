@@ -1,15 +1,16 @@
 package Agenda.modelo;
 
-public class PersonaVO {
-    int codigoPersona;
-    String nombre;
-    String apellido;
-    String calle;
-    String ciudad;
-    int codigoPostal;
-    String fechaNacimiento;
 
-    public PersonaVO(int codigoPersona, String nombre, String apellido, String calle, String ciudad, int codigoPostal, String fechaNacimiento) {
+public class PersonaVO {
+    private int codigoPersona;
+    private String nombre;
+    private String apellido;
+    private String calle;
+    private String ciudad;
+    private String codigoPostal;
+    private String fechaNacimiento;
+
+    public PersonaVO(int codigoPersona, String nombre, String apellido, String calle, String ciudad, String codigoPostal, String fechaNacimiento) {
         this.codigoPersona = codigoPersona;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -17,6 +18,10 @@ public class PersonaVO {
         this.ciudad = ciudad;
         this.codigoPostal = codigoPostal;
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public PersonaVO() {
+
     }
 
     public int getCodigoPersona() {
@@ -59,11 +64,11 @@ public class PersonaVO {
         this.ciudad = ciudad;
     }
 
-    public int getCodigoPostal() {
+    public String getCodigoPostal() {
         return codigoPostal;
     }
 
-    public void setCodigoPostal(int codigoPostal) {
+    public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 

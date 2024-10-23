@@ -13,6 +13,10 @@ module com.example.agendasolid {
     requires java.sql;
     requires AccesoBBDDMoneda;
 
-    opens Agenda to javafx.fxml;
-    exports Agenda;
+    exports Agenda.controller;
+    exports Agenda.modelo;
+    exports Agenda.util;
+
+    opens Agenda.controller to javafx.fxml; // Abre el paquete controller para FXML
+    opens Agenda to javafx.fxml; // Esto abre el paquete general Agenda
 }

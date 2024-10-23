@@ -33,7 +33,7 @@ public class PersonaRepositoryImpl implements PersonaRepository {
                 String apellido = rs.getString("apellido");
                 String calle = rs.getString("calle");
                 String ciudad = rs.getString("ciudad");
-                int codigoPostal = rs.getInt("codigoPostal");
+                String codigoPostal = rs.getString("codigoPostal");
                 String fechaNacimiento = rs.getString("fechaNacimiento");
                 this.persona = new PersonaVO(codigo, nombre, apellido, calle, ciudad, codigoPostal, fechaNacimiento);
                 this.personas.add(this.persona);
