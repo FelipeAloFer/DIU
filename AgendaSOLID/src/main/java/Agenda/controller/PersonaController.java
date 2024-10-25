@@ -2,8 +2,10 @@ package Agenda.controller;
 import Agenda.util.Persona;
 import Agenda.modelo.AgendaModelo;
 import Agenda.modelo.ExcepcionAgenda;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 public class PersonaController {
     private AgendaModelo modelo;
     private ArrayList<Persona> personas;
+    private boolean okClicked = false;
 
     @FXML
     private TableView<Persona> personTable;
@@ -34,9 +37,6 @@ public class PersonaController {
     @FXML
     private Label birthdayLabel;
 
-    // Reference to the main application.
-    private Main main;
-
     public void setController(AgendaModelo modelo) {
         this.modelo = modelo;
     }
@@ -47,53 +47,95 @@ public class PersonaController {
     public ArrayList<Persona> getPersonas() {
         return personas;
     }
-    public void setData(ObservableList<Persona> lista){
+    public void setDatosPersonas(ObservableList<Persona> lista){
         personTable.setItems(lista);
     }
 
-    public void setMainApp(Main main) {
-        this.main = main;
+    @FXML
+    private void initialize() {
+        // Initialize the person table with the two columns.
+        firstNameColumn.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        lastNameColumn.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getApellido()));
 
-        // Add observable list data to the table
-        personTable.setItems(main.getPersonData());
+        // Clear person details.
+        showPersonDetails(null);
+
+        // Listen for selection changes and show the person details when changed.
+        personTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
-}
 
-//@FXML
-//private void handleDeletePerson() {
-//    int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
-//    if (selectedIndex >= 0) {
-//        Persona selectedPerson = personTable.getItems().get(selectedIndex);
-//        // Borrar persona de la base de datos
-//        // personaRepository.delete(selectedPerson);
-//        personTable.getItems().remove(selectedIndex);
-//    } else {
-//        showAlert("Debes tener seleccionada a una persona para borrarla");
-//    }
-//}
-//
-//@FXML
-//private void handleNewPerson() {
-//    Persona tempPerson = new Persona();
-//    boolean okClicked = main.showPersonEditDialog(tempPerson);
-//    if (okClicked) {
-//        // Añadir a la base de datos
-//        // personaRepository.create(tempPerson);
-//        personTable.getItems().add(tempPerson); // Lo añadimos a la tabla
-//    }
-//}
-//
-//@FXML
-//private void handleEditPerson() {
-//    Persona selectedPerson = personTable.getSelectionModel().getSelectedItem();
-//    if (selectedPerson != null) {
-//        boolean okClicked = main.showPersonEditDialog(selectedPerson);
-//        if (okClicked) {
-//            // Actualizamos en la base de datos
-//            // personaRepository.update(selectedPerson);
-//            // showPersonDetails(selectedPerson);
-//        }
-//    } else {
-//        showAlert("Debes seleccionar a una persona para editarla");
-//    }
-//}
+    private void showPersonDetails(Persona persona) {
+        if (persona != null) {
+            // Fill the labels with info from the person object.
+            firstNameLabel.setText(persona.getNombre());
+            lastNameLabel.setText(persona.getApellido());
+            streetLabel.setText(persona.getCalle());
+            postcodeLabel.setText(persona.getCodigoPostal());
+            cityLabel.setText(persona.getCiudad());
+            birthdayLabel.setText(persona.getFechaNacimiento());
+        } else {
+            // Person is null, remove all the text.
+            firstNameLabel.setText("");
+            lastNameLabel.setText("");
+            streetLabel.setText("");
+            postcodeLabel.setText("");
+            cityLabel.setText("");
+            birthdayLabel.setText("");
+        }
+    }
+
+    @FXML
+    private Persona handleNewPerson() {
+        Persona personaNueva = new Persona();
+        try {
+            modelo.añadirPersona(personaNueva); // Guarda en la base de datos
+            personTable.getItems().add(personaNueva); // Lo añade a la tabla
+        } catch (ExcepcionAgenda e) {
+            System.out.println(e.getMessage());
+        }
+        return personaNueva;
+    }
+
+
+    @FXML
+    private Persona handleDeletePerson() {
+        int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Persona selectedPerson = personTable.getItems().get(selectedIndex);
+            try {
+                modelo.borrarPersona(selectedPerson); // Borra de la base de datos
+                personTable.getItems().remove(selectedIndex); // Borra de la tabla
+            } catch (ExcepcionAgenda e) {
+                System.out.println(e.getMessage());
+            }
+            return selectedPerson;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una persona para borrarla");
+            alert.show();
+            return null;
+        }
+    }
+
+
+    @FXML
+    private Persona handleEditPerson() {
+        Persona selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            try {
+                modelo.modificarPersona(selectedPerson); // Guarda los cambios en la base de datos
+                showPersonDetails(selectedPerson);
+            } catch (ExcepcionAgenda e) {
+                System.out.println(e.getMessage());
+            }
+            return selectedPerson;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una persona para editarla");
+            alert.show();
+            return null;
+        }
+    }
+
+}

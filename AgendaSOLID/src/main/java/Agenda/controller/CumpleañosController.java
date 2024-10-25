@@ -50,7 +50,7 @@ public class CumpleañosController {
      *
      * @param persons
      */
-    public void setPersonData(List<Persona> persons) {
+    public void setDatosPersona(List<Persona> persons) {
         // Count the number of people having their birthday in a specific month.
         int[] monthCounter = new int[12];
         for (Persona p : persons) {

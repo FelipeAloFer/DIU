@@ -1,14 +1,10 @@
 package Agenda.controller;
 
-
-import Agenda.modelo.PersonaVO;
 import Agenda.util.Persona;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-
 
 public class DialogoController {
 

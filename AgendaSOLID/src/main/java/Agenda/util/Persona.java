@@ -1,10 +1,12 @@
 package Agenda.util;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Persona {
-
+    private IntegerProperty codigoPersona;
     private StringProperty nombre;
     private StringProperty apellido;
     private StringProperty calle;
@@ -16,17 +18,32 @@ public class Persona {
 
     }
 
-    public Persona(String nombre, String apellido, String calle, String codigoPostal, String ciudad, String fechaNacimiento) {
+    public Persona(Integer codigoPersona, String nombre, String apellido, String calle, String codigoPostal, String ciudad, String fechaNacimiento) {
+        this.codigoPersona = new SimpleIntegerProperty(codigoPersona);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
-        this.calle = new SimpleStringProperty("some street");
-        this.codigoPostal = new SimpleStringProperty("12345");
-        this.ciudad = new SimpleStringProperty("some city");
-        this.fechaNacimiento = new SimpleStringProperty("2020-01-01");
+        this.calle = new SimpleStringProperty(calle);
+        this.codigoPostal = new SimpleStringProperty(codigoPostal);
+        this.ciudad = new SimpleStringProperty(ciudad);
+        this.fechaNacimiento = new SimpleStringProperty(fechaNacimiento);
     }
 
 
     // Getters y setters para los StringProperty (opcional)
+
+
+    public Integer getCodigoPersona() {
+        return codigoPersona.get();
+    }
+
+    public IntegerProperty codigoPersonaProperty() {
+        return codigoPersona;
+    }
+
+    public void setCodigoPersona(Integer codigoPersona) {
+        this.codigoPersona.set(codigoPersona);
+    }
+
     public StringProperty nombreProperty() {
         return nombre;
     }

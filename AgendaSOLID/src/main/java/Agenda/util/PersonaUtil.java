@@ -12,7 +12,7 @@ public class PersonaUtil {
 
     public static ArrayList<Persona> conversion(ArrayList<PersonaVO> personasVO) {
         for (PersonaVO persona : personasVO) {
-            personas.add(new Persona(persona.getNombre(), persona.getApellido(), persona.getCalle(), persona.getCiudad(), persona.getCodigoPostal(), persona.getFechaNacimiento()));
+            personas.add(new Persona(persona.getCodigoPersona(), persona.getNombre(), persona.getApellido(), persona.getCalle(), persona.getCiudad(), persona.getCodigoPostal(), persona.getFechaNacimiento()));
         }
         return personas;
     }

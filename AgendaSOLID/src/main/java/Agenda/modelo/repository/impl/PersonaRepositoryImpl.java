@@ -3,6 +3,8 @@ package Agenda.modelo.repository.impl;
 import Agenda.modelo.ExcepcionAgenda;
 import Agenda.modelo.PersonaVO;
 import Agenda.modelo.repository.PersonaRepository;
+import Agenda.util.Persona;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,11 +48,11 @@ public class PersonaRepositoryImpl implements PersonaRepository {
         }
     }
 
-    public void addPersona(PersonaVO personaVO) throws ExcepcionAgenda {
+    public void addPersona(Persona persona) throws ExcepcionAgenda {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO personas (nombre, apellido, calle, ciudad, codigoPostal, fechaNacimiento) VALUES ('" + personaVO.getNombre() + "','" + personaVO.getApellido() + "','" + personaVO.getCalle() + "','" + personaVO.getCiudad() + "','" + personaVO.getCodigoPostal() + "','" + personaVO.getFechaNacimiento() + "')";
+            this.sentencia = "INSERT INTO personas (nombre, apellido, calle, ciudad, codigoPostal, fechaNacimiento) VALUES ('" + persona.getNombre() + "','" + persona.getApellido() + "','" + persona.getCalle() + "','" + persona.getCiudad() + "','" + persona.getCodigoPostal() + "','" + persona.getFechaNacimiento() + "')";
             this.stmt.executeUpdate(this.sentencia);
             this.stmt.close();
             this.conexion.desconectarBD(conn);
@@ -72,11 +74,11 @@ public class PersonaRepositoryImpl implements PersonaRepository {
         }
     }
 
-    public void editPersona(PersonaVO personaVO) throws ExcepcionAgenda {
+    public void editPersona(Persona persona) throws ExcepcionAgenda {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            String sql = String.format("UPDATE personas SET nombre = '%s', apellido = '%s', calle = '%s', ciudad = '%s', codigoPostal = '%s', fechaNacimiento = '%s' WHERE codigo = %d", personaVO.getNombre(), personaVO.getApellido(), personaVO.getCalle(), personaVO.getCiudad(), personaVO.getCodigoPostal(), personaVO.getFechaNacimiento(), personaVO.getCodigoPersona());
+            String sql = String.format("UPDATE personas SET nombre = '%s', apellido = '%s', calle = '%s', ciudad = '%s', codigoPostal = '%s', fechaNacimiento = '%s' WHERE codigo = %d", persona.getNombre(), persona.getApellido(), persona.getCalle(), persona.getCiudad(), persona.getCodigoPostal(), persona.getFechaNacimiento(), persona.getCodigoPersona());
             this.stmt.executeUpdate(sql);
         } catch (Exception var4) {
             throw new ExcepcionAgenda("No se ha podido realizar la edición");
