@@ -1,82 +1,99 @@
 package Agenda.modelo;
 
-
 public class PersonaVO {
-    private int codigoPersona;
-    private String nombre;
-    private String apellido;
-    private String calle;
-    private String ciudad;
-    private String codigoPostal;
-    private String fechaNacimiento;
+    int codigoPersona;
+    String nombre;
+    String apellido;
+    String calle;
+    String ciudad;
+    String codigoPostal;
+    String FechaNacimiento;
 
-    public PersonaVO(int codigoPersona, String nombre, String apellido, String calle, String ciudad, String codigoPostal, String fechaNacimiento) {
-        this.codigoPersona = codigoPersona;
+    public PersonaVO(int codigo, String nombre, String apellido, String calle, String ciudad, String codigoPostal, String fechaNacimiento) {
+        this.codigoPersona = codigo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.calle = calle;
         this.ciudad = ciudad;
         this.codigoPostal = codigoPostal;
-        this.fechaNacimiento = fechaNacimiento;
+        FechaNacimiento = fechaNacimiento;
     }
 
-    public PersonaVO() {
-
+    public PersonaVO(String nombre, String apellido, String calle, String ciudad, String codigoPostal, String fechaNacimiento) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.calle = calle;
+        this.ciudad = ciudad;
+        this.codigoPostal = codigoPostal;
+        FechaNacimiento = fechaNacimiento;
     }
 
     public int getCodigoPersona() {
         return codigoPersona;
     }
 
-    public void setCodigoPersona(int codigoPersona) {
-        this.codigoPersona = codigoPersona;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public String getCalle() {
         return calle;
-    }
-
-    public void setCalle(String calle) {
-        this.calle = calle;
     }
 
     public String getCiudad() {
         return ciudad;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
     public String getCodigoPostal() {
         return codigoPostal;
+    }
+
+    public String getFechaNacimiento() {
+        return FechaNacimiento;
+    }
+
+    public void setCodigoPersona(int codigo) {
+        this.codigoPersona = codigo;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
+    public void setFechaNacimiento(String fechaNacimiento) {
+        FechaNacimiento = fechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    @Override
+    public String toString() {
+        return "PersonaVO{" +
+                "codigoPersona=" + codigoPersona +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", calle='" + calle + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                ", codigoPostal='" + codigoPostal + '\'' +
+                ", FechaNacimiento='" + FechaNacimiento + '\'' +
+                '}';
     }
 }

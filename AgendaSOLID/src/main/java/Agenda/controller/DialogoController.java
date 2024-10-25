@@ -27,7 +27,7 @@ public class DialogoController {
 
 
     private Stage dialogStage;
-    private PersonaVO persona;
+    private Persona persona;
     private boolean okClicked = false;
 
 
@@ -39,7 +39,7 @@ public class DialogoController {
         this.dialogStage = dialogStage;
     }
 
-    public void setPerson(PersonaVO persona) {
+    public void setPerson(Persona persona) {
         this.persona = persona;
 
         firstNameField.setText(persona.getNombre());

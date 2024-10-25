@@ -7,7 +7,7 @@ import Modelo.MonedaVO;
 import java.util.ArrayList;
 
 public interface PersonaRepository {
-    ArrayList<PersonaVO> ObtenerListaPersonas() throws ExcepcionAgenda;
+    ArrayList<PersonaVO> obtenerListaPersonas() throws ExcepcionAgenda;
 
     void addPersona(PersonaVO var1) throws ExcepcionAgenda;
 

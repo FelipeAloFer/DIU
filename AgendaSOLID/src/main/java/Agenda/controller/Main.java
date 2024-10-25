@@ -2,7 +2,6 @@ package Agenda.controller;
 
 import java.io.IOException;
 
-import Agenda.modelo.PersonaVO;
 import Agenda.util.Persona;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -18,7 +17,7 @@ public class Main extends Application {
 
     private Stage primaryStage;
     BorderPane rootLayout;
-    private ObservableList<PersonaVO> personData = FXCollections.observableArrayList();
+    private ObservableList<Persona> personData = FXCollections.observableArrayList();
 
     /**
      * Constructor
@@ -32,7 +31,7 @@ public class Main extends Application {
      *
      * @return
      */
-    public ObservableList<PersonaVO> getPersonData() {
+    public ObservableList<Persona> getPersonData() {
         return personData;
     }
 
@@ -55,7 +54,7 @@ public class Main extends Application {
         }
     }
 
-    public boolean showPersonEditDialog(PersonaVO person) {
+    public boolean showPersonEditDialog(Persona person) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();

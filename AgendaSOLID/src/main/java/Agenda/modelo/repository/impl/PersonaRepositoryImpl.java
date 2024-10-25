@@ -19,7 +19,7 @@ public class PersonaRepositoryImpl implements PersonaRepository {
     public PersonaRepositoryImpl() {
     }
 
-    public ArrayList<PersonaVO> ObtenerListaPersonas() throws ExcepcionAgenda {
+    public ArrayList<PersonaVO> obtenerListaPersonas() throws ExcepcionAgenda {
         try {
             Connection conn = this.conexion.conectarBD();
             this.personas = new ArrayList();
