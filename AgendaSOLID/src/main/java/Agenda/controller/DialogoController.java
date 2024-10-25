@@ -10,14 +10,19 @@ public class DialogoController {
 
     @FXML
     private TextField firstNameField;
+
     @FXML
     private TextField lastNameField;
+
     @FXML
     private TextField streetField;
-    @FXML
-    private TextField postalCodeField;
+
     @FXML
     private TextField cityField;
+
+    @FXML
+    private TextField postalCodeField;
+
     @FXML
     private TextField birthdayField;
 
@@ -41,8 +46,8 @@ public class DialogoController {
         firstNameField.setText(persona.getNombre());
         lastNameField.setText(persona.getApellido());
         streetField.setText(persona.getCalle());
-        postalCodeField.setText(persona.getCodigoPostal());
         cityField.setText(persona.getCiudad());
+        postalCodeField.setText(persona.getCodigoPostal());
         birthdayField.setText(persona.getFechaNacimiento());
     }
 
@@ -59,8 +64,8 @@ public class DialogoController {
             persona.setNombre(firstNameField.getText());
             persona.setApellido(lastNameField.getText());
             persona.setCalle(streetField.getText());
-            persona.setCodigoPostal(postalCodeField.getText());
             persona.setCiudad(cityField.getText());
+            persona.setCodigoPostal(postalCodeField.getText());
             persona.setFechaNacimiento(birthdayField.getText());
 
             okClicked = true;
@@ -86,6 +91,10 @@ public class DialogoController {
             errorMessage += "No valid street!\n";
         }
 
+        if (cityField.getText() == null || cityField.getText().length() == 0) {
+            errorMessage += "No valid city!\n";
+        }
+
         if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
             errorMessage += "No valid postal code!\n";
         } else {
@@ -95,10 +104,6 @@ public class DialogoController {
             } catch (NumberFormatException e) {
                 errorMessage += "No valid postal code (must be an integer)!\n";
             }
-        }
-
-        if (cityField.getText() == null || cityField.getText().length() == 0) {
-            errorMessage += "No valid city!\n";
         }
 
         if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {

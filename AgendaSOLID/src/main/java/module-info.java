@@ -11,7 +11,6 @@ module com.example.agendasolid {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
-    requires AccesoBBDDMoneda;
 
     exports Agenda.controller;
     exports Agenda.modelo;

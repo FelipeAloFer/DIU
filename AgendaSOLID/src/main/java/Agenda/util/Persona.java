@@ -15,16 +15,23 @@ public class Persona {
     private StringProperty fechaNacimiento;
 
     public Persona() {
-
+        this.codigoPersona = new SimpleIntegerProperty();
+        this.nombre = new SimpleStringProperty();
+        this.apellido = new SimpleStringProperty();
+        this.calle = new SimpleStringProperty();
+        this.ciudad = new SimpleStringProperty();
+        this.codigoPostal = new SimpleStringProperty();
+        this.fechaNacimiento = new SimpleStringProperty();
     }
 
-    public Persona(Integer codigoPersona, String nombre, String apellido, String calle, String codigoPostal, String ciudad, String fechaNacimiento) {
+
+    public Persona(Integer codigoPersona, String nombre, String apellido, String calle, String ciudad, String codigoPostal, String fechaNacimiento) {
         this.codigoPersona = new SimpleIntegerProperty(codigoPersona);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellido = new SimpleStringProperty(apellido);
         this.calle = new SimpleStringProperty(calle);
-        this.codigoPostal = new SimpleStringProperty(codigoPostal);
         this.ciudad = new SimpleStringProperty(ciudad);
+        this.codigoPostal = new SimpleStringProperty(codigoPostal);
         this.fechaNacimiento = new SimpleStringProperty(fechaNacimiento);
     }
 

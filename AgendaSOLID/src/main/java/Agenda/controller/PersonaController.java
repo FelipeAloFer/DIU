@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class PersonaController {
     private AgendaModelo modelo;
+    private Main main;
     private ArrayList<Persona> personas;
-    private boolean okClicked = false;
 
     @FXML
     private TableView<Persona> personTable;
@@ -44,9 +44,14 @@ public class PersonaController {
         personas = modelo.setPersonas();
     }
 
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
     public ArrayList<Persona> getPersonas() {
         return personas;
     }
+
     public void setDatosPersonas(ObservableList<Persona> lista){
         personTable.setItems(lista);
     }
@@ -73,32 +78,19 @@ public class PersonaController {
             firstNameLabel.setText(persona.getNombre());
             lastNameLabel.setText(persona.getApellido());
             streetLabel.setText(persona.getCalle());
-            postcodeLabel.setText(persona.getCodigoPostal());
             cityLabel.setText(persona.getCiudad());
+            postcodeLabel.setText(persona.getCodigoPostal());
             birthdayLabel.setText(persona.getFechaNacimiento());
         } else {
             // Person is null, remove all the text.
             firstNameLabel.setText("");
             lastNameLabel.setText("");
             streetLabel.setText("");
-            postcodeLabel.setText("");
             cityLabel.setText("");
+            postcodeLabel.setText("");
             birthdayLabel.setText("");
         }
     }
-
-    @FXML
-    private Persona handleNewPerson() {
-        Persona personaNueva = new Persona();
-        try {
-            modelo.añadirPersona(personaNueva); // Guarda en la base de datos
-            personTable.getItems().add(personaNueva); // Lo añade a la tabla
-        } catch (ExcepcionAgenda e) {
-            System.out.println(e.getMessage());
-        }
-        return personaNueva;
-    }
-
 
     @FXML
     private Persona handleDeletePerson() {
@@ -109,7 +101,8 @@ public class PersonaController {
                 modelo.borrarPersona(selectedPerson); // Borra de la base de datos
                 personTable.getItems().remove(selectedIndex); // Borra de la tabla
             } catch (ExcepcionAgenda e) {
-                System.out.println(e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al eliminar la persona: " + e.getMessage());
+                alert.show();
             }
             return selectedPerson;
         } else {
@@ -120,21 +113,38 @@ public class PersonaController {
     }
 
 
+
     @FXML
-    private Persona handleEditPerson() {
-        Persona selectedPerson = personTable.getSelectionModel().getSelectedItem();
-        if (selectedPerson != null) {
+    private void handleNewPerson() {
+        Persona personaNueva = new Persona();
+        boolean okClicked = main.showPersonEditDialog(personaNueva);  // Llama al diálogo de edición
+
+        if (okClicked) {
             try {
-                modelo.modificarPersona(selectedPerson); // Guarda los cambios en la base de datos
-                showPersonDetails(selectedPerson);
+                modelo.añadirPersona(personaNueva); // Guarda en la base de datos
+                personTable.getItems().add(personaNueva); // Añade a la tabla
             } catch (ExcepcionAgenda e) {
                 System.out.println(e.getMessage());
             }
-            return selectedPerson;
+        }
+    }
+
+    @FXML
+    private void handleEditPerson() {
+        Persona selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = main.showPersonEditDialog(selectedPerson);  // Llama al diálogo de edición
+            if (okClicked) {
+                try {
+                    modelo.modificarPersona(selectedPerson); // Guarda los cambios en la base de datos
+                    showPersonDetails(selectedPerson); // Actualiza los detalles en pantalla
+                } catch (ExcepcionAgenda e) {
+                    System.out.println(e.getMessage());
+                }
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una persona para editarla");
             alert.show();
-            return null;
         }
     }
 

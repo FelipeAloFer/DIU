@@ -5,7 +5,6 @@ import Agenda.modelo.AgendaModelo;
 import Agenda.modelo.ExcepcionAgenda;
 import Agenda.modelo.repository.impl.PersonaRepositoryImpl;
 import Agenda.util.Persona;
-import Modelo.ExcepcionMoneda;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +26,14 @@ public class Main extends Application {
     BorderPane vistaRaiz;
     ObservableList<Persona> personas;
     boolean isOkClicked = false;
+
+    public boolean isOkClicked() {
+        return isOkClicked;
+    }
+
+    public void setOkClicked(boolean okClicked) {
+        isOkClicked = okClicked;
+    }
 
     @Override
     public void start (Stage primaryStage) throws ExcepcionAgenda {
@@ -66,6 +73,7 @@ public class Main extends Application {
             controller = loader.getController();
             controller.setController(modelo);
             controller.setPersona();
+            controller.setMain(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,6 +135,8 @@ public class Main extends Application {
             return false;
         }
     }
+
+
 
     public static void main(String[] args) {
         launch(args);

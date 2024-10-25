@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class PersonaRepositoryImpl implements PersonaRepository {
+public class    PersonaRepositoryImpl implements PersonaRepository {
     private final Conexion conexion = new Conexion();
     private Statement stmt;
     private String sentencia;
@@ -61,12 +61,12 @@ public class PersonaRepositoryImpl implements PersonaRepository {
         }
     }
 
-    public void deletePersona(Integer idMoneda) throws ExcepcionAgenda {
+    public void deletePersona(Integer codigo) throws ExcepcionAgenda {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
             Statement comando = conn.createStatement();
-            String sql = String.format("DELETE FROM personas WHERE codigo = %d", idMoneda);
+            String sql = String.format("DELETE FROM personas WHERE codigo = %d", codigo);
             comando.executeUpdate(sql);
             this.conexion.desconectarBD(conn);
         } catch (SQLException var5) {
