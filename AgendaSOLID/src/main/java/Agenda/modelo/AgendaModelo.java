@@ -23,8 +23,9 @@ public class AgendaModelo {
     }
 
     public void añadirPersona (Persona personaNueva) throws ExcepcionAgenda {
+        PersonaVO personaNuevaVO = PersonaUtil.conversionVO(personaNueva);
         // Añadir a la base de datos
-        personaRepository.addPersona(personaNueva);
+        personaRepository.addPersona(personaNuevaVO);
     }
 
     public void borrarPersona(Persona selectedPerson) throws ExcepcionAgenda {
@@ -33,7 +34,8 @@ public class AgendaModelo {
     }
 
     public void modificarPersona(Persona selectedPerson) throws ExcepcionAgenda {
+        PersonaVO personaSelectedVO = PersonaUtil.conversionVO(selectedPerson);
         // Actualizamos en la base de datos
-         personaRepository.editPersona(selectedPerson);
+         personaRepository.editPersona(personaSelectedVO);
     }
 }

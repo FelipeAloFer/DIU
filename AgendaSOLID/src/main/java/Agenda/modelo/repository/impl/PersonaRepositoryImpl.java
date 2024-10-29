@@ -48,7 +48,7 @@ public class    PersonaRepositoryImpl implements PersonaRepository {
         }
     }
 
-    public void addPersona(Persona persona) throws ExcepcionAgenda {
+    public void addPersona(PersonaVO persona) throws ExcepcionAgenda {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
@@ -74,7 +74,7 @@ public class    PersonaRepositoryImpl implements PersonaRepository {
         }
     }
 
-    public void editPersona(Persona persona) throws ExcepcionAgenda {
+    public void editPersona(PersonaVO persona) throws ExcepcionAgenda {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
