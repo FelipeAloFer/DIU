@@ -7,9 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="page" prefHeight="400.0" prefWidth="600.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Agenda.controller.DialogoController">
+<AnchorPane fx:id="page" prefHeight="466.0" prefWidth="640.0" style="-fx-background-color: #1d1d1d;" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Agenda.controller.DialogoController">
    <children>
-      <GridPane prefHeight="325.0" prefWidth="584.0" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="7.0">
+      <GridPane prefHeight="325.0" prefWidth="584.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="7.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -23,7 +23,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label text="Nombre">
+            <Label style="-fx-text-fill: #ffffff;" text="Nombre">
                <padding>
                   <Insets left="5.0" />
                </padding>
@@ -63,5 +63,6 @@
       </GridPane>
       <Button layoutX="419.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleOk" text="Añadir" />
       <Button layoutX="513.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+      <ProgressBar fx:id="barraProgresoEdit" layoutX="33.0" layoutY="419.0" prefHeight="20.0" prefWidth="575.0" progress="0.0" />
    </children>
 </AnchorPane>

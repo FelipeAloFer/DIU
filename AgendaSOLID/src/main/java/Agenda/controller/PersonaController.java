@@ -5,10 +5,7 @@ import Agenda.modelo.ExcepcionAgenda;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
 
@@ -36,6 +33,9 @@ public class PersonaController {
     private Label cityLabel;
     @FXML
     private Label birthdayLabel;
+
+    @FXML
+    private ProgressBar barraProgreso;
 
     public void setController(AgendaModelo modelo) {
         this.modelo = modelo;
@@ -72,6 +72,10 @@ public class PersonaController {
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
+    public void actualizarBarraProgreso(ObservableList<Persona> lista) {
+        barraProgreso.setProgress(lista.size()*0.02);
+    }
+
     private void showPersonDetails(Persona persona) {
         if (persona != null) {
             // Fill the labels with info from the person object.
@@ -98,6 +102,7 @@ public class PersonaController {
         if (selectedIndex >= 0) {
             Persona selectedPerson = personTable.getItems().get(selectedIndex);
             try {
+                barraProgreso.setProgress(barraProgreso.getProgress()-0.02);
                 modelo.borrarPersona(selectedPerson); // Borra de la base de datos
                 personTable.getItems().remove(selectedIndex); // Borra de la tabla
             } catch (ExcepcionAgenda e) {
@@ -117,14 +122,19 @@ public class PersonaController {
     @FXML
     private void handleNewPerson() {
         Persona personaNueva = new Persona();
-        boolean okClicked = main.showPersonEditDialog(personaNueva);  // Llama al diálogo de edición
-
-        if (okClicked) {
-            try {
-                modelo.añadirPersona(personaNueva); // Guarda en la base de datos
-                personTable.getItems().add(personaNueva); // Añade a la tabla
-            } catch (ExcepcionAgenda e) {
-                System.out.println(e.getMessage());
+        boolean okClicked;
+        if (modelo.setPersonas() == null) {
+        } else {
+            okClicked = main.showPersonEditDialog(personaNueva);  // Llama al diálogo de edición
+            if (okClicked) {
+                try {
+                    barraProgreso.setProgress(barraProgreso.getProgress()+0.02);
+                    modelo.añadirPersona(personaNueva); // Guarda en la base de datos
+                    personTable.getItems().add(personaNueva); // Añade a la tabla
+                    personaNueva.setCodigoPersona(modelo.ultimoID());
+                } catch (ExcepcionAgenda e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }
@@ -136,8 +146,8 @@ public class PersonaController {
             boolean okClicked = main.showPersonEditDialog(selectedPerson);  // Llama al diálogo de edición
             if (okClicked) {
                 try {
-                    modelo.modificarPersona(selectedPerson); // Guarda los cambios en la base de datos
                     showPersonDetails(selectedPerson); // Actualiza los detalles en pantalla
+                    modelo.modificarPersona(selectedPerson); // Guarda los cambios en la base de datos
                 } catch (ExcepcionAgenda e) {
                     System.out.println(e.getMessage());
                 }

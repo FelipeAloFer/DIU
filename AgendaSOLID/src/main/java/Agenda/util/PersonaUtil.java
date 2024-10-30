@@ -18,7 +18,7 @@ public class PersonaUtil {
     }
 
     public static PersonaVO conversionVO(Persona persona) {
-        PersonaVO personaVO = new PersonaVO(persona.getNombre(), persona.getApellido(), persona.getCalle(), persona.getCiudad(), persona.getCodigoPostal(), persona.getFechaNacimiento());
+        PersonaVO personaVO = new PersonaVO(persona.getCodigoPersona(), persona.getNombre(), persona.getApellido(), persona.getCalle(), persona.getCiudad(), persona.getCodigoPostal(), persona.getFechaNacimiento());
         return personaVO;
     }
 }

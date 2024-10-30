@@ -74,7 +74,7 @@
                         <Button layoutX="513.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" />
                         <Button layoutX="426.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Edit..." />
                         <Button layoutX="335.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleNewPerson" text="New..." />
-                  <ProgressBar layoutX="35.0" layoutY="410.0" prefHeight="20.0" prefWidth="550.0" progress="0.0" />
+                  <ProgressBar fx:id="barraProgreso" layoutX="35.0" layoutY="410.0" prefHeight="20.0" prefWidth="550.0" progress="0.0" />
                     </children>
                 </AnchorPane>
             </items>

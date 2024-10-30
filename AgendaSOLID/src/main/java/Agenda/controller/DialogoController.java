@@ -1,8 +1,10 @@
 package Agenda.controller;
 
 import Agenda.util.Persona;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -26,6 +28,9 @@ public class DialogoController {
     @FXML
     private TextField birthdayField;
 
+    @FXML
+    private ProgressBar barraProgresoEdit;
+
 
     private Stage dialogStage;
     private Persona persona;
@@ -34,6 +39,15 @@ public class DialogoController {
 
     @FXML
     private void initialize() {
+
+    }
+
+    public ProgressBar setBarraProgreso () {
+        return barraProgresoEdit;
+    }
+
+    public void actualizarBarraProgreso(ObservableList<Persona> lista) {
+        barraProgresoEdit.setProgress(lista.size()*0.02);
     }
 
     public void setDialogStage(Stage dialogStage) {

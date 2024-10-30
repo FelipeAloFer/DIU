@@ -10,12 +10,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
-
+import java.util.ArrayList;
 
 
 public class Main extends Application {
@@ -25,24 +26,15 @@ public class Main extends Application {
     PersonaController controller;
     BorderPane vistaRaiz;
     ObservableList<Persona> personas;
-    boolean isOkClicked = false;
-
-    public boolean isOkClicked() {
-        return isOkClicked;
-    }
-
-    public void setOkClicked(boolean okClicked) {
-        isOkClicked = okClicked;
-    }
 
     @Override
-    public void start (Stage primaryStage) throws ExcepcionAgenda {
+    public void start(Stage primaryStage) throws ExcepcionAgenda {
         try {
-            // Cargar el archivo Principal.fxml
+            // Cargar el archivo VistaRaiz.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Agenda/VistaRaiz.fxml"));
-            vistaRaiz = (BorderPane) loader.load();  // Asumimos que Principal.fxml tiene un BorderPane como raíz
+            vistaRaiz = loader.load();  // Asumimos que VistaRaiz.fxml tiene un BorderPane como raíz
 
-            Scene scene = new Scene(vistaRaiz);  // Usamos rootLayout para la escena
+            Scene scene = new Scene(vistaRaiz);  // Usamos vistaRaiz para la escena
             primaryStage.setScene(scene);
             primaryStage.setTitle("Agenda");
 
@@ -50,14 +42,25 @@ public class Main extends Application {
             modelo.setAgendaModelo(personaRepository);
             showPersonaOverview();
             primaryStage.show();
-            personas = FXCollections.observableArrayList(controller.getPersonas());
-            System.out.println(personas);
-            controller.setDatosPersonas(personas);
+
+            // Obtener la lista de personas
+            ArrayList<Persona> listaPersonas = controller.getPersonas(); // Llama internamente a modelo.setPersonas()
+
+            // Verificar si la lista es null antes de crear el ObservableList
+            if (listaPersonas != null) {
+                personas = FXCollections.observableArrayList(listaPersonas);
+                controller.setDatosPersonas(personas);
+                controller.actualizarBarraProgreso(personas);
+            } else {
+                System.out.println("No se pudo obtener la lista de personas debido a un error de conexión con la base de datos.");
+                // Podrías manejar algún caso alternativo si la lista es null
+            }
         } catch (IOException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }
+
 
     public void showPersonaOverview() {
         try {
@@ -125,6 +128,7 @@ public class Main extends Application {
             DialogoController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setPerson(persona);
+            controller.actualizarBarraProgreso(personas);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
