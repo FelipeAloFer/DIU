@@ -4,9 +4,6 @@ import Agenda.modelo.repository.PersonaRepository;
 import Agenda.util.Persona;
 import Agenda.util.PersonaUtil;
 import javafx.scene.control.Alert;
-
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AgendaModelo {

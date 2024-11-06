@@ -1,0 +1,13 @@
+[x] Crear Base de Datos
+[x]Importar Librerias mysqlconnector.
+[x]Importar y crear Clases Conexion, HotelRepository y HotelRepositoryImpl.
+[x]Crear Clase ClienteVO
+[x]Crear Clase ClienteUtil
+[]Crear Clase Cliente
+[ ]Crear HotelModelo
+[ ]Crear Layouts
+[ ]Crear Main
+[ ]Comprobar si carga los datos de la base de datos
+
+[ ]Crear Clase Cliente y Reserva
+
