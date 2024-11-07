@@ -13,7 +13,7 @@ public class ClienteUtil {
 
     public static ArrayList<Cliente> conversion(ArrayList<ClienteVO> personasVO) {
         for (ClienteVO persona : personasVO) {
-            personas.add(new Cliente(persona.getCodigoPersona(), persona.getNombre(), persona.getApellido(), persona.getCalle(), persona.getCiudad(), persona.getCodigoPostal(), persona.getFechaNacimiento()));
+            personas.add(new Cliente(persona.getDni(), persona.getNombre(), persona.getApellidos(), persona.getDireccion(), persona.getLocalidad(), persona.getProvincia()));
         }
         return personas;
     }
