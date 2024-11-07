@@ -13,6 +13,9 @@ module com.example.gestionhotel {
     requires java.sql;
     requires AccesoBBDDMoneda;
 
-    opens com.example.gestionhotel to javafx.fxml;
-    exports com.example.gestionhotel;
+    exports GestionHotel.controller;
+    exports GestionHotel.modelo;
+    exports GestionHotel.util;
+
+    opens GestionHotel.controller to javafx.fxml;
 }

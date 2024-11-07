@@ -13,14 +13,15 @@ public class HotelModelo {
     public HotelModelo() {
     }
 
-    public void setHotelModelo(HotelRepository hotelRepository) {
-        this.hotelRepository = hotelRepository;
+    public void setHotelModelo(HotelRepository implementacion) {
+        this.hotelRepository = implementacion;
     }
 
     public ArrayList<Cliente> setClientes() {
         try {
-            ArrayList<ClienteVO> personasVO = this.hotelRepository.obtenerListaClientes();
-            return ClienteUtil.conversion(personasVO);
+            ArrayList<ClienteVO> clientesVO = this.hotelRepository.obtenerListaClientes();
+            System.out.println(clientesVO.size());
+            return ClienteUtil.conversion(clientesVO);
         } catch (ExcepcionHotel e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de conexión");

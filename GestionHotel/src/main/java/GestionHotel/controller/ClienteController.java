@@ -40,6 +40,7 @@ public class ClienteController {
     public void setController(HotelModelo modelo) {
         this.modelo = modelo;
     }
+
     public void setPersona() throws ExcepcionHotel {
         clientes = modelo.setClientes();
     }

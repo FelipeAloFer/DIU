@@ -3,11 +3,6 @@ package GestionHotel.modelo.repository.impl;
 import GestionHotel.modelo.ClienteVO;
 import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.repository.HotelRepository;
-import GestionHotel.util.Cliente;
-import Modelo.ExcepcionMoneda;
-import Modelo.MonedaVO;
-import Modelo.repository.MonedaRepository;
-import Modelo.repository.impl.ConexionJDBC;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class HotelRepositoryImpl implements HotelRepository {
-    private final ConexionJDBC conexion = new ConexionJDBC();
+    private final Conexion conexion = new Conexion();
     private Statement stmt;
     private String sentencia;
     private ArrayList<ClienteVO> clientes;
@@ -25,7 +20,7 @@ public class HotelRepositoryImpl implements HotelRepository {
     public HotelRepositoryImpl() {
     }
 
-    public ArrayList<ClienteVO> ObtenerListaClientes() throws ExcepcionHotel {
+    public ArrayList<ClienteVO> obtenerListaClientes() throws ExcepcionHotel {
         try {
             Connection conn = this.conexion.conectarBD();
             this.clientes = new ArrayList();

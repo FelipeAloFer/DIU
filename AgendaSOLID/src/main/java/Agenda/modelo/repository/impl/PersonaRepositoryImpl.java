@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class    PersonaRepositoryImpl implements PersonaRepository {
+public class PersonaRepositoryImpl implements PersonaRepository {
     private final Conexion conexion = new Conexion();
     private Statement stmt;
     private String sentencia;

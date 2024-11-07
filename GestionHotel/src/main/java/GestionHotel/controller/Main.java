@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Main extends Application {
     BorderPane vistaRaiz;
     HotelModelo modelo = new HotelModelo();
-    HotelRepositoryImpl personaRepository = new HotelRepositoryImpl();
+    HotelRepositoryImpl hotelRepositoryImpl = new HotelRepositoryImpl();
     ClienteController clienteController;
     ObservableList<Cliente> clientes;
 
@@ -28,7 +28,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws ExcepcionHotel {
         try {
             // Cargar el archivo VistaRaiz.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Agenda/VistaRaiz.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHotel/VistaRaiz.fxml"));
             vistaRaiz = loader.load();  // Asumimos que VistaRaiz.fxml tiene un BorderPane como raíz
 
             Scene scene = new Scene(vistaRaiz);  // Usamos vistaRaiz para la escena
@@ -36,7 +36,7 @@ public class Main extends Application {
             primaryStage.setTitle("Agenda");
 
             // Mostrar la vista de personas
-            modelo.setHotelModelo(personaRepository);
+            modelo.setHotelModelo(hotelRepositoryImpl);
             showPersonaOverview();
             primaryStage.show();
 
@@ -49,7 +49,6 @@ public class Main extends Application {
                 clienteController.setDatosPersonas(clientes);
             } else {
                 System.out.println("No se pudo obtener la lista de personas debido a un error de conexión con la base de datos.");
-                // Podrías manejar algún caso alternativo si la lista es null
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -61,7 +60,7 @@ public class Main extends Application {
         try {
             // Cargar Personas.fxml
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Agenda/VistaPersona.fxml"));
+            loader.setLocation(getClass().getResource("/GestionHotel/VistaCliente.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Establecer el AnchorPane en el centro del BorderPane rootLayout

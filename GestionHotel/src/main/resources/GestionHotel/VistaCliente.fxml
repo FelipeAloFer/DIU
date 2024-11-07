@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -14,7 +13,7 @@
                         <TableView fx:id="tablaClientes" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="nombreColumna" prefWidth="75.0" text="Nombre" />
-                                <TableColumn fx:id="apellidosColumna" prefWidth="75.0" text="Apellido" />
+                                <TableColumn fx:id="apellidosColumna" prefWidth="75.0" text="Apellidos" />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
