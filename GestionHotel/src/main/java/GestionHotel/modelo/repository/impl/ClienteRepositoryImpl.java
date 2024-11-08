@@ -2,7 +2,7 @@ package GestionHotel.modelo.repository.impl;
 
 import GestionHotel.modelo.ClienteVO;
 import GestionHotel.modelo.ExcepcionHotel;
-import GestionHotel.modelo.repository.HotelRepository;
+import GestionHotel.modelo.repository.ClienteRepository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,14 +10,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class HotelRepositoryImpl implements HotelRepository {
+public class ClienteRepositoryImpl implements ClienteRepository {
     private final Conexion conexion = new Conexion();
     private Statement stmt;
     private String sentencia;
     private ArrayList<ClienteVO> clientes;
     private ClienteVO cliente;
 
-    public HotelRepositoryImpl() {
+    public ClienteRepositoryImpl() {
     }
 
     public ArrayList<ClienteVO> obtenerListaClientes() throws ExcepcionHotel {
@@ -29,7 +29,7 @@ public class HotelRepositoryImpl implements HotelRepository {
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
             while(rs.next()) {
-                int dni = rs.getInt("dni");
+                String dni = rs.getString("dni");
                 String nombre = rs.getString("nombre");
                 String apellidos = rs.getString("apellidos");
                 String direccion = rs.getString("direccion");
@@ -59,7 +59,7 @@ public class HotelRepositoryImpl implements HotelRepository {
         }
     }
 
-    public void deleteCliente(Integer dni) throws ExcepcionHotel {
+        public void deleteCliente(String dni) throws ExcepcionHotel {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
@@ -90,7 +90,7 @@ public class HotelRepositoryImpl implements HotelRepository {
             Connection conn = this.conexion.conectarBD();
             Statement comando = conn.createStatement();
 
-            for(ResultSet registro = comando.executeQuery("SELECT codigo FROM clientes ORDER BY codigo DESC LIMIT 1"); registro.next(); lastMonedaId = registro.getInt("codigo")) {
+            for(ResultSet registro = comando.executeQuery("SELECT dni FROM clientes ORDER BY dni DESC LIMIT 1"); registro.next(); lastMonedaId = registro.getInt("codigo")) {
             }
 
             return lastMonedaId;

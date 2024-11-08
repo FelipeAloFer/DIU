@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="page" prefHeight="400.0" prefWidth="640.0" style="-fx-background-color: white;" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionHotel.controller.DialogoClienteController">
+    <children>
+        <GridPane layoutX="8.0" layoutY="80.0" prefHeight="275.0" prefWidth="584.0" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label styleClass="label-form" text="DNI">
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <Label styleClass="label-form" text="Provincia" GridPane.rowIndex="5">
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <Label styleClass="label-form" text="Localidad" GridPane.rowIndex="4">
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <Label styleClass="label-form" text="Direccion" GridPane.rowIndex="3">
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <Label styleClass="label-form" text="Apellidos" GridPane.rowIndex="2">
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <Label styleClass="label-form" text="Nombre" GridPane.rowIndex="1">
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="dniField" styleClass="text-field-form" GridPane.columnIndex="1" />
+                <TextField fx:id="nombreField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="apellidosField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="direccionField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="localidadField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="provinciaField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+        </GridPane>
+
+        <!-- Botones de Añadir y Cancelar en HBox -->
+        <HBox layoutX="411.0" layoutY="357.0" spacing="10" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleOk" styleClass="button-form" text="Añadir" />
+                <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="button-form" text="Cancelar" />
+            </children>
+        </HBox>
+      <HBox prefHeight="59.0" prefWidth="640.0" style="-fx-background-color: #ff8100;">
+         <children>
+            <Label alignment="CENTER" styleClass="label-header-dialog" text="Gestión Hotel" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets bottom="20.0" left="15.0" top="15.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>

@@ -5,12 +5,12 @@ import GestionHotel.modelo.ExcepcionHotel;
 
 import java.util.ArrayList;
 
-public interface HotelRepository {
+public interface ClienteRepository {
     ArrayList<ClienteVO> obtenerListaClientes() throws ExcepcionHotel;
 
     void addCliente(ClienteVO var1) throws ExcepcionHotel;
 
-    void deleteCliente(Integer var1) throws ExcepcionHotel;
+    void deleteCliente(String var1) throws ExcepcionHotel;
 
     void editCliente(ClienteVO var1) throws ExcepcionHotel;
 

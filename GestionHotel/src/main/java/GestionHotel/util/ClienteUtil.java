@@ -17,4 +17,9 @@ public class ClienteUtil {
         }
         return personas;
     }
+
+    public static ClienteVO conversionVO(Cliente persona) {
+        ClienteVO personaVO = new ClienteVO(persona.getDni(), persona.getNombre(), persona.getApellidos(), persona.getDireccion(), persona.getLocalidad(), persona.getProvincia());
+        return personaVO;
+    }
 }

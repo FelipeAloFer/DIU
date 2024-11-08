@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Cliente {
-    private IntegerProperty dni;
+    private StringProperty dni;
     private StringProperty nombre;
     private StringProperty apellidos;
     private StringProperty direccion;
@@ -14,7 +14,7 @@ public class Cliente {
     private StringProperty provincia;
 
     public Cliente() {
-        this.dni = new SimpleIntegerProperty();
+        this.dni = new SimpleStringProperty();
         this.nombre = new SimpleStringProperty();
         this.apellidos = new SimpleStringProperty();
         this.direccion = new SimpleStringProperty();
@@ -22,8 +22,8 @@ public class Cliente {
         this.provincia = new SimpleStringProperty();
     }
 
-    public Cliente(Integer dni, String nombre, String apellidos, String direccion, String localidad, String provincia) {
-        this.dni = new SimpleIntegerProperty(dni);
+    public Cliente(String dni, String nombre, String apellidos, String direccion, String localidad, String provincia) {
+        this.dni = new SimpleStringProperty(dni);
         this.nombre = new SimpleStringProperty(nombre);
         this.apellidos = new SimpleStringProperty(apellidos);
         this.direccion = new SimpleStringProperty(direccion);
@@ -31,15 +31,15 @@ public class Cliente {
         this.provincia = new SimpleStringProperty(provincia);
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni.get();
     }
 
-    public IntegerProperty dniProperty() {
+    public StringProperty dniProperty() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni.set(dni);
     }
 

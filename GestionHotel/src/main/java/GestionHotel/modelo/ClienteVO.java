@@ -1,14 +1,14 @@
 package GestionHotel.modelo;
 
 public class ClienteVO {
-    int dni;
+    String dni;
     String nombre;
     String apellidos;
     String direccion;
     String localidad;
     String provincia;
 
-    public ClienteVO(int dni,  String nombre, String apellidos, String direccion, String localidad, String provincia) {
+    public ClienteVO(String dni,  String nombre, String apellidos, String direccion, String localidad, String provincia) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -17,11 +17,11 @@ public class ClienteVO {
         this.provincia = provincia;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 

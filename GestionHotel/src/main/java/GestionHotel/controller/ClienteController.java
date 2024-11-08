@@ -6,6 +6,7 @@ import GestionHotel.util.Cliente;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -90,6 +91,65 @@ public class ClienteController {
             direccionLabel.setText("");
             localidadLabel.setText("");
             provinciaLabel.setText("");
+        }
+    }
+
+    @FXML
+    private Cliente handleDeleteCliente() {
+        int selectedIndex = tablaClientes.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Cliente selectedCliente = tablaClientes.getItems().get(selectedIndex);
+            try {
+                modelo.borrarPersona(selectedCliente); // Borra de la base de datos
+                tablaClientes.getItems().remove(selectedIndex); // Borra de la tabla
+            } catch (ExcepcionHotel e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al eliminar la persona: " + e.getMessage());
+                alert.show();
+            }
+            return selectedCliente;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una persona para borrarla");
+            alert.show();
+            return null;
+        }
+    }
+
+
+
+    @FXML
+    private void handleNewCliente() {
+        Cliente clienteNuevo = new Cliente();
+        boolean okClicked;
+        if (modelo.setClientes() == null) {
+        } else {
+            okClicked = main.showPersonEditDialog(clienteNuevo);  // Llama al diálogo de edición
+            if (okClicked) {
+                try {
+                    modelo.añadirCliente(clienteNuevo); // Guarda en la base de datos
+                    tablaClientes.getItems().add(clienteNuevo); // Añade a la tabla
+                } catch (ExcepcionHotel e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void handleEditCliente() {
+        Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
+        if (selectedCliente != null) {
+            boolean okClicked = main.showPersonEditDialog(selectedCliente);  // Llama al diálogo de edición
+            if (okClicked) {
+                try {
+                    showPersonDetails(selectedCliente); // Actualiza los detalles en pantalla
+                    modelo.modificarPersona(selectedCliente); // Guarda los cambios en la base de datos
+                } catch (ExcepcionHotel e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una persona para editarla");
+            alert.show();
         }
     }
 }
