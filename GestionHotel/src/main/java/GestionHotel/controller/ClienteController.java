@@ -2,8 +2,8 @@ package GestionHotel.controller;
 
 import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.ClienteModelo;
+import GestionHotel.modelo.ReservaModelo;
 import GestionHotel.util.Cliente;
-import GestionHotel.util.Reserva;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,7 +12,8 @@ import javafx.scene.control.*;
 import java.util.ArrayList;
 
 public class ClienteController {
-    private ClienteModelo modelo;
+    private ClienteModelo modeloCliente;
+    private ReservaModelo reservaModelo;
     private ArrayList<Cliente> clientes;
     private Main main;
 
@@ -40,11 +41,11 @@ public class ClienteController {
     private ListView listaReservas;
 
     public void setController(ClienteModelo modelo) {
-        this.modelo = modelo;
+        this.modeloCliente = modelo;
     }
 
     public void setPersona() throws ExcepcionHotel {
-        clientes = modelo.setClientes();
+        clientes = modeloCliente.setClientes();
     }
 
     public void setMain(Main main) {
@@ -84,6 +85,7 @@ public class ClienteController {
             direccionLabel.setText(cliente.getDireccion());
             localidadLabel.setText(cliente.getLocalidad());
             provinciaLabel.setText(cliente.getProvincia());
+            listaReservas.setItems(reservaModelo.setReservas(cliente.getDni()));
         } else {
             // Person is null, remove all the text.
             dniLabel.setText("");
@@ -95,25 +97,13 @@ public class ClienteController {
         }
     }
 
-    private void showReservaDetails(Cliente cliente) {
-        if (cliente.getListaReservas() != null) {
-            listaReservas.setItems(cliente.getListaReservas());
-        } else {
-            listaReservas.setItems(null);
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("La lista de reservas es null");
-        }
-    }
-
     @FXML
     private Cliente handleDeleteCliente() {
         int selectedIndex = tablaClientes.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             Cliente selectedCliente = tablaClientes.getItems().get(selectedIndex);
             try {
-                modelo.borrarPersona(selectedCliente); // Borra de la base de datos
+                modeloCliente.borrarPersona(selectedCliente); // Borra de la base de datos
                 tablaClientes.getItems().remove(selectedIndex); // Borra de la tabla
             } catch (ExcepcionHotel e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Error al eliminar la persona: " + e.getMessage());
@@ -133,12 +123,12 @@ public class ClienteController {
     private void handleNewCliente() {
         Cliente clienteNuevo = new Cliente();
         boolean okClicked;
-        if (modelo.setClientes() == null) {
+        if (modeloCliente.setClientes() == null) {
         } else {
             okClicked = main.showPersonEditDialog(clienteNuevo);  // Llama al diálogo de edición
             if (okClicked) {
                 try {
-                    modelo.añadirCliente(clienteNuevo); // Guarda en la base de datos
+                    modeloCliente.añadirCliente(clienteNuevo); // Guarda en la base de datos
                     tablaClientes.getItems().add(clienteNuevo); // Añade a la tabla
                 } catch (ExcepcionHotel e) {
                     System.out.println(e.getMessage());
@@ -155,7 +145,7 @@ public class ClienteController {
             if (okClicked) {
                 try {
                     showPersonDetails(selectedCliente); // Actualiza los detalles en pantalla
-                    modelo.modificarPersona(selectedCliente); // Guarda los cambios en la base de datos
+                    modeloCliente.modificarPersona(selectedCliente); // Guarda los cambios en la base de datos
                 } catch (ExcepcionHotel e) {
                     System.out.println(e.getMessage());
                 }

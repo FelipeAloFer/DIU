@@ -5,6 +5,7 @@ import GestionHotel.util.Cliente;
 import GestionHotel.util.ClienteUtil;
 import GestionHotel.util.Reserva;
 import GestionHotel.util.ReservaUtil;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 public class ReservaModelo {
     ReservaRepository reservaRepository;
 
-    public ArrayList<Reserva> setReservas() {
+    public ObservableList<Reserva> setReservas(String dni) {
         try {
-            ArrayList<ReservaVO> reservasVO = this.reservaRepository.obtenerListaReservas();
+            ObservableList<ReservaVO> reservasVO = this.reservaRepository.obtenerListaReservasCliente(dni);
             return ReservaUtil.conversionReserva(reservasVO);
         } catch (ExcepcionHotel e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);

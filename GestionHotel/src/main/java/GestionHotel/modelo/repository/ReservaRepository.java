@@ -3,11 +3,14 @@ package GestionHotel.modelo.repository;
 import GestionHotel.modelo.ClienteVO;
 import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.ReservaVO;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
 public interface ReservaRepository {
     ArrayList<ReservaVO> obtenerListaReservas() throws ExcepcionHotel;
+
+    ObservableList<ReservaVO> obtenerListaReservasCliente(String dni_cliente) throws ExcepcionHotel;
 
     void addReserva(ReservaVO var1) throws ExcepcionHotel;
 

@@ -3,6 +3,8 @@ package GestionHotel.modelo.repository.impl;
 import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.ReservaVO;
 import GestionHotel.modelo.repository.ReservaRepository;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,8 +48,8 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         }
     }
 
-    public ArrayList<ReservaVO> obtenerListaReservasCliente(String dni_cliente2) throws ExcepcionHotel {
-        ArrayList<ReservaVO> reservas = new ArrayList<>();
+    public ObservableList<ReservaVO> obtenerListaReservasCliente(String dni_cliente2) throws ExcepcionHotel {
+        ObservableList<ReservaVO> reservas = FXCollections.observableArrayList();
 
         String sql = "SELECT * FROM reservas WHERE dni_cliente = ?";
 
@@ -78,6 +80,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
         return reservas;
     }
+
 
 
     public void addReserva(ReservaVO m) throws ExcepcionHotel {
