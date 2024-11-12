@@ -1,7 +1,7 @@
 package GestionHotel.controller;
 
 import GestionHotel.modelo.ExcepcionHotel;
-import GestionHotel.modelo.HotelModelo;
+import GestionHotel.modelo.ClienteModelo;
 import GestionHotel.modelo.repository.impl.ClienteRepositoryImpl;
 import GestionHotel.util.Cliente;
 import javafx.application.Application;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Main extends Application {
     Stage primaryStage;
     BorderPane vistaRaiz;
-    HotelModelo modelo = new HotelModelo();
+    ClienteModelo modelo = new ClienteModelo();
     ClienteRepositoryImpl clienteRepositoryImpl = new ClienteRepositoryImpl();
     ClienteController clienteController;
     ObservableList<Cliente> clientes;
@@ -39,7 +39,7 @@ public class Main extends Application {
 
             // Mostrar la vista de personas
             modelo.setHotelModelo(clienteRepositoryImpl);
-            showPersonaOverview();
+            showClienteOverview();
             primaryStage.show();
 
             // Obtener la lista de personas
@@ -58,7 +58,7 @@ public class Main extends Application {
         }
     }
 
-    public void showPersonaOverview() {
+    public void showClienteOverview() {
         try {
             // Cargar Personas.fxml
             FXMLLoader loader = new FXMLLoader();

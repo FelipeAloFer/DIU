@@ -39,7 +39,7 @@ public class ReservaVO {
         this.tipo_alojamiento = tipo_alojamiento;
     }
 
-    public Integer getId_reserva() {
+    public Integer getIdReserva() {
         return id_reserva;
     }
 

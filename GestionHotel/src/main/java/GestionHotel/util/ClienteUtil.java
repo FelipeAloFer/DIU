@@ -11,14 +11,14 @@ public class ClienteUtil {
 
     }
 
-    public static ArrayList<Cliente> conversion(ArrayList<ClienteVO> personasVO) {
+    public static ArrayList<Cliente> conversionCliente(ArrayList<ClienteVO> personasVO) {
         for (ClienteVO persona : personasVO) {
             personas.add(new Cliente(persona.getDni(), persona.getNombre(), persona.getApellidos(), persona.getDireccion(), persona.getLocalidad(), persona.getProvincia()));
         }
         return personas;
     }
 
-    public static ClienteVO conversionVO(Cliente persona) {
+    public static ClienteVO conversionClienteVO(Cliente persona) {
         ClienteVO personaVO = new ClienteVO(persona.getDni(), persona.getNombre(), persona.getApellidos(), persona.getDireccion(), persona.getLocalidad(), persona.getProvincia());
         return personaVO;
     }

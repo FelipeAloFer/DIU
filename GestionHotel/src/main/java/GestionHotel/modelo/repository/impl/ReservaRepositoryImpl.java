@@ -1,14 +1,10 @@
 package GestionHotel.modelo.repository.impl;
 
-import GestionHotel.modelo.ClienteVO;
 import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.ReservaVO;
 import GestionHotel.modelo.repository.ReservaRepository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -50,11 +46,45 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         }
     }
 
+    public ArrayList<ReservaVO> obtenerListaReservasCliente(String dni_cliente2) throws ExcepcionHotel {
+        ArrayList<ReservaVO> reservas = new ArrayList<>();
+
+        String sql = "SELECT * FROM reservas WHERE dni_cliente = ?";
+
+        try (Connection conn = this.conexion.conectarBD();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, dni_cliente2); // Evitar inyección SQL y asegurar la consulta.
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Integer id_reserva = rs.getInt("id_reserva");
+                    Date fecha_llegada = rs.getDate("fecha_llegada");
+                    Date fecha_salida = rs.getDate("fecha_salida");
+                    Integer num_habitaciones = rs.getInt("num_habitaciones");
+                    String tipo_habitacion = rs.getString("tipo_habitacion");
+                    boolean fumador = rs.getBoolean("fumador");
+                    String tipo_alojamiento = rs.getString("tipo_alojamiento");
+                    String dni_cliente = rs.getString("dni_cliente");
+
+                    ReservaVO reserva = new ReservaVO(id_reserva, fecha_llegada, fecha_salida, num_habitaciones, tipo_habitacion, fumador, tipo_alojamiento, dni_cliente);
+                    reservas.add(reserva);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new ExcepcionHotel("No se ha podido realizar la operación");
+        }
+
+        return reservas;
+    }
+
+
     public void addReserva(ReservaVO m) throws ExcepcionHotel {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO reservas (id_reserva, fecha_llegada, fecha_salida, num_habitaciones, tipo_habitacion, fumador, tipo_alojamiento, dni_cliente) VALUES ('" + m.getId_reserva() + "','" + m.getFecha_llegada() + "','" + m.getFecha_salida() + "','" + m.getNum_habitaciones() + "','" + m.getTipo_habitacion() + "','" + m.isFumador() +  "','" + m.getTipo_alojamiento() + "','" + m.getDni_cliente() + "')";
+            this.sentencia = "INSERT INTO reservas (id_reserva, fecha_llegada, fecha_salida, num_habitaciones, tipo_habitacion, fumador, tipo_alojamiento, dni_cliente) VALUES ('" + m.getIdReserva() + "','" + m.getFecha_llegada() + "','" + m.getFecha_salida() + "','" + m.getNum_habitaciones() + "','" + m.getTipo_habitacion() + "','" + m.isFumador() +  "','" + m.getTipo_alojamiento() + "','" + m.getDni_cliente() + "')";
             this.stmt.executeUpdate(this.sentencia);
             this.stmt.close();
             this.conexion.desconectarBD(conn);
@@ -80,7 +110,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            String sql = String.format("UPDATE reservas fecha_llegada = '%s', fecha_salida = '%s', num_habitaciones = '%s', tipo_habitacion = '%s', fumador = '%s', tipo_alojamiento = '%s', dni_cliente = '%s', WHERE id_reserva = %d", clienteVO.getFecha_llegada(), clienteVO.getFecha_salida(), clienteVO.getNum_habitaciones(), clienteVO.getTipo_habitacion(), clienteVO.isFumador(), clienteVO.getTipo_alojamiento(), clienteVO.getDni_cliente(), clienteVO.getId_reserva(), clienteVO.getId_reserva());
+            String sql = String.format("UPDATE reservas fecha_llegada = '%s', fecha_salida = '%s', num_habitaciones = '%s', tipo_habitacion = '%s', fumador = '%s', tipo_alojamiento = '%s', WHERE id_reserva = %d", clienteVO.getFecha_llegada(), clienteVO.getFecha_salida(), clienteVO.getNum_habitaciones(), clienteVO.getTipo_habitacion(), clienteVO.isFumador(), clienteVO.getTipo_alojamiento(), clienteVO.getIdReserva());
             this.stmt.executeUpdate(sql);
         } catch (Exception var4) {
             throw new ExcepcionHotel("No se ha podido realizar la edición");

@@ -1,20 +1,18 @@
 package GestionHotel.controller;
 
 import GestionHotel.modelo.ExcepcionHotel;
-import GestionHotel.modelo.HotelModelo;
+import GestionHotel.modelo.ClienteModelo;
 import GestionHotel.util.Cliente;
+import GestionHotel.util.Reserva;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
 
 public class ClienteController {
-    private HotelModelo modelo;
+    private ClienteModelo modelo;
     private ArrayList<Cliente> clientes;
     private Main main;
 
@@ -38,7 +36,10 @@ public class ClienteController {
     @FXML
     private Label provinciaLabel;
 
-    public void setController(HotelModelo modelo) {
+    @FXML
+    private ListView listaReservas;
+
+    public void setController(ClienteModelo modelo) {
         this.modelo = modelo;
     }
 
@@ -74,15 +75,15 @@ public class ClienteController {
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
-    private void showPersonDetails(Cliente persona) {
-        if (persona != null) {
+    private void showPersonDetails(Cliente cliente) {
+        if (cliente != null) {
             // Fill the labels with info from the person object.
-            dniLabel.setText(String.valueOf(persona.getDni()));
-            nombreLabel.setText(persona.getNombre());
-            apellidosLabel.setText(persona.getApellidos());
-            direccionLabel.setText(persona.getDireccion());
-            localidadLabel.setText(persona.getLocalidad());
-            provinciaLabel.setText(persona.getProvincia());
+            dniLabel.setText(String.valueOf(cliente.getDni()));
+            nombreLabel.setText(cliente.getNombre());
+            apellidosLabel.setText(cliente.getApellidos());
+            direccionLabel.setText(cliente.getDireccion());
+            localidadLabel.setText(cliente.getLocalidad());
+            provinciaLabel.setText(cliente.getProvincia());
         } else {
             // Person is null, remove all the text.
             dniLabel.setText("");
@@ -91,6 +92,18 @@ public class ClienteController {
             direccionLabel.setText("");
             localidadLabel.setText("");
             provinciaLabel.setText("");
+        }
+    }
+
+    private void showReservaDetails(Cliente cliente) {
+        if (cliente.getListaReservas() != null) {
+            listaReservas.setItems(cliente.getListaReservas());
+        } else {
+            listaReservas.setItems(null);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("La lista de reservas es null");
         }
     }
 

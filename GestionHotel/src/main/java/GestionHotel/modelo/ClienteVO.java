@@ -1,5 +1,9 @@
 package GestionHotel.modelo;
 
+import GestionHotel.util.Reserva;
+
+import java.util.ArrayList;
+
 public class ClienteVO {
     String dni;
     String nombre;
@@ -7,14 +11,24 @@ public class ClienteVO {
     String direccion;
     String localidad;
     String provincia;
+    ArrayList<Reserva> listaReservas;
 
-    public ClienteVO(String dni,  String nombre, String apellidos, String direccion, String localidad, String provincia) {
+    public ClienteVO(String dni,  String nombre, String apellidos, String direccion, String localidad, String provincia, ArrayList<Reserva> listaReservas) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.direccion = direccion;
         this.localidad = localidad;
         this.provincia = provincia;
+        this.listaReservas = listaReservas;
+    }
+
+    public ArrayList<Reserva> getListaReservas() {
+        return listaReservas;
+    }
+
+    public void setListaReservas(ArrayList<Reserva> listaReservas) {
+        this.listaReservas = listaReservas;
     }
 
     public String getDni() {

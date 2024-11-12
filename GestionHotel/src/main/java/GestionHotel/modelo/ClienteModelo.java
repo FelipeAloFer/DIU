@@ -1,16 +1,18 @@
 package GestionHotel.modelo;
 
 import GestionHotel.modelo.repository.ClienteRepository;
+import GestionHotel.modelo.repository.ReservaRepository;
 import GestionHotel.util.Cliente;
 import GestionHotel.util.ClienteUtil;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
-public class HotelModelo {
+public class ClienteModelo {
     ClienteRepository clienteRepository;
+    ReservaRepository reservaRepository;
 
-    public HotelModelo() {
+    public ClienteModelo() {
     }
 
     public void setHotelModelo(ClienteRepository implementacion) {
@@ -20,8 +22,7 @@ public class HotelModelo {
     public ArrayList<Cliente> setClientes() {
         try {
             ArrayList<ClienteVO> clientesVO = this.clienteRepository.obtenerListaClientes();
-            System.out.println(clientesVO.size());
-            return ClienteUtil.conversion(clientesVO);
+            return ClienteUtil.conversionCliente(clientesVO);
         } catch (ExcepcionHotel e) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error de conexión");
@@ -33,7 +34,7 @@ public class HotelModelo {
     }
 
     public void añadirCliente (Cliente clienteNuevo) throws ExcepcionHotel {
-        ClienteVO clienteNuevoVO = ClienteUtil.conversionVO(clienteNuevo);
+        ClienteVO clienteNuevoVO = ClienteUtil.conversionClienteVO(clienteNuevo);
         // Añadir a la base de datos
         clienteRepository.addCliente(clienteNuevoVO);
     }
@@ -44,7 +45,7 @@ public class HotelModelo {
     }
 
     public void modificarPersona(Cliente selectedCliente) throws ExcepcionHotel {
-        ClienteVO personaSelectedVO = ClienteUtil.conversionVO(selectedCliente);
+        ClienteVO personaSelectedVO = ClienteUtil.conversionClienteVO(selectedCliente);
         // Actualizamos en la base de datos
         clienteRepository.editCliente(personaSelectedVO);
     }
