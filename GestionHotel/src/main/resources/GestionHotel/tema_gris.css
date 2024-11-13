@@ -1,0 +1,297 @@
+.background {
+    -fx-background-color: #dcdcdc; /* Gris claro */
+}
+
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-text-fill: #2f4f4f; /* Gris oscuro */
+    -fx-opacity: 1;
+}
+
+.table-view {
+    -fx-base: #ffffff;
+    -fx-control-inner-background: #dcdcdc;
+    -fx-background-color: #dcdcdc;
+    -fx-table-cell-border-color: #a9a9a9; /* Gris medio */
+    -fx-table-header-border-color: #a9a9a9;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #808080; /* Gris medio */
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: #808080;
+    -fx-border-color:
+            transparent
+            transparent
+            derive(-fx-base, 80%)
+            transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #808080; /* Fondo cuando se selecciona una fila */
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #a9a9a9 transparent #a9a9a9;
+    -fx-background-color: transparent, derive(#a9a9a9, 20%);
+}
+
+.split-pane {
+    -fx-padding: 1 0 0 0;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#a9a9a9, 20%);
+}
+
+.context-menu {
+    -fx-background-color: derive(#a9a9a9, 50%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: #ffffff;
+    -fx-opacity: 1;
+}
+
+.menu .left-container {
+    -fx-background-color: #dcdcdc;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #808080; /* Gris medio */
+    -fx-border-color: #a9a9a9;
+}
+
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #a9a9a9;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #a9a9a9;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #ffffff;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #b0b0b0; /* Gris claro en hover */
+}
+
+.button:pressed, .button:default:hover:pressed {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #a9a9a9;
+}
+
+.button:focused {
+    -fx-border-color: #a9a9a9, #a9a9a9;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #a9a9a9;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default {
+    -fx-background-color: #a9a9a9;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(#a9a9a9, 30%);
+}
+
+.reservas-list .list-cell {
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-text-fill: #2f4f4f; /* Gris oscuro */
+}
+
+.reservas-list .list-cell:odd {
+    -fx-background-color: #dcdcdc;
+    -fx-text-fill: #2f4f4f; /* Gris oscuro */
+}
+
+.page {
+    -fx-background-color: #f9f9f9;
+}
+
+.label-form {
+    -fx-text-fill: #2f4f4f; /* Gris oscuro */
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.text-field-form {
+    -fx-background-color: #dcdcdc;
+    -fx-text-fill: #2f4f4f; /* Gris oscuro */
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-border-color: #808080;
+    -fx-border-width: 1;
+}
+
+.button-form {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #808080;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #dcdcdc;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #2f4f4f;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button-form:hover {
+    -fx-background-color: #b0b0b0;
+}
+
+.button-form:pressed {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #808080;
+}
+
+.button-form:focused {
+    -fx-border-color: #808080, #808080;
+    -fx-border-width: 1, 1;
+}
+
+.label-header-dialog {
+    -fx-font-size: 25px;
+    -fx-text-fill: #808080;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #a9a9a9; /* Gris medio */
+}
+
+.table-row-cell:even {
+    -fx-background-color: #dcdcdc; /* Gris claro */
+}
+
+.root {
+    -fx-background-color: #f5f5f5; /* Gris claro */
+}
+
+.split-pane .left-pane {
+    -fx-background-color: #808080; /* Gris oscuro */
+}
+
+.split-pane .right-pane {
+    -fx-background-color: #dcdcdc; /* Gris claro */
+}
+
+.label-header {
+    -fx-font-size: 24px;
+    -fx-text-fill: #2f4f4f; /* Gris oscuro */
+}
+
+.label-header-dialog {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-background-color: #808080; /* Gris oscuro */
+}
+
+.button-form {
+    -fx-background-color: #808080; /* Gris oscuro */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.label-form {
+    -fx-text-fill: #2f4f4f; /* Gris oscuro */
+    -fx-font-weight: bold;
+}
+
+.text-field-form {
+    -fx-background-color: #f0f0f0; /* Gris muy claro */
+    -fx-text-fill: #2f4f4f; /* Gris oscuro */
+    -fx-border-color: #808080;
+    -fx-border-radius: 4;
+}
+
+.table-view {
+    -fx-background-color: #f0f0f0; /* Gris muy claro */
+    -fx-border-color: #808080; /* Gris oscuro */
+}
+
+.list-view {
+    -fx-background-color: #dcdcdc; /* Gris claro */
+    -fx-border-color: #808080; /* Gris oscuro */
+}
+
+.button {
+    -fx-background-color: #808080; /* Gris oscuro */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+}
+
+.button:hover {
+    -fx-background-color: #696969; /* Gris más oscuro en hover */
+}
+
+.button:pressed {
+    -fx-background-color: #2f4f4f; /* Gris más oscuro cuando está presionado */
+}
+
+.panel-derecha {
+    -fx-background-color: #f0f0f0; /* Gris muy claro */
+}
+
+.list-cell:odd {
+    -fx-background-color: #f0f0f0; /* Color para filas pares */
+}
+
+.list-cell:even {
+    -fx-background-color: #dcdcdc; /* Color para filas impares */
+}
+
+.list-cell:selected {
+    -fx-background-color: #808080; /* Color de fondo cuando se selecciona una fila */
+    -fx-text-fill: white; /* Color del texto cuando se selecciona una fila */
+}
+
+.banner {
+    -fx-font-size: 22pt;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff; /* Gris oscuro */
+    -fx-opacity: 1;
+}
+
+.card {
+    -fx-background-color: #d0d0d0;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-border-radius: 4;
+    -fx-border-color: #808080;
+}

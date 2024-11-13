@@ -1,8 +1,12 @@
 package GestionHotel.controller;
 
+import GestionHotel.manager.ThemeManager;
+import GestionHotel.manager.ThemeManagerImpl;
 import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.ClienteModelo;
+import GestionHotel.modelo.ReservaModelo;
 import GestionHotel.modelo.repository.impl.ClienteRepositoryImpl;
+import GestionHotel.modelo.repository.impl.ReservaRepositoryImpl;
 import GestionHotel.util.Cliente;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -21,14 +25,21 @@ public class Main extends Application {
     Stage primaryStage;
     BorderPane vistaRaiz;
     ClienteModelo modelo = new ClienteModelo();
+    ReservaModelo reserva = new ReservaModelo();
     ClienteRepositoryImpl clienteRepositoryImpl = new ClienteRepositoryImpl();
+    ReservaRepositoryImpl reservaRepositoryImpl = new ReservaRepositoryImpl();
     ClienteController clienteController;
     ObservableList<Cliente> clientes;
-
+    ThemeManager themeManager;
 
     @Override
     public void start(Stage primaryStage) throws ExcepcionHotel {
         try {
+            this.primaryStage = primaryStage;
+
+            // Crear el ThemeManager con el Stage principal
+            themeManager = new ThemeManagerImpl(primaryStage);
+
             // Cargar el archivo VistaRaiz.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHotel/VistaRaiz.fxml"));
             vistaRaiz = loader.load();  // Asumimos que VistaRaiz.fxml tiene un BorderPane como raíz
@@ -39,6 +50,7 @@ public class Main extends Application {
 
             // Mostrar la vista de personas
             modelo.setHotelModelo(clienteRepositoryImpl);
+            reserva.setReservaModelo(reservaRepositoryImpl);
             showClienteOverview();
             primaryStage.show();
 
@@ -70,9 +82,10 @@ public class Main extends Application {
 
             // Si necesitas interactuar con el controlador:
             clienteController = loader.getController();
-            clienteController.setController(modelo);
+            clienteController.setController(modelo, reserva);
             clienteController.setPersona();
             clienteController.setMain(this);
+            clienteController.setThemeManager(themeManager);  // Pasar el ThemeManager al controlador
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,7 +109,7 @@ public class Main extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-//             Set the person into the controller.
+            // Set the person into the controller.
             DialogoClienteController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setPerson(cliente);

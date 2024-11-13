@@ -2,6 +2,7 @@ package GestionHotel.util;
 
 import javafx.beans.property.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Reserva {
@@ -35,6 +36,18 @@ public class Reserva {
         this.tipo_alojamiento = new SimpleStringProperty(tipo_alojamiento);
         this.dni_cliente = new SimpleStringProperty(dni_cliente);
     }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Puedes ajustar el formato si lo necesitas
+
+        return "Reserva: " +
+                "ID = " + idReserva.get() +
+                "       Fecha de llegada = " + sdf.format(fecha_llegada.get()) +
+                "       Fecha de salida = " + sdf.format(fecha_salida.get()) +
+                '.';
+    }
+
 
     public int getIdReserva() {
         return idReserva.get();

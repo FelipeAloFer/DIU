@@ -5,12 +5,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="824.0" prefWidth="800.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionHotel.controller.ClienteController">
+<?import javafx.collections.FXCollections?>
+<AnchorPane prefHeight="850.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionHotel.controller.ClienteController">
     <children>
         <SplitPane dividerPositions="0.15" prefHeight="780.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <!-- Barra lateral izquierda -->
-                <AnchorPane prefWidth="250.0" style="-fx-background-color: #ff8100;">
+                <AnchorPane prefWidth="250.0">
                     <children>
                         <TableView fx:id="tablaClientes" prefHeight="780.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
@@ -25,13 +26,13 @@
                 </AnchorPane>
 
                 <!-- Panel derecho principal -->
-                <AnchorPane prefHeight="780.0" prefWidth="550.0" style="-fx-background-color: #f9f9f9;">
+                <AnchorPane prefHeight="780.0" prefWidth="550.0" styleClass="panel-derecha">
                     <children>
                         <!-- Título de Datos Personales -->
-                        <Label style="-fx-font-size: 24px; -fx-text-fill: #ff8100;" styleClass="label-header" text="Datos Personales" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <Label styleClass="label-header" text="Datos Personales" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
 
                         <!-- Contenedor de Datos Personales en estilo tarjeta -->
-                        <VBox layoutX="10.0" layoutY="50.0" prefHeight="230.0" prefWidth="600.0" spacing="10" style="-fx-background-color: #ff8100; -fx-background-radius: 10; -fx-padding: 20;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+                        <VBox layoutX="10.0" layoutY="50.0" prefHeight="230.0" prefWidth="600.0" spacing="10" styleClass="card" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
                             <children>
                                 <GridPane hgap="10" vgap="10">
                                     <columnConstraints>
@@ -40,10 +41,7 @@
                                     </columnConstraints>
                                     <children>
                                         <Label text="DNI" />
-                                        <Label fx:id="dniLabel" alignment="TOP_RIGHT" styleClass="label-bright" text="Label" textAlignment="RIGHT" GridPane.columnIndex="1">
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin></Label>
+                                        <Label fx:id="dniLabel" alignment="TOP_RIGHT" styleClass="label-bright" text="Label" textAlignment="RIGHT" GridPane.columnIndex="1" />
 
                                         <Label text="Nombre" GridPane.rowIndex="1" />
                                         <Label fx:id="nombreLabel" alignment="TOP_LEFT" styleClass="label-bright" text="Label" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -68,9 +66,6 @@
                                         <RowConstraints />
                                         <RowConstraints />
                                     </rowConstraints>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
                                 </GridPane>
                             </children>
                         </VBox>
@@ -78,28 +73,38 @@
                         <!-- Botones de Acción -->
                         <HBox layoutX="330.0" layoutY="340.0" spacing="10" AnchorPane.rightAnchor="20.0">
                             <children>
-                                <Button onAction="#handleNewCliente" style="-fx-background-color: #ff8100; -fx-text-fill: white;" text="New..." />
-                                <Button onAction="#handleEditCliente" style="-fx-background-color: #ff8100; -fx-text-fill: white;" text="Edit..." />
-                                <Button onAction="#handleDeleteCliente" style="-fx-background-color: #ff8100; -fx-text-fill: white;" text="Delete" />
+                                <Button onAction="#handleNewCliente" styleClass="button-form" text="New..." />
+                                <Button onAction="#handleEditCliente" styleClass="button-form" text="Edit..." />
+                                <Button onAction="#handleDeleteCliente" styleClass="button-form" text="Delete" />
                             </children>
                         </HBox>
 
                         <!-- Título de Reservas -->
-                        <Label layoutX="11.0" layoutY="396.0" style="-fx-font-size: 24px; -fx-text-fill: #ff8100;" styleClass="label-header" text="Reservas" AnchorPane.leftAnchor="10.0" />
+                        <Label layoutX="10.0" layoutY="419.0" styleClass="label-header" text="Reservas" AnchorPane.leftAnchor="10.0" />
 
                         <!-- Lista scrolleable de Reservas -->
-                        <ListView fx:id="listaReservas" prefHeight="250.0" prefWidth="500.0" style="-fx-background-color: white; -fx-border-color: #ff8100;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
-                        <HBox layoutX="364.0" layoutY="720.0" spacing="10" AnchorPane.rightAnchor="20.0">
+                        <ListView fx:id="listaReservas" layoutX="15.0" layoutY="470.0" prefHeight="250.0" prefWidth="500.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="470.0" />
+                        <HBox layoutX="356.0" layoutY="745.0" spacing="10" AnchorPane.rightAnchor="20.0">
                             <children>
-                                <Button style="-fx-background-color: #ff8100; -fx-text-fill: white;" text="New..." />
-                                <Button style="-fx-background-color: #ff8100; -fx-text-fill: white;" text="Edit..." />
-                                <Button style="-fx-background-color: #ff8100; -fx-text-fill: white;" text="Delete" />
+                                <Button styleClass="button-form" text="New..." />
+                                <Button styleClass="button-form" text="Edit..." />
+                                <Button styleClass="button-form" text="Delete" />
                             </children>
                         </HBox>
+
+                        <!-- ComboBox para seleccionar el Tema -->
+                        <ComboBox fx:id="temaComboBox" layoutX="531.0" layoutY="15.0" prefWidth="150.0" promptText="Tema" visibleRowCount="5" AnchorPane.rightAnchor="20.0">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Tema Gris" />
+                                    <String fx:value="Tema Negro" />
+                                    <String fx:value="Tema Azul" />
+                                    <String fx:value="Tema Rojo" />
+                                    <String fx:value="Tema Arcoiris" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
                     </children>
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
                 </AnchorPane>
             </items>
         </SplitPane>

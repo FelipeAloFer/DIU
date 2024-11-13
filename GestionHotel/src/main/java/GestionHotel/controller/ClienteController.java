@@ -1,13 +1,18 @@
 package GestionHotel.controller;
 
+import GestionHotel.manager.ThemeManager;
+import GestionHotel.manager.ThemeManagerImpl;
 import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.ClienteModelo;
 import GestionHotel.modelo.ReservaModelo;
 import GestionHotel.util.Cliente;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -40,8 +45,24 @@ public class ClienteController {
     @FXML
     private ListView listaReservas;
 
-    public void setController(ClienteModelo modelo) {
+    @FXML
+    private ComboBox<String> temaComboBox;
+
+    private ThemeManager themeManager;
+
+    // Constructor donde inyectamos el ThemeManager
+    public ClienteController() {
+        // Suponemos que el Stage se obtiene en algún punto de la aplicación, como en el main
+        this.themeManager = new ThemeManagerImpl(new Stage()); // Ajusta esto para que se obtenga el stage actual
+    }
+
+    public void setThemeManager(ThemeManager themeManager) {
+        this.themeManager = themeManager;
+    }
+
+    public void setController(ClienteModelo modelo, ReservaModelo reservaModelo) {
         this.modeloCliente = modelo;
+        this.reservaModelo = reservaModelo;  // Asegúrate de inicializar reservaModelo
     }
 
     public void setPersona() throws ExcepcionHotel {
@@ -62,6 +83,13 @@ public class ClienteController {
 
     @FXML
     private void initialize() {
+        // Inicializamos el ComboBox con los valores de temas disponibles
+        temaComboBox.getItems().addAll(
+                "Tema Gris", "Tema Negro", "Tema Azul", "Tema Rojo", "Tema Arcoiris"
+        );
+        // Seteamos el evento de cambio
+        temaComboBox.setOnAction(this::handleThemeChange);
+
         // Initialize the person table with the two columns.
         nombreColumna.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
@@ -78,22 +106,28 @@ public class ClienteController {
 
     private void showPersonDetails(Cliente cliente) {
         if (cliente != null) {
-            // Fill the labels with info from the person object.
+            // Rellenar los detalles del cliente
             dniLabel.setText(String.valueOf(cliente.getDni()));
             nombreLabel.setText(cliente.getNombre());
             apellidosLabel.setText(cliente.getApellidos());
             direccionLabel.setText(cliente.getDireccion());
             localidadLabel.setText(cliente.getLocalidad());
             provinciaLabel.setText(cliente.getProvincia());
-            listaReservas.setItems(reservaModelo.setReservas(cliente.getDni()));
+
+            // Limpiar las reservas anteriores y establecer las nuevas
+            listaReservas.getItems().clear();  // Limpiar la lista de reservas
+            listaReservas.setItems(reservaModelo.setReservas(cliente.getDni()));  // Establecer nuevas reservas
         } else {
-            // Person is null, remove all the text.
+            // Si el cliente es nulo, limpiar todo
             dniLabel.setText("");
             nombreLabel.setText("");
             apellidosLabel.setText("");
             direccionLabel.setText("");
             localidadLabel.setText("");
             provinciaLabel.setText("");
+
+            // Limpiar las reservas
+            listaReservas.getItems().clear();
         }
     }
 
@@ -153,6 +187,13 @@ public class ClienteController {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una persona para editarla");
             alert.show();
+        }
+    }
+
+    private void handleThemeChange(ActionEvent event) {
+        String selectedTheme = temaComboBox.getValue();
+        if (selectedTheme != null) {
+            themeManager.applyTheme(selectedTheme);
         }
     }
 }

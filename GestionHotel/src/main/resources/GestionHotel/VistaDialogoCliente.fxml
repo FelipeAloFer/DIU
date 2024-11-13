@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="page" prefHeight="400.0" prefWidth="640.0" style="-fx-background-color: white;" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionHotel.controller.DialogoClienteController">
+<AnchorPane fx:id="page" prefHeight="415.0" prefWidth="640.0" stylesheets="tema_gris.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionHotel.controller.DialogoClienteController">
     <children>
         <GridPane layoutX="8.0" layoutY="80.0" prefHeight="275.0" prefWidth="584.0" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
             <columnConstraints>
@@ -52,33 +52,16 @@
                         <Insets left="5.0" />
                     </padding>
                 </Label>
-                <TextField fx:id="dniField" styleClass="text-field-form" GridPane.columnIndex="1" />
-                <TextField fx:id="nombreField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="apellidosField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="direccionField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="localidadField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="provinciaField" styleClass="text-field-form" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <TextField fx:id="dniField" prefWidth="200.0" GridPane.columnIndex="1" />
+                <TextField fx:id="nombreField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="apellidosField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="direccionField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="localidadField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="provinciaField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             </children>
         </GridPane>
-
-        <!-- Botones de Añadir y Cancelar en HBox -->
-        <HBox layoutX="411.0" layoutY="357.0" spacing="10" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-            <children>
-                <Button mnemonicParsing="false" onAction="#handleOk" styleClass="button-form" text="Añadir" />
-                <Button mnemonicParsing="false" onAction="#handleCancel" styleClass="button-form" text="Cancelar" />
-            </children>
-        </HBox>
-      <HBox prefHeight="59.0" prefWidth="640.0" style="-fx-background-color: #ff8100;">
-         <children>
-            <Label alignment="CENTER" styleClass="label-header-dialog" text="Gestión Hotel" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <padding>
-                  <Insets bottom="20.0" left="15.0" top="15.0" />
-               </padding>
-            </Label>
-         </children>
-      </HBox>
+        <Label alignment="CENTER" layoutX="232.0" layoutY="20.0" styleClass="label-header-dialog" text="Edición de Cliente" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <Button layoutX="450.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleOk" styleClass="button-form" text="OK" />
+        <Button layoutX="523.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleCancel" styleClass="button-form" text="Cancel" />
     </children>
 </AnchorPane>
