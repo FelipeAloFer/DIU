@@ -37,16 +37,23 @@ public class Main extends Application {
         try {
             this.primaryStage = primaryStage;
 
-            // Crear el ThemeManager con el Stage principal
-            themeManager = new ThemeManagerImpl(primaryStage);
-
             // Cargar el archivo VistaRaiz.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHotel/VistaRaiz.fxml"));
             vistaRaiz = loader.load();  // Asumimos que VistaRaiz.fxml tiene un BorderPane como raíz
 
+            // Crear la escena con vistaRaiz
             Scene scene = new Scene(vistaRaiz);  // Usamos vistaRaiz para la escena
-            primaryStage.setScene(scene);
+            primaryStage.setScene(scene);       // Configuramos la escena en el Stage
             primaryStage.setTitle("Gestión Hotel");
+
+            // Crear el ThemeManager con el Stage principal
+            themeManager = new ThemeManagerImpl(primaryStage);
+
+            // Registrar la escena en ThemeManager
+            themeManager.registerScene(scene);
+
+            // Aplicar el tema predeterminado
+            themeManager.applyTheme("Tema Gris");
 
             // Mostrar la vista de personas
             modelo.setHotelModelo(clienteRepositoryImpl);
@@ -69,6 +76,8 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
     }
+
+
 
     public void showClienteOverview() {
         try {
@@ -96,26 +105,30 @@ public class Main extends Application {
 
     public boolean showPersonEditDialog(Cliente cliente) {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/GestionHotel/VistaDialogoCliente.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = loader.load();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Editar persona");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
+
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
+            // Registra la escena en ThemeManager
+            themeManager.registerScene(scene);
+
+            // Configura el controlador
             DialogoClienteController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setPerson(cliente);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
+
+            // Desregistra la escena al cerrarla
+            themeManager.unregisterScene(scene);
 
             return controller.isOkClicked();
         } catch (IOException e) {
@@ -123,4 +136,6 @@ public class Main extends Application {
             return false;
         }
     }
+
+
 }

@@ -83,10 +83,10 @@ public class ClienteController {
 
     @FXML
     private void initialize() {
-        // Inicializamos el ComboBox con los valores de temas disponibles
-        temaComboBox.getItems().addAll(
-                "Tema Gris", "Tema Negro", "Tema Azul", "Tema Rojo", "Tema Arcoiris"
-        );
+//        // Inicializamos el ComboBox con los valores de temas disponibles
+//        temaComboBox.getItems().addAll(
+//                "Tema Gris", "Tema Rojo", "Tema Azul", "Tema Verde", "Tema Arcoiris"
+//        );
         // Seteamos el evento de cambio
         temaComboBox.setOnAction(this::handleThemeChange);
 

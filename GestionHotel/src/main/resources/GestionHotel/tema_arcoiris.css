@@ -282,3 +282,13 @@
 .dialog-pane {
     -fx-background-color: #008000; /* Verde */
 }
+
+.banner {
+    -fx-font-size: 30px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.banner-fondo {
+    -fx-background-color: #ff0000;
+}

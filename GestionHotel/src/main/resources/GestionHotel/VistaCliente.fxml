@@ -93,13 +93,13 @@
                         </HBox>
 
                         <!-- ComboBox para seleccionar el Tema -->
-                        <ComboBox fx:id="temaComboBox" layoutX="531.0" layoutY="15.0" prefWidth="150.0" promptText="Tema" visibleRowCount="5" AnchorPane.rightAnchor="20.0">
+                        <ComboBox fx:id="temaComboBox" layoutX="531.0" layoutY="15.0" prefWidth="150.0" promptText="Tema Gris" visibleRowCount="5" AnchorPane.rightAnchor="20.0">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="Tema Gris" />
-                                    <String fx:value="Tema Negro" />
-                                    <String fx:value="Tema Azul" />
                                     <String fx:value="Tema Rojo" />
+                                    <String fx:value="Tema Azul" />
+                                    <String fx:value="Tema Verde" />
                                     <String fx:value="Tema Arcoiris" />
                                 </FXCollections>
                             </items>
