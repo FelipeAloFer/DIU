@@ -71,6 +71,8 @@ public class ThemeManagerImpl implements ThemeManager {
                 return "/GestionHotel/tema_verde.css";
             case "Tema Arcoiris":
                 return "/GestionHotel/tema_arcoiris.css";
+            case "Tema Jacobo":
+                return "/GestionHotel/tema_jacobo.css";
             default:
                 return null;
         }

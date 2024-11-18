@@ -281,7 +281,7 @@
 }
 
 .banner {
-    -fx-font-size: 22pt;
+    -fx-font-size: 30px;
     -fx-font-family: "Segoe UI";
     -fx-font-weight: bold;
     -fx-text-fill: #ffffff;
@@ -294,12 +294,6 @@
     -fx-padding: 20;
     -fx-border-radius: 4;
     -fx-border-color: #b71c1c;
-}
-
-.banner {
-    -fx-font-size: 30px;
-    -fx-text-fill: #ffffff;
-    -fx-font-weight: bold;
 }
 
 .banner-fondo {

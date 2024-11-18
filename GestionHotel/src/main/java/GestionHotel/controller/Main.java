@@ -53,7 +53,7 @@ public class Main extends Application {
             themeManager.registerScene(scene);
 
             // Aplicar el tema predeterminado
-            themeManager.applyTheme("Tema Gris");
+            themeManager.applyTheme("Tema Jacobo");
 
             // Mostrar la vista de personas
             modelo.setHotelModelo(clienteRepositoryImpl);
