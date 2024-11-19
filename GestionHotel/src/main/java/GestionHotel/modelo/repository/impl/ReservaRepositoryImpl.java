@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,20 +24,27 @@ public class ReservaRepositoryImpl implements ReservaRepository {
     public ArrayList<ReservaVO> obtenerListaReservas() throws ExcepcionHotel {
         try {
             Connection conn = this.conexion.conectarBD();
-            this.reservas = new ArrayList();
+            this.reservas = new ArrayList<>();
             this.stmt = conn.createStatement();
             this.sentencia = "SELECT * FROM reservas";
             ResultSet rs = this.stmt.executeQuery(this.sentencia);
 
-            while(rs.next()) {
+            while (rs.next()) {
                 Integer id_reserva = rs.getInt("id_reserva");
-                Date fecha_llegada = rs.getDate("fecha_llegada");
-                Date fecha_salida = rs.getDate("fecha_salida");
+
+                // Convertir java.sql.Date a LocalDate
+                java.sql.Date sqlFechaLlegada = rs.getDate("fecha_llegada");
+                java.sql.Date sqlFechaSalida = rs.getDate("fecha_salida");
+
+                LocalDate fecha_llegada = sqlFechaLlegada != null ? sqlFechaLlegada.toLocalDate() : null;
+                LocalDate fecha_salida = sqlFechaSalida != null ? sqlFechaSalida.toLocalDate() : null;
+
                 Integer num_habitaciones = rs.getInt("num_habitaciones");
                 String tipo_habitacion = rs.getString("tipo_habitacion");
                 boolean fumador = rs.getBoolean("fumador");
-                String tipo_alojamiento  = rs.getString("tipo_alojamiento");
+                String tipo_alojamiento = rs.getString("tipo_alojamiento");
                 String dni_cliente = rs.getString("dni_cliente");
+
                 this.reserva = new ReservaVO(id_reserva, fecha_llegada, fecha_salida, num_habitaciones, tipo_habitacion, fumador, tipo_alojamiento, dni_cliente);
                 this.reservas.add(this.reserva);
             }
@@ -47,6 +55,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
             throw new ExcepcionHotel("No se ha podido realizar la operación");
         }
     }
+
 
     public ObservableList<ReservaVO> obtenerListaReservasCliente(String dni_cliente2) throws ExcepcionHotel {
         ObservableList<ReservaVO> reservas = FXCollections.observableArrayList();
@@ -61,8 +70,14 @@ public class ReservaRepositoryImpl implements ReservaRepository {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Integer id_reserva = rs.getInt("id_reserva");
-                    Date fecha_llegada = rs.getDate("fecha_llegada");
-                    Date fecha_salida = rs.getDate("fecha_salida");
+
+                    // Conversión de java.sql.Date a LocalDate
+                    java.sql.Date sqlFechaLlegada = rs.getDate("fecha_llegada");
+                    java.sql.Date sqlFechaSalida = rs.getDate("fecha_salida");
+
+                    LocalDate fecha_llegada = sqlFechaLlegada != null ? sqlFechaLlegada.toLocalDate() : null;
+                    LocalDate fecha_salida = sqlFechaSalida != null ? sqlFechaSalida.toLocalDate() : null;
+
                     Integer num_habitaciones = rs.getInt("num_habitaciones");
                     String tipo_habitacion = rs.getString("tipo_habitacion");
                     boolean fumador = rs.getBoolean("fumador");
@@ -80,6 +95,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
         return reservas;
     }
+
 
 
 

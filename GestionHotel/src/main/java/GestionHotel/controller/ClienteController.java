@@ -6,6 +6,7 @@ import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.ClienteModelo;
 import GestionHotel.modelo.ReservaModelo;
 import GestionHotel.util.Cliente;
+import GestionHotel.util.Reserva;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -189,6 +190,64 @@ public class ClienteController {
             alert.show();
         }
     }
+
+    @FXML
+    private Reserva handleDeleteReserva() {
+        int selectedIndex = listaReservas.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Reserva selectedReserva = (Reserva) listaReservas.getItems().get(selectedIndex); // Asegúrate de que el tipo sea consistente
+            try {
+                reservaModelo.borrarReserva(selectedReserva); // Borra la reserva de la base de datos
+                listaReservas.getItems().remove(selectedIndex); // Borra de la lista
+            } catch (ExcepcionHotel e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al eliminar la reserva: " + e.getMessage());
+                alert.show();
+            }
+            return selectedReserva;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una reserva para borrarla");
+            alert.show();
+            return null;
+        }
+    }
+
+    @FXML
+    private void handleNewReserva() {
+        Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
+        Reserva reservaNueva = new Reserva(); // Cambia a la clase específica de reservas
+        boolean okClicked = main.showReservaEditDialog(selectedCliente.getDni(), reservaNueva); // Llama al diálogo de edición (debes crearlo)
+        if (okClicked) {
+            try {
+                reservaModelo.añadirReserva(reservaNueva); // Guarda en la base de datos
+                listaReservas.getItems().add(reservaNueva); // Añade a la lista
+            } catch (ExcepcionHotel e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al añadir la reserva: " + e.getMessage());
+                alert.show();
+            }
+        }
+    }
+
+    @FXML
+    private void handleEditReserva() {
+        Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
+        Reserva selectedReserva = (Reserva) listaReservas.getSelectionModel().getSelectedItem();
+        if (selectedReserva != null) {
+            boolean okClicked = main.showReservaEditDialog(selectedCliente.getDni(), selectedReserva); // Llama al diálogo de edición
+            if (okClicked) {
+                try {
+                    reservaModelo.modificarReserva(selectedReserva); // Guarda los cambios en la base de datos
+                    // Si la lista no actualiza automáticamente, puedes hacerlo manualmente.
+                } catch (ExcepcionHotel e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Error al modificar la reserva: " + e.getMessage());
+                    alert.show();
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una reserva para editarla");
+            alert.show();
+        }
+    }
+
 
     private void handleThemeChange(ActionEvent event) {
         String selectedTheme = temaComboBox.getValue();

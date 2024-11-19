@@ -86,9 +86,9 @@
                         <ListView fx:id="listaReservas" layoutX="15.0" layoutY="470.0" prefHeight="250.0" prefWidth="500.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="470.0" />
                         <HBox layoutX="356.0" layoutY="745.0" spacing="10" AnchorPane.rightAnchor="20.0">
                             <children>
-                                <Button styleClass="button-form" text="New..." />
-                                <Button styleClass="button-form" text="Edit..." />
-                                <Button styleClass="button-form" text="Delete" />
+                                <Button onAction="#handleNewReserva" styleClass="button-form" text="New..." />
+                                <Button onAction="#handleEditReserva" styleClass="button-form" text="Edit..." />
+                                <Button onAction="#handleDeleteReserva" styleClass="button-form" text="Delete" />
                             </children>
                         </HBox>
 

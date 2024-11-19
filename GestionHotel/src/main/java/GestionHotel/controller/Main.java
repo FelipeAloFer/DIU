@@ -8,6 +8,7 @@ import GestionHotel.modelo.ReservaModelo;
 import GestionHotel.modelo.repository.impl.ClienteRepositoryImpl;
 import GestionHotel.modelo.repository.impl.ReservaRepositoryImpl;
 import GestionHotel.util.Cliente;
+import GestionHotel.util.Reserva;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -137,5 +138,38 @@ public class Main extends Application {
         }
     }
 
+    public boolean showReservaEditDialog(String dni_cliente, Reserva reserva) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GestionHotel/VistaDialogoReserva.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Añadir/Editar reserva");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Registra la escena en ThemeManager
+            themeManager.registerScene(scene);
+
+            // Configura el controlador
+            DialogoReservaController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setReserva(dni_cliente, reserva);
+
+            dialogStage.showAndWait();
+
+            // Desregistra la escena al cerrarla
+            themeManager.unregisterScene(scene);
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

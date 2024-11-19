@@ -3,12 +3,14 @@ package GestionHotel.util;
 import javafx.beans.property.*;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Reserva {
     private IntegerProperty idReserva;
-    private ObjectProperty<Date> fecha_llegada;
-    private ObjectProperty<Date> fecha_salida;
+    private ObjectProperty<LocalDate> fecha_llegada;
+    private ObjectProperty<LocalDate> fecha_salida;
     private IntegerProperty num_habitaciones;
     private StringProperty tipo_habitacion;
     private BooleanProperty fumador;
@@ -26,7 +28,7 @@ public class Reserva {
         this.dni_cliente = new SimpleStringProperty();
     }
 
-    public Reserva(int idReserva, Date fecha_llegada, Date fecha_salida, int num_habitaciones, String tipo_habitacion, boolean fumador, String tipo_alojamiento, String dni_cliente) {
+    public Reserva(int idReserva, LocalDate fecha_llegada, LocalDate fecha_salida, int num_habitaciones, String tipo_habitacion, boolean fumador, String tipo_alojamiento, String dni_cliente) {
         this.idReserva = new SimpleIntegerProperty(idReserva);
         this.fecha_llegada = new SimpleObjectProperty(fecha_llegada);
         this.fecha_salida = new SimpleObjectProperty(fecha_salida);
@@ -39,14 +41,15 @@ public class Reserva {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Puedes ajustar el formato si lo necesitas
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy"); // Ajusta el formato si es necesario
 
         return "Reserva: " +
                 "ID = " + idReserva.get() +
-                "       Fecha de llegada = " + sdf.format(fecha_llegada.get()) +
-                "       Fecha de salida = " + sdf.format(fecha_salida.get()) +
+                "       Fecha de llegada = " + fecha_llegada.get().format(formatter) +
+                "       Fecha de salida = " + fecha_salida.get().format(formatter) +
                 '.';
     }
+
 
 
     public int getIdReserva() {
@@ -61,27 +64,27 @@ public class Reserva {
         this.idReserva.set(idReserva);
     }
 
-    public Date getFecha_llegada() {
+    public LocalDate getFecha_llegada() {
         return fecha_llegada.get();
     }
 
-    public ObjectProperty<Date> fecha_llegadaProperty() {
+    public ObjectProperty<LocalDate> fecha_llegadaProperty() {
         return fecha_llegada;
     }
 
-    public void setFecha_llegada(Date fecha_llegada) {
+    public void setFecha_llegada(LocalDate fecha_llegada) {
         this.fecha_llegada.set(fecha_llegada);
     }
 
-    public Date getFecha_salida() {
+    public LocalDate getFecha_salida() {
         return fecha_salida.get();
     }
 
-    public ObjectProperty<Date> fecha_salidaProperty() {
+    public ObjectProperty<LocalDate> fecha_salidaProperty() {
         return fecha_salida;
     }
 
-    public void setFecha_salida(Date fecha_salida) {
+    public void setFecha_salida(LocalDate fecha_salida) {
         this.fecha_salida.set(fecha_salida);
     }
 
