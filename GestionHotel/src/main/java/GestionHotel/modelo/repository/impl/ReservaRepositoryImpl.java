@@ -73,6 +73,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
                     // Conversión de java.sql.Date a LocalDate
                     java.sql.Date sqlFechaLlegada = rs.getDate("fecha_llegada");
+                    System.out.println(sqlFechaLlegada);
                     java.sql.Date sqlFechaSalida = rs.getDate("fecha_salida");
 
                     LocalDate fecha_llegada = sqlFechaLlegada != null ? sqlFechaLlegada.toLocalDate() : null;
@@ -100,17 +101,26 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
 
     public void addReserva(ReservaVO m) throws ExcepcionHotel {
-        try {
-            Connection conn = this.conexion.conectarBD();
-            this.stmt = conn.createStatement();
-            this.sentencia = "INSERT INTO reservas (id_reserva, fecha_llegada, fecha_salida, num_habitaciones, tipo_habitacion, fumador, tipo_alojamiento, dni_cliente) VALUES ('" + m.getIdReserva() + "','" + m.getFecha_llegada() + "','" + m.getFecha_salida() + "','" + m.getNum_habitaciones() + "','" + m.getTipo_habitacion() + "','" + m.isFumador() +  "','" + m.getTipo_alojamiento() + "','" + m.getDni_cliente() + "')";
-            this.stmt.executeUpdate(this.sentencia);
-            this.stmt.close();
-            this.conexion.desconectarBD(conn);
-        } catch (SQLException var3) {
-            throw new ExcepcionHotel("No se ha podido realizar la operación");
+        String sql = "INSERT INTO reservas (id_reserva, fecha_llegada, fecha_salida, num_habitaciones, tipo_habitacion, fumador, tipo_alojamiento, dni_cliente) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = this.conexion.conectarBD();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, m.getIdReserva());
+            stmt.setDate(2, java.sql.Date.valueOf(m.getFecha_llegada())); // Conversión adecuada para fechas
+            stmt.setDate(3, java.sql.Date.valueOf(m.getFecha_salida()));
+            stmt.setInt(4, m.getNum_habitaciones());
+            stmt.setString(5, m.getTipo_habitacion());
+            stmt.setBoolean(6, m.isFumador()); // Manejo de boolean directamente
+            stmt.setString(7, m.getTipo_alojamiento());
+            stmt.setString(8, m.getDni_cliente());
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new ExcepcionHotel("No se ha podido realizar la operación: " + e.getMessage());
         }
     }
+
 
     public void deleteReserva(int id_reserva) throws ExcepcionHotel {
         try {
@@ -125,16 +135,25 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         }
     }
 
-    public void editReserva(ReservaVO clienteVO) throws ExcepcionHotel {
-        try {
-            Connection conn = this.conexion.conectarBD();
-            this.stmt = conn.createStatement();
-            String sql = String.format("UPDATE reservas fecha_llegada = '%s', fecha_salida = '%s', num_habitaciones = '%s', tipo_habitacion = '%s', fumador = '%s', tipo_alojamiento = '%s', WHERE id_reserva = %d", clienteVO.getFecha_llegada(), clienteVO.getFecha_salida(), clienteVO.getNum_habitaciones(), clienteVO.getTipo_habitacion(), clienteVO.isFumador(), clienteVO.getTipo_alojamiento(), clienteVO.getIdReserva());
-            this.stmt.executeUpdate(sql);
-        } catch (Exception var4) {
-            throw new ExcepcionHotel("No se ha podido realizar la edición");
+    public void editReserva(ReservaVO reservaVO) throws ExcepcionHotel {
+        String sql = "UPDATE reservas SET fecha_llegada = ?, fecha_salida = ?, num_habitaciones = ?, tipo_habitacion = ?, fumador = ?, tipo_alojamiento = ?, dni_cliente = ? WHERE id_reserva = ?";
+
+        try (Connection conn = this.conexion.conectarBD();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setDate(1, java.sql.Date.valueOf(reservaVO.getFecha_llegada())); // Manejo de fechas
+            stmt.setDate(2, java.sql.Date.valueOf(reservaVO.getFecha_salida()));
+            stmt.setInt(3, reservaVO.getNum_habitaciones());
+            stmt.setString(4, reservaVO.getTipo_habitacion());
+            stmt.setBoolean(5, reservaVO.isFumador()); // Manejo de booleanos
+            stmt.setString(6, reservaVO.getTipo_alojamiento());
+            stmt.setString(7, reservaVO.getDni_cliente());
+            stmt.setInt(8, reservaVO.getIdReserva()); // `id_reserva` como string (ajustar si es otro tipo)
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new ExcepcionHotel("No se ha podido realizar la edición: " + e.getMessage());
         }
     }
+
 
     public int lastId() throws ExcepcionHotel {
         int lastMonedaId = 0;

@@ -4,10 +4,7 @@ import GestionHotel.modelo.ClienteVO;
 import GestionHotel.modelo.ExcepcionHotel;
 import GestionHotel.modelo.repository.ClienteRepository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class ClienteRepositoryImpl implements ClienteRepository {
@@ -59,29 +56,47 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         }
     }
 
-        public void deleteCliente(String dni) throws ExcepcionHotel {
+    public void deleteCliente(String dni) throws ExcepcionHotel {
         try {
             Connection conn = this.conexion.conectarBD();
             this.stmt = conn.createStatement();
-            Statement comando = conn.createStatement();
-            String sql = String.format("DELETE FROM clientes WHERE dni = %d", dni);
-            comando.executeUpdate(sql);
+            String sql = String.format("DELETE FROM clientes WHERE dni = '%s'", dni);
+            stmt.executeUpdate(sql);
             this.conexion.desconectarBD(conn);
         } catch (SQLException var5) {
             throw new ExcepcionHotel("No se ha podido realizar la eliminación");
         }
     }
 
+
     public void editCliente(ClienteVO clienteVO) throws ExcepcionHotel {
-        try {
-            Connection conn = this.conexion.conectarBD();
-            this.stmt = conn.createStatement();
-            String sql = String.format("UPDATE clientes SET nombre = '%s', apellidos = '%s', direccion = '%s', localidad = '%s', provincia = '%s' WHERE dni = %d", clienteVO.getNombre(), clienteVO.getApellidos(), clienteVO.getDireccion(), clienteVO.getLocalidad(), clienteVO.getProvincia(), clienteVO.getDni());
-            this.stmt.executeUpdate(sql);
-        } catch (Exception var4) {
-            throw new ExcepcionHotel("No se ha podido realizar la edición");
+        try (Connection conn = this.conexion.conectarBD()) {
+            String sql = "UPDATE clientes SET nombre = ?, apellidos = ?, direccion = ?, localidad = ?, provincia = ? WHERE dni = ?";
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                // Asignar valores a los parámetros
+                stmt.setString(1, clienteVO.getNombre());
+                stmt.setString(2, clienteVO.getApellidos());
+                stmt.setString(3, clienteVO.getDireccion());
+                stmt.setString(4, clienteVO.getLocalidad());
+                stmt.setString(5, clienteVO.getProvincia());
+                stmt.setString(6, clienteVO.getDni()); // Cambiar a stmt.setInt(6, clienteVO.getDni()) si dni es un entero
+
+                // Ejecutar la actualización
+                int filasActualizadas = stmt.executeUpdate();
+
+                // Mensaje para verificar el resultado
+                if (filasActualizadas > 0) {
+                    System.out.println("Registro actualizado correctamente.");
+                } else {
+                    System.out.println("No se encontró ningún registro con ese DNI.");
+                }
+            }
+        } catch (SQLException e) {
+            throw new ExcepcionHotel("No se ha podido realizar la edición"); // Incluye la excepción original como causa
         }
     }
+
 
     public int lastId() throws ExcepcionHotel {
         int lastMonedaId = 0;

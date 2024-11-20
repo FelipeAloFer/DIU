@@ -180,7 +180,8 @@ public class ClienteController {
             if (okClicked) {
                 try {
                     showPersonDetails(selectedCliente); // Actualiza los detalles en pantalla
-                    modeloCliente.modificarPersona(selectedCliente); // Guarda los cambios en la base de datos
+                    modeloCliente.modificarPersona(selectedCliente);// Guarda los cambios en la base de datos
+                    tablaClientes.refresh();
                 } catch (ExcepcionHotel e) {
                     System.out.println(e.getMessage());
                 }
@@ -236,7 +237,7 @@ public class ClienteController {
             if (okClicked) {
                 try {
                     reservaModelo.modificarReserva(selectedReserva); // Guarda los cambios en la base de datos
-                    // Si la lista no actualiza automáticamente, puedes hacerlo manualmente.
+                    listaReservas.refresh();
                 } catch (ExcepcionHotel e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Error al modificar la reserva: " + e.getMessage());
                     alert.show();
