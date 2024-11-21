@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="497.0" prefWidth="741.0" styleClass="background" stylesheets="@styles/DarkTheme.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.agenda.controller.Nuevo_Articulo_Controller">
+    <children>
+        <Label layoutX="315.0" layoutY="37.0" text="Nuevo Articulo">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+        <GridPane layoutX="159.0" layoutY="172.0" prefHeight="229.0" prefWidth="450.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Nombre" />
+                <Label text="Descripcion" GridPane.rowIndex="1" />
+                <Label text="Precio" GridPane.rowIndex="2" />
+                <Label text="Stock" GridPane.rowIndex="3" />
+                <TextField fx:id="nombreField" GridPane.columnIndex="1" />
+                <TextField fx:id="descripcionField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="precioField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="stockField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </children>
+        </GridPane>
+        <Label layoutX="153.0" layoutY="82.0" text="Numero de productos disponibles:" />
+        <Label fx:id="productosDisponiblesLabel" layoutX="416.0" layoutY="82.0" prefHeight="21.0" prefWidth="50.0" text="Label" />
+        <Button layoutX="272.0" layoutY="425.0" mnemonicParsing="false" onAction="#handleOk" text="Aceptar" />
+        <Button layoutX="387.0" layoutY="425.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+      <Label layoutX="153.0" layoutY="119.0" text="Numero de productos disponibles:" />
+      <ProgressBar fx:id="barra" layoutX="399.0" layoutY="121.0" prefWidth="200.0" progress="0.0" />
+    </children>
+</AnchorPane>

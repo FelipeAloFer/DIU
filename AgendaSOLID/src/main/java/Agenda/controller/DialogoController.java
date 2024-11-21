@@ -42,9 +42,6 @@ public class DialogoController {
 
     }
 
-    public ProgressBar setBarraProgreso () {
-        return barraProgresoEdit;
-    }
 
     public void actualizarBarraProgreso(ObservableList<Persona> lista) {
         barraProgresoEdit.setProgress(lista.size()*0.02);
