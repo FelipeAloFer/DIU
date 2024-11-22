@@ -19,7 +19,6 @@ public class Conexion {
     public Connection conectarBD() throws SQLException {
         try {
             Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Conexión establecida exitosamente.");
             return conn;
         } catch (SQLException ex) {
             System.out.println("\n--- SQLException capturada ---\n");
@@ -42,7 +41,6 @@ public class Conexion {
         if (conn != null) {
             try {
                 conn.close();
-                System.out.println("Conexión cerrada exitosamente.");
             } catch (SQLException ex) {
                 System.out.println("\n--- SQLException capturada al cerrar la conexión ---\n");
                 while (ex != null) {
