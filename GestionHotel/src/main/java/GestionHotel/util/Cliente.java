@@ -1,12 +1,8 @@
 package GestionHotel.util;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 
 public class Cliente {
     private StringProperty dni;
@@ -15,7 +11,6 @@ public class Cliente {
     private StringProperty direccion;
     private StringProperty localidad;
     private StringProperty provincia;
-    private ObservableList<Reserva> listaReservas;
 
     public Cliente() {
         this.dni = new SimpleStringProperty();
@@ -35,13 +30,6 @@ public class Cliente {
         this.provincia = new SimpleStringProperty(provincia);
     }
 
-    public ObservableList getListaReservas() {
-        return listaReservas;
-    }
-
-    public void setListaReservas(ObservableList listaReservas) {
-        this.listaReservas = listaReservas;
-    }
 
     public String getDni() {
         return dni.get();

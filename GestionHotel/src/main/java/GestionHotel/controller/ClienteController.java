@@ -8,7 +8,6 @@ import GestionHotel.modelo.ReservaModelo;
 import GestionHotel.util.Cliente;
 import GestionHotel.util.Reserva;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +16,13 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+
+//Esta clase controla la interfaz de gestión de clientes y reservas en un hotel.
+//Proporciona funcionalidades para añadir, editar, eliminar y buscar clientes y reservas,
+//así como para cambiar temas de la aplicación.
+
 public class ClienteController {
+
     private ClienteModelo modeloCliente;
     private ReservaModelo reservaModelo;
     private ArrayList<Cliente> clientes;
@@ -49,11 +54,15 @@ public class ClienteController {
     @FXML
     private ComboBox<String> temaComboBox;
 
+    @FXML
+    private TextField dniBuscarTextField;
+
     private ThemeManager themeManager;
 
-    // Constructor donde inyectamos el ThemeManager
+
+    //Constructor que inicializa el gestor de temas.
+
     public ClienteController() {
-        // Suponemos que el Stage se obtiene en algún punto de la aplicación, como en el main
         this.themeManager = new ThemeManagerImpl(new Stage()); // Ajusta esto para que se obtenga el stage actual
     }
 
@@ -61,53 +70,66 @@ public class ClienteController {
         this.themeManager = themeManager;
     }
 
-    public void setController(ClienteModelo modelo, ReservaModelo reservaModelo) {
-        this.modeloCliente = modelo;
-        this.reservaModelo = reservaModelo;  // Asegúrate de inicializar reservaModelo
-    }
-
-    public void setPersona() throws ExcepcionHotel {
-        clientes = modeloCliente.setClientes();
-    }
-
-    public void setMain(Main main) {
-        this.main = main;
-    }
-
-    public ArrayList<Cliente> getPersonas() {
-        return clientes;
-    }
-
-    public void setDatosPersonas(ObservableList<Cliente> lista){
-        tablaClientes.setItems(lista);
-    }
-
+    //Inicializa los componentes de la interfaz gráfica y enlaza las columnas de la tabla con los datos.
     @FXML
     private void initialize() {
-//        // Inicializamos el ComboBox con los valores de temas disponibles
-//        temaComboBox.getItems().addAll(
-//                "Tema Gris", "Tema Rojo", "Tema Azul", "Tema Verde", "Tema Arcoiris"
-//        );
-        // Seteamos el evento de cambio
         temaComboBox.setOnAction(this::handleThemeChange);
 
-        // Initialize the person table with the two columns.
+        // Inicializa las columnas de la tabla de clientes.
         nombreColumna.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         apellidosColumna.setCellValueFactory(
                 cellData -> new SimpleStringProperty(cellData.getValue().getApellidos()));
 
-        // Clear person details.
+        // Limpia los detalles del cliente.
         showPersonDetails(null);
 
-        // Listen for selection changes and show the person details when changed.
+        // Agrega un listener para actualizar los detalles del cliente seleccionado.
         tablaClientes.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
+
+    //Establece los modelos para clientes y reservas.
+
+    public void setController(ClienteModelo modelo, ReservaModelo reservaModelo) {
+        this.modeloCliente = modelo;
+        this.reservaModelo = reservaModelo;
+    }
+
+
+    //Devuelve la lista de clientes.
+
+    public ArrayList<Cliente> getPersonas() {
+        return clientes;
+    }
+
+
+    //Carga los clientes desde el modelo.
+
+    public void setPersona() throws ExcepcionHotel {
+        clientes = modeloCliente.setClientes();
+    }
+
+
+    //Asocia la clase principal al controlador.
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
+
+    //Establece los datos de los clientes en la tabla.
+
+    public void setDatosPersonas(ObservableList<Cliente> lista) {
+        tablaClientes.setItems(lista);
+    }
+
+
+    //Muestra los detalles de un cliente seleccionado en los campos de la interfaz.
+
     private void showPersonDetails(Cliente cliente) {
         if (cliente != null) {
-            // Rellenar los detalles del cliente
             dniLabel.setText(String.valueOf(cliente.getDni()));
             nombreLabel.setText(cliente.getNombre());
             apellidosLabel.setText(cliente.getApellidos());
@@ -115,22 +137,78 @@ public class ClienteController {
             localidadLabel.setText(cliente.getLocalidad());
             provinciaLabel.setText(cliente.getProvincia());
 
-            // Limpiar las reservas anteriores y establecer las nuevas
-            listaReservas.getItems().clear();  // Limpiar la lista de reservas
-            listaReservas.setItems(reservaModelo.setReservas(cliente.getDni()));  // Establecer nuevas reservas
+            // Limpia y actualiza la lista de reservas.
+            listaReservas.getItems().clear();
+            listaReservas.setItems(reservaModelo.setReservas(cliente.getDni()));
         } else {
-            // Si el cliente es nulo, limpiar todo
+            // Limpia todos los campos si no hay cliente seleccionado.
             dniLabel.setText("");
             nombreLabel.setText("");
             apellidosLabel.setText("");
             direccionLabel.setText("");
             localidadLabel.setText("");
             provinciaLabel.setText("");
-
-            // Limpiar las reservas
             listaReservas.getItems().clear();
         }
     }
+
+
+    //Maneja la creación de un nuevo cliente, abriendo un diálogo de edición.
+
+    @FXML
+    private void handleNewCliente() {
+        Cliente clienteNuevo = new Cliente();
+
+        // Si todo esta bien, abrir el dialogo para editar el cliente
+        boolean okClicked = main.showPersonEditDialog(clienteNuevo);
+        if (okClicked) {
+            // Verificar si el DNI es válido antes de continuar
+            if (!esDniValido(clienteNuevo.getDni())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "El DNI proporcionado no es válido.");
+                alert.show();
+                return; // Salir si el DNI no es válido
+            }
+            // Comprobar si el DNI ya existe
+            for (Cliente cliente : tablaClientes.getItems()) {
+                if (cliente.getDni().equals(clienteNuevo.getDni())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "El DNI ya existe. Por favor, ingrese un DNI diferente.");
+                    alert.show();
+                    return; // Salir si el DNI ya está en uso
+                }
+            }
+            try {
+                modeloCliente.añadirCliente(clienteNuevo);
+                tablaClientes.getItems().add(clienteNuevo);
+            } catch (ExcepcionHotel e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    //Maneja la edición de un cliente seleccionado.
+
+    @FXML
+    private void handleEditCliente() {
+        Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
+        if (selectedCliente != null) {
+            boolean okClicked = main.showPersonEditDialog(selectedCliente);
+            if (okClicked) {
+                try {
+                    showPersonDetails(selectedCliente);
+                    modeloCliente.modificarPersona(selectedCliente);
+                    tablaClientes.refresh();
+                } catch (ExcepcionHotel e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una persona para editarla");
+            alert.show();
+        }
+    }
+
+
+    //Maneja la eliminación de un cliente seleccionado.
 
     @FXML
     private Cliente handleDeleteCliente() {
@@ -138,8 +216,8 @@ public class ClienteController {
         if (selectedIndex >= 0) {
             Cliente selectedCliente = tablaClientes.getItems().get(selectedIndex);
             try {
-                modeloCliente.borrarPersona(selectedCliente); // Borra de la base de datos
-                tablaClientes.getItems().remove(selectedIndex); // Borra de la tabla
+                modeloCliente.borrarPersona(selectedCliente);
+                tablaClientes.getItems().remove(selectedIndex);
             } catch (ExcepcionHotel e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Error al eliminar la persona: " + e.getMessage());
                 alert.show();
@@ -153,74 +231,17 @@ public class ClienteController {
     }
 
 
-
-    @FXML
-    private void handleNewCliente() {
-        Cliente clienteNuevo = new Cliente();
-        boolean okClicked;
-        if (modeloCliente.setClientes() == null) {
-        } else {
-            okClicked = main.showPersonEditDialog(clienteNuevo);  // Llama al diálogo de edición
-            if (okClicked) {
-                try {
-                    modeloCliente.añadirCliente(clienteNuevo); // Guarda en la base de datos
-                    tablaClientes.getItems().add(clienteNuevo); // Añade a la tabla
-                } catch (ExcepcionHotel e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
-    }
-
-    @FXML
-    private void handleEditCliente() {
-        Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
-        if (selectedCliente != null) {
-            boolean okClicked = main.showPersonEditDialog(selectedCliente);  // Llama al diálogo de edición
-            if (okClicked) {
-                try {
-                    showPersonDetails(selectedCliente); // Actualiza los detalles en pantalla
-                    modeloCliente.modificarPersona(selectedCliente);// Guarda los cambios en la base de datos
-                    tablaClientes.refresh();
-                } catch (ExcepcionHotel e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una persona para editarla");
-            alert.show();
-        }
-    }
-
-    @FXML
-    private Reserva handleDeleteReserva() {
-        int selectedIndex = listaReservas.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
-            Reserva selectedReserva = (Reserva) listaReservas.getItems().get(selectedIndex); // Asegúrate de que el tipo sea consistente
-            try {
-                reservaModelo.borrarReserva(selectedReserva); // Borra la reserva de la base de datos
-                listaReservas.getItems().remove(selectedIndex); // Borra de la lista
-            } catch (ExcepcionHotel e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al eliminar la reserva: " + e.getMessage());
-                alert.show();
-            }
-            return selectedReserva;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una reserva para borrarla");
-            alert.show();
-            return null;
-        }
-    }
+    //Maneja la creación de una nueva reserva asociada al cliente seleccionado.
 
     @FXML
     private void handleNewReserva() {
         Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
-        Reserva reservaNueva = new Reserva(); // Cambia a la clase específica de reservas
-        boolean okClicked = main.showReservaEditDialog(selectedCliente.getDni(), reservaNueva); // Llama al diálogo de edición (debes crearlo)
+        Reserva reservaNueva = new Reserva();
+        boolean okClicked = main.showReservaEditDialog(selectedCliente.getDni(), reservaNueva);
         if (okClicked) {
             try {
-                reservaModelo.añadirReserva(reservaNueva); // Guarda en la base de datos
-                listaReservas.getItems().add(reservaNueva); // Añade a la lista
+                reservaModelo.añadirReserva(reservaNueva);
+                listaReservas.getItems().add(reservaNueva);
             } catch (ExcepcionHotel e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Error al añadir la reserva: " + e.getMessage());
                 alert.show();
@@ -228,15 +249,18 @@ public class ClienteController {
         }
     }
 
+
+    //Maneja la edición de una reserva seleccionada.
+
     @FXML
     private void handleEditReserva() {
         Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
         Reserva selectedReserva = (Reserva) listaReservas.getSelectionModel().getSelectedItem();
         if (selectedReserva != null) {
-            boolean okClicked = main.showReservaEditDialog(selectedCliente.getDni(), selectedReserva); // Llama al diálogo de edición
+            boolean okClicked = main.showReservaEditDialog(selectedCliente.getDni(), selectedReserva);
             if (okClicked) {
                 try {
-                    reservaModelo.modificarReserva(selectedReserva); // Guarda los cambios en la base de datos
+                    reservaModelo.modificarReserva(selectedReserva);
                     listaReservas.refresh();
                 } catch (ExcepcionHotel e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Error al modificar la reserva: " + e.getMessage());
@@ -250,8 +274,80 @@ public class ClienteController {
     }
 
 
+    //Maneja la eliminación de una reserva seleccionada.
+    @FXML
+    private Reserva handleDeleteReserva() {
+        int selectedIndex = listaReservas.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Reserva selectedReserva = (Reserva) listaReservas.getItems().get(selectedIndex);
+            try {
+                reservaModelo.borrarReserva(selectedReserva);
+                listaReservas.getItems().remove(selectedIndex);
+            } catch (ExcepcionHotel e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al eliminar la reserva: " + e.getMessage());
+                alert.show();
+            }
+            return selectedReserva;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Debes seleccionar una reserva para borrarla");
+            alert.show();
+            return null;
+        }
+    }
+
+
+    //Maneja la búsqueda de un cliente por su DNI en la tabla.
+    @FXML
+    private void handleBuscarDni() {
+        String dniBusqueda = dniBuscarTextField.getText().trim();
+        if (dniBusqueda.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Por favor, ingrese un DNI para buscar.");
+            alert.show();
+            return;
+        }
+
+        Cliente clienteEncontrado = null;
+        for (Cliente cliente : tablaClientes.getItems()) {
+            if (cliente.getDni().equals(dniBusqueda)) {
+                clienteEncontrado = cliente;
+                break;
+            }
+        }
+
+        if (clienteEncontrado != null) {
+            tablaClientes.getSelectionModel().select(clienteEncontrado);
+            showPersonDetails(clienteEncontrado);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "No se encontró un cliente con el DNI proporcionado.");
+            alert.show();
+        }
+    }
+
+    // Metodo para verificar la validez del DNI (por ejemplo, un DNI español)
+    private boolean esDniValido(String dni) {
+        // Comprobar que el DNI no está vacío y tiene el formato adecuado
+        if (dni == null || dni.length() != 9) {
+            return false;
+        }
+
+        // El formato del DNI español debe tener 8 números seguidos de una letra
+        String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+        String numero = dni.substring(0, 8);
+        char letra = dni.charAt(8);
+
+        try {
+            Integer.parseInt(numero); // Comprobar que los primeros 8 caracteres son números
+            int indice = Integer.parseInt(numero) % 23;
+            return letra == letras.charAt(indice); // Comprobar que la letra coincide con el cálculo
+        } catch (NumberFormatException e) {
+            return false; // Si no es un número válido, devolver false
+        }
+    }
+
+    //Maneja el cambio de tema de la aplicación basado en la selección del usuario.
+    @FXML
     private void handleThemeChange(ActionEvent event) {
-        String selectedTheme = temaComboBox.getValue();
+        String selectedTheme = temaComboBox.getSelectionModel().getSelectedItem();
         if (selectedTheme != null) {
             themeManager.applyTheme(selectedTheme);
         }

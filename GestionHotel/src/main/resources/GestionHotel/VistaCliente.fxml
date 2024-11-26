@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.collections.FXCollections?>
+
 <AnchorPane prefHeight="850.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionHotel.controller.ClienteController">
     <children>
         <SplitPane dividerPositions="0.15" prefHeight="780.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -28,8 +29,40 @@
                 <!-- Panel derecho principal -->
                 <AnchorPane prefHeight="780.0" prefWidth="550.0" styleClass="panel-derecha">
                     <children>
-                        <!-- Título de Datos Personales -->
-                        <Label styleClass="label-header" text="Datos Personales" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <!-- Contenedor superior para alineación horizontal -->
+                        <HBox alignment="CENTER_LEFT" spacing="85.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                            <children>
+                                <!-- Título de Datos Personales -->
+                                <Label styleClass="label-header" text="Datos Personales" />
+
+                                <!-- HBox para el buscador por DNI -->
+                                <HBox spacing="5">
+                                    <children>
+                                        <TextField fx:id="dniBuscarTextField" prefWidth="150.0" promptText="Introduce el DNI">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></TextField>
+                                        <Button onAction="#handleBuscarDni" styleClass="button-form" text="Buscar" />
+                                    </children>
+                           <HBox.margin>
+                              <Insets top="2.0" />
+                           </HBox.margin>
+                                </HBox>
+
+                                <!-- ComboBox para seleccionar el Tema -->
+                                <ComboBox fx:id="temaComboBox" prefWidth="150.0" promptText="Tema Jacobo" visibleRowCount="5">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="Tema Gris" />
+                                            <String fx:value="Tema Rojo" />
+                                            <String fx:value="Tema Azul" />
+                                            <String fx:value="Tema Verde" />
+                                            <String fx:value="Tema Jacobo" />
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                            </children>
+                        </HBox>
 
                         <!-- Contenedor de Datos Personales en estilo tarjeta -->
                         <VBox layoutX="10.0" layoutY="50.0" prefHeight="230.0" prefWidth="600.0" spacing="10" styleClass="card" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
@@ -91,19 +124,6 @@
                                 <Button onAction="#handleDeleteReserva" styleClass="button-form" text="Delete" />
                             </children>
                         </HBox>
-
-                        <!-- ComboBox para seleccionar el Tema -->
-                        <ComboBox fx:id="temaComboBox" layoutX="531.0" layoutY="15.0" prefWidth="150.0" promptText="Tema Jacobo" visibleRowCount="5" AnchorPane.rightAnchor="20.0">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Tema Gris" />
-                                    <String fx:value="Tema Rojo" />
-                                    <String fx:value="Tema Azul" />
-                                    <String fx:value="Tema Verde" />
-                                    <String fx:value="Tema Jacobo" />
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
                     </children>
                 </AnchorPane>
             </items>

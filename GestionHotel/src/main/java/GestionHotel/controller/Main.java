@@ -18,9 +18,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.layout.BorderPane;
-
 import java.io.IOException;
 import java.util.ArrayList;
+
+
+//Clase principal de la aplicación.
+//Se encarga de iniciar la interfaz gráfica y gestionar la vista principal y los diálogos de cliente y reserva.
 
 public class Main extends Application {
     Stage primaryStage;
@@ -32,6 +35,9 @@ public class Main extends Application {
     ClienteController clienteController;
     ObservableList<Cliente> clientes;
     ThemeManager themeManager;
+
+
+//Metodo principal que inicia la aplicación.
 
     @Override
     public void start(Stage primaryStage) throws ExcepcionHotel {
@@ -79,6 +85,7 @@ public class Main extends Application {
     }
 
 
+    //Muestra la vista principal de clientes.
 
     public void showClienteOverview() {
         try {
@@ -103,6 +110,9 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
     }
+
+
+    //Muestra el diálogo de edición de un cliente.
 
     public boolean showPersonEditDialog(Cliente cliente) {
         try {
@@ -138,6 +148,9 @@ public class Main extends Application {
         }
     }
 
+
+    //Muestra el diálogo de edición de una reserva.
+
     public boolean showReservaEditDialog(String dni_cliente, Reserva reserva) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -171,5 +184,4 @@ public class Main extends Application {
             return false;
         }
     }
-
 }

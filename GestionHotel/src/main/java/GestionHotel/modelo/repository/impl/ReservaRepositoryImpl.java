@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ReservaRepositoryImpl implements ReservaRepository {
     private final Conexion conexion = new Conexion();
@@ -21,6 +20,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
     public ReservaRepositoryImpl() {
     }
 
+    // Obtiene la lista completa de reservas desde la base de datos
     public ArrayList<ReservaVO> obtenerListaReservas() throws ExcepcionHotel {
         try {
             Connection conn = this.conexion.conectarBD();
@@ -56,7 +56,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         }
     }
 
-
+    // Obtiene las reservas de un cliente específico
     public ObservableList<ReservaVO> obtenerListaReservasCliente(String dni_cliente2) throws ExcepcionHotel {
         ObservableList<ReservaVO> reservas = FXCollections.observableArrayList();
 
@@ -73,7 +73,6 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
                     // Conversión de java.sql.Date a LocalDate
                     java.sql.Date sqlFechaLlegada = rs.getDate("fecha_llegada");
-                    System.out.println(sqlFechaLlegada);
                     java.sql.Date sqlFechaSalida = rs.getDate("fecha_salida");
 
                     LocalDate fecha_llegada = sqlFechaLlegada != null ? sqlFechaLlegada.toLocalDate() : null;
@@ -97,9 +96,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         return reservas;
     }
 
-
-
-
+    // Agrega una nueva reserva a la base de datos
     public void addReserva(ReservaVO m) throws ExcepcionHotel {
         String sql = "INSERT INTO reservas (id_reserva, fecha_llegada, fecha_salida, num_habitaciones, tipo_habitacion, fumador, tipo_alojamiento, dni_cliente) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -121,7 +118,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         }
     }
 
-
+    // Elimina una reserva de la base de datos por su id
     public void deleteReserva(int id_reserva) throws ExcepcionHotel {
         try {
             Connection conn = this.conexion.conectarBD();
@@ -135,6 +132,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         }
     }
 
+    // Edita una reserva existente en la base de datos
     public void editReserva(ReservaVO reservaVO) throws ExcepcionHotel {
         String sql = "UPDATE reservas SET fecha_llegada = ?, fecha_salida = ?, num_habitaciones = ?, tipo_habitacion = ?, fumador = ?, tipo_alojamiento = ?, dni_cliente = ? WHERE id_reserva = ?";
 
@@ -154,7 +152,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         }
     }
 
-
+    // Obtiene el último ID de reserva registrado
     public int lastId() throws ExcepcionHotel {
         int lastMonedaId = 0;
 

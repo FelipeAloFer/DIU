@@ -107,8 +107,8 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("/Agenda/BirthdayStatistics.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Birthday Statistics");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.setTitle("Ventana con Foto");
+            dialogStage.initModality(Modality.NONE);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
@@ -117,7 +117,7 @@ public class MainApp extends Application {
             BirthdayStatisticsController controller = loader.getController();
             controller.setPersonData(personData);
 
-            dialogStage.show();
+            dialogStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();

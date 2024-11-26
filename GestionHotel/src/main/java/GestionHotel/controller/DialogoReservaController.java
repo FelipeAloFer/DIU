@@ -7,6 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+
+//Controlador para la ventana de diálogo de edición de reserva.
+//Permite al usuario editar los detalles de una reserva y validar la entrada.
+
 public class DialogoReservaController {
 
     @FXML
@@ -37,29 +41,33 @@ public class DialogoReservaController {
     private Reserva reserva;
     private boolean okClicked = false;
 
+    //Metodo de inicialización, se llama automáticamente al cargar el FXML.
     @FXML
     private void initialize() {
-        // Configuración inicial del Spinner
+        // Configuración inicial del Spinner para el número de habitaciones.
         SpinnerValueFactory<Integer> valueFactory =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1); // Rango: 1 a 10, inicial: 1
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1); // Rango: 1 a 10, valor inicial: 1
         numeroHabitacionesSpinner.setValueFactory(valueFactory);
 
-        // Inicializa el ComboBox con los valores de tipo de habitación
+        // Inicializa el ComboBox con las opciones de tipo de habitación.
         ObservableList<String> tipoHabitacionOptions = FXCollections.observableArrayList(
                 "DOBLE_DE_USO_INDIVIDUAL", "DOBLE", "JUNIOR_SUITE", "SUITE"
         );
         tipoHabitacionComboBox.setItems(tipoHabitacionOptions);
 
+        // Inicializa el ComboBox con las opciones de tipo de alojamiento.
         ObservableList<String> tipoAlojamientoOptions = FXCollections.observableArrayList(
                 "ALOJAMIENTO_Y_DESAYUNO", "MEDIA_PENSION", "PENSION_COMPLETA"
         );
         tipoAlojamientoComboBox.setItems(tipoAlojamientoOptions);
     }
 
+    // Establece la ventana de diálogo.
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
+    // Establece la reserva a editar.
     public void setReserva(String dni_cliente, Reserva reserva) {
         this.reserva = reserva;
 
@@ -73,10 +81,14 @@ public class DialogoReservaController {
         tipoAlojamientoComboBox.setValue(reserva.getTipo_alojamiento());
     }
 
+    // Indica si se ha presionado el botón OK.
+    // Devuelve true si se ha presionado OK, false de lo contrario.
     public boolean isOkClicked() {
         return okClicked;
     }
 
+    // Maneja la acción del botón OK.
+    // Si la entrada es válida, actualiza la reserva y cierra la ventana.
     @FXML
     private void handleOk() {
         if (isInputValid()) {
@@ -94,11 +106,15 @@ public class DialogoReservaController {
         }
     }
 
+    // Maneja la acción del botón Cancelar.
+    // Cierra la ventana sin hacer cambios.
     @FXML
     private void handleCancel() {
         dialogStage.close();
     }
 
+    // Valida la entrada del usuario.
+    // Devuelve true si todos los campos son válidos, false si alguno no lo es.
     private boolean isInputValid() {
         String errorMessage = "";
 
@@ -127,7 +143,7 @@ public class DialogoReservaController {
         if (errorMessage.isEmpty()) {
             return true;
         } else {
-            // Mostrar el mensaje de error
+            // Mostrar el mensaje de error en un cuadro de alerta.
             Alert alert = new Alert(Alert.AlertType.ERROR, errorMessage);
             alert.showAndWait();
             return false;
