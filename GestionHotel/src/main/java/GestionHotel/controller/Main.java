@@ -28,8 +28,8 @@ import java.util.ArrayList;
 public class Main extends Application {
     Stage primaryStage;
     BorderPane vistaRaiz;
-    ClienteModelo modelo = new ClienteModelo();
-    ReservaModelo reserva = new ReservaModelo();
+    ClienteModelo modeloCliente = new ClienteModelo();
+    ReservaModelo modeloReserva = new ReservaModelo();
     ClienteRepositoryImpl clienteRepositoryImpl = new ClienteRepositoryImpl();
     ReservaRepositoryImpl reservaRepositoryImpl = new ReservaRepositoryImpl();
     ClienteController clienteController;
@@ -63,8 +63,8 @@ public class Main extends Application {
             themeManager.applyTheme("Tema Jacobo");
 
             // Mostrar la vista de personas
-            modelo.setHotelModelo(clienteRepositoryImpl);
-            reserva.setReservaModelo(reservaRepositoryImpl);
+            modeloCliente.setHotelModelo(clienteRepositoryImpl);
+            modeloReserva.setReservaModelo(reservaRepositoryImpl);
             showClienteOverview();
             primaryStage.show();
 
@@ -99,7 +99,7 @@ public class Main extends Application {
 
             // Si necesitas interactuar con el controlador:
             clienteController = loader.getController();
-            clienteController.setController(modelo, reserva);
+            clienteController.setController(modeloCliente, modeloReserva);
             clienteController.setPersona();
             clienteController.setMain(this);
             clienteController.setThemeManager(themeManager);  // Pasar el ThemeManager al controlador
@@ -151,14 +151,14 @@ public class Main extends Application {
 
     //Muestra el diálogo de edición de una reserva.
 
-    public boolean showReservaEditDialog(String dni_cliente, Reserva reserva) {
+    public boolean showReservaEditDialog(String dni_cliente, Reserva reserva, int valor) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/GestionHotel/VistaDialogoReserva.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Añadir/Editar reserva");
+            dialogStage.setTitle("Añadir reserva");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
 
@@ -171,6 +171,44 @@ public class Main extends Application {
             // Configura el controlador
             DialogoReservaController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setModelo(modeloReserva);
+
+            controller.setReserva(dni_cliente, reserva, 0);
+
+            dialogStage.showAndWait();
+
+            // Desregistra la escena al cerrarla
+            themeManager.unregisterScene(scene);
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean showReservaEditDialog(String dni_cliente, Reserva reserva) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/GestionHotel/VistaDialogoReserva.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar reserva");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Registra la escena en ThemeManager
+            themeManager.registerScene(scene);
+
+            // Configura el controlador
+            DialogoReservaController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setModelo(modeloReserva);
+
             controller.setReserva(dni_cliente, reserva);
 
             dialogStage.showAndWait();

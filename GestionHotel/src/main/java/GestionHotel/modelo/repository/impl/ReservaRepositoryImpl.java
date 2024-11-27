@@ -120,17 +120,16 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
     // Elimina una reserva de la base de datos por su id
     public void deleteReserva(int id_reserva) throws ExcepcionHotel {
-        try {
-            Connection conn = this.conexion.conectarBD();
-            this.stmt = conn.createStatement();
-            Statement comando = conn.createStatement();
-            String sql = String.format("DELETE FROM reservas WHERE id_reserva = %d", id_reserva);
-            comando.executeUpdate(sql);
-            this.conexion.desconectarBD(conn);
-        } catch (SQLException var5) {
+        String sql = "DELETE FROM reservas WHERE id_reserva = ?";
+        try (Connection conn = this.conexion.conectarBD();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id_reserva);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
             throw new ExcepcionHotel("No se ha podido realizar la eliminación");
         }
     }
+
 
     // Edita una reserva existente en la base de datos
     public void editReserva(ReservaVO reservaVO) throws ExcepcionHotel {
@@ -154,18 +153,17 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
     // Obtiene el último ID de reserva registrado
     public int lastId() throws ExcepcionHotel {
-        int lastMonedaId = 0;
-
-        try {
-            Connection conn = this.conexion.conectarBD();
-            Statement comando = conn.createStatement();
-
-            for(ResultSet registro = comando.executeQuery("SELECT id_reserva FROM reservas ORDER BY id_reserva DESC LIMIT 1"); registro.next(); lastMonedaId = registro.getInt("codigo")) {
+        String sql = "SELECT id_reserva FROM reservas ORDER BY id_reserva DESC LIMIT 1";
+        try (Connection conn = this.conexion.conectarBD();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getInt("id_reserva");
             }
-
-            return lastMonedaId;
-        } catch (SQLException var5) {
-            throw new ExcepcionHotel("No se ha podido realizar la busqueda del ID");
+            return 0; // Retorna 0 si no hay registros.
+        } catch (SQLException e) {
+            throw new ExcepcionHotel("No se pudo obtener el último ID");
         }
     }
+
 }

@@ -237,7 +237,7 @@ public class ClienteController {
     private void handleNewReserva() {
         Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
         Reserva reservaNueva = new Reserva();
-        boolean okClicked = main.showReservaEditDialog(selectedCliente.getDni(), reservaNueva);
+        boolean okClicked = main.showReservaEditDialog(selectedCliente.getDni(), reservaNueva, 0);
         if (okClicked) {
             try {
                 reservaModelo.añadirReserva(reservaNueva);

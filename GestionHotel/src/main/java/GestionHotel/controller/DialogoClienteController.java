@@ -56,6 +56,14 @@ public class DialogoClienteController {
         provinciaField.setText(cliente.getProvincia());
     }
 
+    public void handleLimpiar() {
+        nombreField.clear();
+        apellidosField.clear();
+        direccionField.clear();
+        localidadField.clear();
+        provinciaField.clear();
+    }
+
     // Indica si se ha presionado el botón OK.
     // Devuelve true si se ha presionado OK, false de lo contrario.
     public boolean isOkClicked() {

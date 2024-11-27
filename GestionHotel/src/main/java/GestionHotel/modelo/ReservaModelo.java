@@ -1,16 +1,11 @@
 package GestionHotel.modelo;
 
-import GestionHotel.modelo.repository.ClienteRepository;
 import GestionHotel.modelo.repository.ReservaRepository;
-import GestionHotel.util.Cliente;
-import GestionHotel.util.ClienteUtil;
 import GestionHotel.util.Reserva;
 import GestionHotel.util.ReservaUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-
-import java.util.ArrayList;
 
 public class ReservaModelo {
     ReservaRepository reservaRepository;
@@ -48,5 +43,10 @@ public class ReservaModelo {
         ReservaVO reservaSelectedVO = ReservaUtil.conversionReservaVO(selectedReserva);
         // Actualizamos en la base de datos
         reservaRepository.editReserva(reservaSelectedVO);
+    }
+
+    public int ultimoIDReserva() throws ExcepcionHotel {
+        int ultimoID = reservaRepository.lastId();
+        return ultimoID;
     }
 }

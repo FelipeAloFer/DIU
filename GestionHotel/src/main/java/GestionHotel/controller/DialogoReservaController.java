@@ -1,11 +1,15 @@
 package GestionHotel.controller;
 
+import GestionHotel.modelo.ClienteModelo;
+import GestionHotel.modelo.ReservaModelo;
 import GestionHotel.util.Reserva;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
 
 
 //Controlador para la ventana de diálogo de edición de reserva.
@@ -40,6 +44,7 @@ public class DialogoReservaController {
     private Stage dialogStage;
     private Reserva reserva;
     private boolean okClicked = false;
+    private ReservaModelo reservaModelo;
 
     //Metodo de inicialización, se llama automáticamente al cargar el FXML.
     @FXML
@@ -67,6 +72,36 @@ public class DialogoReservaController {
         this.dialogStage = dialogStage;
     }
 
+    public void setModelo(ReservaModelo modelo) {
+        this.reservaModelo = modelo;
+    }
+
+    // Establece la reserva al crearla nueva
+    public void setReserva(String dni_cliente, Reserva reserva, int valor) {
+        this.reserva = reserva;
+
+        // Asigna el DNI del cliente al campo de texto
+        dniClienteField.setText(dni_cliente);
+
+        idReservaField.setText(String.valueOf(reservaModelo.ultimoIDReserva() + 1));
+
+        fechaLlegadaPicker.setValue(LocalDate.now());
+        fechaSalidaPicker.setValue(LocalDate.now().plusDays(2));
+
+        numeroHabitacionesSpinner.getValueFactory().setValue(1);
+
+        if (!tipoHabitacionComboBox.getItems().isEmpty()) {
+            tipoHabitacionComboBox.setValue(tipoHabitacionComboBox.getItems().get(0)); // Selecciona el primero
+        }
+
+        fumadorCheckBox.setSelected(false);
+
+        if (!tipoAlojamientoComboBox.getItems().isEmpty()) {
+            tipoAlojamientoComboBox.setValue(tipoAlojamientoComboBox.getItems().get(0)); // Selecciona el primero
+        }
+    }
+
+
     // Establece la reserva a editar.
     public void setReserva(String dni_cliente, Reserva reserva) {
         this.reserva = reserva;
@@ -80,6 +115,23 @@ public class DialogoReservaController {
         fumadorCheckBox.setSelected(reserva.isFumador());
         tipoAlojamientoComboBox.setValue(reserva.getTipo_alojamiento());
     }
+
+    public void handleLimpiar() {
+        // Limpiar los DatePickers
+        fechaLlegadaPicker.setValue(null);
+        fechaSalidaPicker.setValue(null);
+
+        // Limpiar los Spinners (si están usando un valor nulo como "vacío")
+        numeroHabitacionesSpinner.getValueFactory().setValue(null);
+
+        // Limpiar los ComboBoxes
+        tipoHabitacionComboBox.getSelectionModel().clearSelection();
+        tipoAlojamientoComboBox.getSelectionModel().clearSelection();
+
+        // Desmarcar el CheckBox
+        fumadorCheckBox.setSelected(false);
+    }
+
 
     // Indica si se ha presionado el botón OK.
     // Devuelve true si se ha presionado OK, false de lo contrario.
@@ -120,9 +172,6 @@ public class DialogoReservaController {
 
         if (dniClienteField.getText() == null || dniClienteField.getText().isEmpty()) {
             errorMessage += "DNI no válido!\n";
-        }
-        if (idReservaField.getText() == null || idReservaField.getText().isEmpty()) {
-            errorMessage += "ID no válido!\n";
         }
         if (fechaLlegadaPicker.getValue() == null) {
             errorMessage += "Fecha de llegada no válida!\n";
