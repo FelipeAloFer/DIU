@@ -61,7 +61,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#66bb6a, 50%);
+    -fx-background-color: #388e3c;
 }
 
 .menu-bar .label {
@@ -81,18 +81,6 @@
     -fx-background-color: #ffffff;
     -fx-text-fill: #66bb6a; /* Verde medio */
     -fx-border-color: #a5d6a7; /* Verde claro */
-}
-
-.button {
-    -fx-padding: 5 22 5 22;
-    -fx-border-color: #a5d6a7; /* Verde claro */
-    -fx-border-width: 2;
-    -fx-background-radius: 0;
-    -fx-background-color: #66bb6a; /* Verde medio */
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
-    -fx-text-fill: #ffffff; /* Blanco */
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .button:hover {
@@ -306,3 +294,70 @@
     -fx-background-color: #388e3c; /* Verde oscuro para el fondo del banner */
 }
 
+.label-header-dialog {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-background-color: #388e3c;
+}
+
+.label-header {
+    -fx-font-size: 24px;
+    -fx-text-fill: #388e3c;
+}
+
+/*HASTA AQUI DE MOSCATELL*/
+
+.menu-button {
+    -fx-background-color: #388e3c; /* Verde medio */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-background-radius: 10px; /* Bordes redondeados */
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2); /* Sombra suave */
+    -fx-border-color: #ffffff; /* Verde oscuro como borde */
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #81c784; /* Verde más claro al pasar el ratón */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 3, 3); /* Sombra más pronunciada */
+}
+
+.menu-button:pressed {
+    -fx-background-color: #388e3c; /* Verde oscuro al pulsar */
+    -fx-text-fill: #ffffff; /* Blanco */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0, 2, 2); /* Sombra menos pronunciada */
+    -fx-border-color: #1b5e20; /* Verde muy oscuro como borde */
+}
+
+.menu-button .text {
+    -fx-fill: #ffffff; /* Blanco */
+}
+
+.menu-button:hover .text {
+    -fx-fill: #ffffff; /* Blanco */
+}
+
+.menu-item {
+    -fx-background-color: #388e3c; /* Verde medio */
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px; /* Espaciado dentro del elemento */
+}
+
+.menu-item:hover {
+    -fx-background-color: #81c784; /* Verde más claro al pasar el ratón */
+}
+
+.menu-item:focused {
+    -fx-background-color: #388e3c; /* Verde oscuro al estar enfocado */
+}
+
+.menu-item:pressed {
+    -fx-background-color: #1b5e20; /* Verde muy oscuro al pulsar */
+}
+
+.menu-item .text {
+    -fx-fill: #ffffff; /* Blanco */
+}

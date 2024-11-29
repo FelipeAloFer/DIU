@@ -121,9 +121,6 @@ public class DialogoReservaController {
         fechaLlegadaPicker.setValue(null);
         fechaSalidaPicker.setValue(null);
 
-        // Limpiar los Spinners (si están usando un valor nulo como "vacío")
-        numeroHabitacionesSpinner.getValueFactory().setValue(null);
-
         // Limpiar los ComboBoxes
         tipoHabitacionComboBox.getSelectionModel().clearSelection();
         tipoAlojamientoComboBox.getSelectionModel().clearSelection();

@@ -54,7 +54,7 @@
                         <Insets left="5.0" />
                     </padding>
                 </Label>
-                <TextField fx:id="idReservaField" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+                <TextField fx:id="idReservaField" editable="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="dniClienteField" prefWidth="200.0" GridPane.columnIndex="1" />
                 <Label styleClass="label-form" text="ID Reserva" GridPane.rowIndex="1">
                     <padding>
@@ -77,13 +77,13 @@
                 <DatePicker fx:id="fechaSalidaPicker" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <children>
-                        <Spinner fx:id="numeroHabitacionesSpinner" min="1" max="10" initialValue="1" />
+                        <Spinner fx:id="numeroHabitacionesSpinner" initialValue="1" max="10" min="1" />
                     </children>
                 </HBox>
             </children>
         </GridPane>
         <Label alignment="CENTER" layoutX="232.0" layoutY="20.0" styleClass="label-header-dialog" text="Edición de Reserva" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-        <Button layoutX="350.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleLimpiar" styleClass="button-form" text="Limpiar" />
+        <Button layoutX="37.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleLimpiar" styleClass="button-form" text="Limpiar" />
         <Button layoutX="450.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleOk" styleClass="button-form" text="OK" />
         <Button layoutX="523.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleCancel" styleClass="button-form" text="Cancel" />
     </children>

@@ -61,7 +61,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#b3e5fc, 50%);
+    -fx-background-color: #0277bd;
 }
 
 .menu-bar .label {
@@ -304,4 +304,59 @@
 
 .banner-fondo {
     -fx-background-color: #0277bd;
+}
+
+.menu-button {
+    -fx-background-color: #0277bd; /* Azul oscuro */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-background-radius: 10px; /* Bordes redondeados */
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2); /* Sombra suave */
+    -fx-border-color: #b3e5fc; /* Azul claro como borde */
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #0288d1; /* Azul más oscuro al pasar el ratón */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 3, 3); /* Sombra más pronunciada */
+}
+
+.menu-button:pressed {
+    -fx-background-color: #01579b; /* Azul aún más oscuro al pulsar */
+    -fx-text-fill: #ffffff; /* Blanco para el texto */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0, 2, 2); /* Sombra menos pronunciada */
+    -fx-border-color: #81d4fa; /* Azul medio como borde */
+}
+
+.menu-button .text {
+    -fx-fill: #ffffff; /* Texto blanco */
+}
+
+.menu-button:hover .text {
+    -fx-fill: #ffffff; /* Mantener el texto blanco en hover */
+}
+
+.menu-item {
+    -fx-background-color: #0277bd; /* Fondo azul oscuro */
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px; /* Espaciado dentro del elemento */
+}
+
+.menu-item:hover {
+    -fx-background-color: #0288d1; /* Fondo azul más oscuro al pasar el ratón */
+}
+
+.menu-item:focused {
+    -fx-background-color: #81d4fa; /* Azul medio al estar enfocado */
+}
+
+.menu-item:pressed {
+    -fx-background-color: #01579b; /* Azul más oscuro al pulsar */
+}
+
+.menu-item .text {
+    -fx-fill: #ffffff; /* Texto blanco */
 }

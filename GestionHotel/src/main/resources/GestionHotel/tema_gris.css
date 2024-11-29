@@ -61,7 +61,7 @@
 }
 
 .context-menu {
-    -fx-background-color: derive(#a9a9a9, 50%);
+    -fx-background-color: #696969;
 }
 
 .menu-bar .label {
@@ -304,4 +304,59 @@
 
 .banner-fondo {
     -fx-background-color: #808080;
+}
+
+.menu-button {
+    -fx-background-color: #808080; /* Gris oscuro */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+    -fx-border-color: #a9a9a9; /* Gris medio */
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #a9a9a9; /* Gris medio al pasar el ratón */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 3, 3);
+}
+
+.menu-button:pressed {
+    -fx-background-color: #696969; /* Gris más oscuro al pulsar */
+    -fx-text-fill: #f5f5f5; /* Gris muy claro */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0, 2, 2);
+    -fx-border-color: #dcdcdc; /* Gris muy claro como borde */
+}
+
+.menu-button .text {
+    -fx-fill: #f5f5f5; /* Gris muy claro */
+}
+
+.menu-button:hover .text {
+    -fx-fill: #f5f5f5; /* Gris muy claro */
+}
+
+.menu-item {
+    -fx-background-color: #696969; /* Gris más oscuro */
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+}
+
+.menu-item:hover {
+    -fx-background-color: #808080; /* Gris oscuro al pasar el ratón */
+}
+
+.menu-item:focused {
+    -fx-background-color: #a9a9a9; /* Gris medio al estar enfocado */
+}
+
+.menu-item:pressed {
+    -fx-background-color: #dcdcdc; /* Gris muy claro al pulsar */
+}
+
+.menu-item .text {
+    -fx-fill: #f5f5f5; /* Gris muy claro */
 }
