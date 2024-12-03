@@ -18,15 +18,18 @@
             </Label>
              <MenuButton layoutX="240.0" layoutY="7.0" mnemonicParsing="false" styleClass="menu-button" text="Habitaciones" textFill="WHITE">
                  <items>
-                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Individual" />
-                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Doble" />
-                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Suite" />
-                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Junior Suite" />
+                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Individual" onAction="#abrirMostrarHabitaciones"/>
+                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Doble" onAction="#abrirMostrarHabitaciones"/>
+                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Suite" onAction="#abrirMostrarHabitaciones"/>
+                     <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Junior Suite" onAction="#abrirMostrarHabitaciones"/>
                  </items>
              </MenuButton>
-            <MenuButton layoutX="433.0" layoutY="7.0" mnemonicParsing="false" styleClass="menu-button" text="Aforo" textFill="WHITE">
+            <MenuButton layoutX="433.0" layoutY="7.0" mnemonicParsing="false" styleClass="menu-button" text="Estadisticas" textFill="WHITE">
                <items>
-                  <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Estadisticas" />
+                   <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Individual" onAction="#abrirMostrarEstadisticas"/>
+                   <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Doble" onAction="#abrirMostrarEstadisticas"/>
+                   <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Suite" onAction="#abrirMostrarEstadisticas"/>
+                   <MenuItem styleClass="menu-item" mnemonicParsing="false" text="Junior Suite" onAction="#abrirMostrarEstadisticas"/>
                </items>
             </MenuButton>
          </children>

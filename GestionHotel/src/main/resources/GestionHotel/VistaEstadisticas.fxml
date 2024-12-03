@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="GestionHotel.controller.EstadisticasController">
+    <AreaChart fx:id="areaChart" prefWidth="800" prefHeight="400" styleClass="chart-style">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis"/>
+        </yAxis>
+    </AreaChart>
+</AnchorPane>

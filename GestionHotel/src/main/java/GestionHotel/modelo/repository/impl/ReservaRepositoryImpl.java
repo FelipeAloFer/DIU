@@ -166,4 +166,90 @@ public class ReservaRepositoryImpl implements ReservaRepository {
         }
     }
 
+    private int contarPorTipoDeHabitacion(String tipoDeHabitacion) throws ExcepcionHotel {
+        int total = 0;
+        String consulta = "SELECT COUNT(*) AS total " +
+                "FROM reservas " +
+                "WHERE tipo_habitacion = ? AND fecha_Llegada <= CURRENT_DATE AND fecha_Salida >= CURRENT_DATE";
+
+        try (Connection conexion = this.conexion.conectarBD();
+             PreparedStatement sentencia = conexion.prepareStatement(consulta)) {
+
+            sentencia.setString(1, tipoDeHabitacion);
+
+            try (ResultSet resultados = sentencia.executeQuery()) {
+                if (resultados.next()) {
+                    total = resultados.getInt("total");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+
+    @Override
+    public int obtenerHabitacionesDobles() throws ExcepcionHotel {
+        return contarPorTipoDeHabitacion("Doble");
+    }
+
+    @Override
+    public int obtenerHabitacionesIndividuales() throws ExcepcionHotel {
+        return contarPorTipoDeHabitacion("Doble_de_uso_individual");
+    }
+
+    @Override
+    public int obtenerHabitacionesJunior() throws ExcepcionHotel {
+        return contarPorTipoDeHabitacion("Junior_suite");
+    }
+
+    @Override
+    public int obtenerHabitacionesSuite() throws ExcepcionHotel {
+        return contarPorTipoDeHabitacion("Suite");
+    }
+
+    @Override
+    public int[] contarMeses(String tipoHabitacion) throws ExcepcionHotel {
+        int[] cuentaPorMes = new int[12];
+
+        String sql = "SELECT m.mes, COUNT(r.id_reserva) AS total " +
+                "FROM ( " +
+                "    SELECT 1 AS mes UNION ALL " +
+                "    SELECT 2 UNION ALL " +
+                "    SELECT 3 UNION ALL " +
+                "    SELECT 4 UNION ALL " +
+                "    SELECT 5 UNION ALL " +
+                "    SELECT 6 UNION ALL " +
+                "    SELECT 7 UNION ALL " +
+                "    SELECT 8 UNION ALL " +
+                "    SELECT 9 UNION ALL " +
+                "    SELECT 10 UNION ALL " +
+                "    SELECT 11 UNION ALL " +
+                "    SELECT 12 " +
+                ") AS m " +
+                "LEFT JOIN reservas r ON MONTH(r.fecha_llegada) = m.mes AND r.tipo_habitacion = ? " +
+                "GROUP BY m.mes " +
+                "ORDER BY m.mes";
+
+
+        try (Connection conn = this.conexion.conectarBD();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, tipoHabitacion);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int mes = rs.getInt("mes") - 1;
+                    cuentaPorMes[mes] = rs.getInt("total");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ExcepcionHotel("Error al contar las reservas por mes.");
+        }
+
+        return cuentaPorMes;
+    }
+
 }

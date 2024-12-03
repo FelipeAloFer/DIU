@@ -18,5 +18,16 @@ public interface ReservaRepository {
 
     void editReserva(ReservaVO var1) throws ExcepcionHotel;
 
+    int obtenerHabitacionesDobles() throws ExcepcionHotel;
+
+    int obtenerHabitacionesIndividuales() throws ExcepcionHotel;
+
+    int obtenerHabitacionesJunior() throws ExcepcionHotel;
+
+    int obtenerHabitacionesSuite() throws ExcepcionHotel;
+
     int lastId() throws ExcepcionHotel;
+
+    int[] contarMeses(String tipo_habitacion) throws ExcepcionHotel;
+
 }

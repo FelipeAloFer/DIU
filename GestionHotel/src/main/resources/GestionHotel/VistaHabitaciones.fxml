@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionHotel.controller.HabitacionesController">
+
+    <!-- Título del deslizable -->
+    <Label fx:id="titulo" style="-fx-font-size: 24; -fx-font-weight: bold;" text="Explora nuestras habitaciones" />
+
+    <!-- Contenedor HBox para los botones y la imagen -->
+    <HBox alignment="CENTER" spacing="20" style="-fx-padding: 10;">
+        <!-- Botón de navegación izquierda -->
+        <Button fx:id="botonIzquierda" style="-fx-font-size: 24;" text="⟨" HBox.hgrow="ALWAYS" />
+
+        <!-- Contenedor para la imagen -->
+        <ImageView fx:id="vistaImagen" fitHeight="300" fitWidth="400" preserveRatio="true" />
+
+        <!-- Botón de navegación derecha -->
+        <Button fx:id="botonDerecha" style="-fx-font-size: 24;" text="⟩" HBox.hgrow="ALWAYS" />
+    </HBox>
+
+    <!-- Botones adicionales -->
+    <HBox alignment="CENTER" spacing="30.0">
+        <ProgressBar fx:id="barraProgreso" prefWidth="200.0" progress="0.0" />
+        <Button fx:id="botonVolver" onAction="#volverPantallaAnterior" style="-fx-font-size: 16;" text="Volver" />
+    </HBox>
+
+</VBox>

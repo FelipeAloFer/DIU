@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -32,6 +33,7 @@ public class Main extends Application {
     ReservaModelo modeloReserva = new ReservaModelo();
     ClienteRepositoryImpl clienteRepositoryImpl = new ClienteRepositoryImpl();
     ReservaRepositoryImpl reservaRepositoryImpl = new ReservaRepositoryImpl();
+    HotelController hotelController;
     ClienteController clienteController;
     ObservableList<Cliente> clientes;
     ThemeManager themeManager;
@@ -46,7 +48,8 @@ public class Main extends Application {
 
             // Cargar el archivo VistaRaiz.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHotel/VistaRaiz.fxml"));
-            vistaRaiz = loader.load();  // Asumimos que VistaRaiz.fxml tiene un BorderPane como raíz
+            vistaRaiz = loader.load(); // Asumimos que VistaRaiz.fxml tiene un BorderPane como raíz
+            hotelController = loader.getController();
 
             // Crear la escena con vistaRaiz
             Scene scene = new Scene(vistaRaiz);  // Usamos vistaRaiz para la escena
@@ -62,10 +65,20 @@ public class Main extends Application {
             // Aplicar el tema predeterminado
             themeManager.applyTheme("Tema Jacobo");
 
+
             // Mostrar la vista de personas
             modeloCliente.setHotelModelo(clienteRepositoryImpl);
+
             modeloReserva.setReservaModelo(reservaRepositoryImpl);
+            modeloReserva.obtenerHabitacionesDobles();
+            modeloReserva.obtenerHabitacionesIndividuales();
+            modeloReserva.obtenerHabitacionesJunior();
+            modeloReserva.obtenerHabitacionesSuite();
+
+            hotelController.setMain(this);
+
             showClienteOverview();
+
             primaryStage.show();
 
             // Obtener la lista de personas
@@ -149,8 +162,7 @@ public class Main extends Application {
     }
 
 
-    //Muestra el diálogo de edición de una reserva.
-
+    //Muestra el diálogo de añadir de una reserva.
     public boolean showReservaEditDialog(String dni_cliente, Reserva reserva, int valor) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -175,6 +187,12 @@ public class Main extends Application {
 
             controller.setReserva(dni_cliente, reserva, 0);
 
+            modeloReserva.setReservaModelo(reservaRepositoryImpl);
+            modeloReserva.obtenerHabitacionesDobles();
+            modeloReserva.obtenerHabitacionesIndividuales();
+            modeloReserva.obtenerHabitacionesJunior();
+            modeloReserva.obtenerHabitacionesSuite();
+
             dialogStage.showAndWait();
 
             // Desregistra la escena al cerrarla
@@ -187,6 +205,7 @@ public class Main extends Application {
         }
     }
 
+    //Muestra el diálogo de editar de una reserva.
     public boolean showReservaEditDialog(String dni_cliente, Reserva reserva) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -211,6 +230,12 @@ public class Main extends Application {
 
             controller.setReserva(dni_cliente, reserva);
 
+            modeloReserva.setReservaModelo(reservaRepositoryImpl);
+            modeloReserva.obtenerHabitacionesDobles();
+            modeloReserva.obtenerHabitacionesIndividuales();
+            modeloReserva.obtenerHabitacionesJunior();
+            modeloReserva.obtenerHabitacionesSuite();
+
             dialogStage.showAndWait();
 
             // Desregistra la escena al cerrarla
@@ -222,4 +247,85 @@ public class Main extends Application {
             return false;
         }
     }
+
+    private String[] obtenerRutasImagenes(String tipoHabitacion) throws IOException {
+        if (tipoHabitacion.equals("Doble")) {
+            return new String[]{
+                    "file:resources/habitacion_doble_1.jpg",
+                    "file:resources/habitacion_doble_2.jpg",
+                    "file:resources/habitacion_doble_3.jpg"
+            };
+        } else if (tipoHabitacion.equals("Individual")) {
+            return new String[]{
+                    "file:resources/habitacion_individual_1.jpg",
+                    "file:resources/habitacion_individual_2.jpg",
+                    "file:resources/habitacion_individual_3.jpg"
+            };
+        } else if (tipoHabitacion.equals("Junior Suite")) {
+            return new String[]{
+                    "file:resources/habitacion_junior_suite_1.jpg",
+                    "file:resources/habitacion_junior_suite_2.jpg",
+                    "file:resources/habitacion_junior_suite_3.jpg"
+            };
+        }
+        return new String[]{
+                "file:resources/habitacion_suite_1.jpg",
+                "file:resources/habitacion_suite_2.jpg",
+                "file:resources/habitacion_suite_3.jpg"
+        };
+    }
+
+
+    public void mostrarHabitaciones(String tipoHabitacion) throws IOException {
+        // Obtener rutas de las imágenes basadas en el tipo de habitación
+        String[] rutasImagenes = obtenerRutasImagenes(tipoHabitacion);
+
+        // Cargar el archivo FXML del deslizador
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHotel/VistaHabitaciones.fxml"));
+        Parent root = loader.load();
+
+        // Obtener el controlador del deslizador
+        HabitacionesController controlador = loader.getController();
+
+        // Configurar las imágenes y otros datos en el controlador
+        controlador.setRutasImagenes(rutasImagenes);
+        controlador.setReservaModelo(modeloReserva, tipoHabitacion);
+
+        // Crear la escena y configurar la ventana
+        Scene escena = new Scene(root, 800, 500);
+        Stage ventana = new Stage();
+        ventana.setTitle("Galería de " + tipoHabitacion);
+        ventana.setScene(escena);
+        ventana.initModality(Modality.NONE);
+        ventana.initOwner(primaryStage);
+
+        ventana.show();
+    }
+
+
+    public void mostrarEstadisticas(String opcion) throws IOException {
+        // Cargar la vista FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHotel/VistaEstadisticas.fxml"));
+        Parent root = loader.load();
+
+        // Obtener el controlador de la vista
+        EstadisticasController controller2 = loader.getController();
+
+        // Establecer los datos en el gráfico, configurarlo y cambiar el color
+        controller2.setReservaModelo(modeloReserva);
+        controller2.setMeses(opcion);
+
+        // Crear la escena y configurar la ventana
+        Scene scene = new Scene(root, 800, 500);
+        Stage stage = new Stage();
+        stage.setTitle(opcion);
+        stage.setScene(scene);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.showAndWait();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
