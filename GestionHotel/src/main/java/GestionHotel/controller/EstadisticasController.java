@@ -10,7 +10,7 @@ import javafx.scene.chart.XYChart;
 public class EstadisticasController {
 
     @FXML
-    private AreaChart<String, Number> areaChart;// Usamos AreaChart en lugar de BarChart
+    private AreaChart<String, Number> areaChart;
 
     @FXML
     private CategoryAxis xAxis;
@@ -74,7 +74,7 @@ public class EstadisticasController {
             // Agregar la serie al gráfico
             areaChart.getData().add(series);
 
-            // Estilo CSS (recomendado usar un archivo externo)
+            // Estilo CSS
             areaChart.lookupAll(".chart-area").forEach(node -> {
                 node.setStyle("-fx-fill: rgba(76, 130, 175, 0.4);"); // Color azul suave con transparencia
             });

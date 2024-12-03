@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -28,7 +29,7 @@ public class HabitacionesController {
     private Button botonVolver; // Botón para volver a la pantalla anterior
 
     @FXML
-    private ProgressBar barraProgreso; // Barra de progreso
+    private ProgressIndicator barraProgreso; // Barra de progreso
 
     private int indiceImagen = 0; // Índice de la imagen actual
     private String[] rutasImagenes; // Array con las rutas de las imágenes

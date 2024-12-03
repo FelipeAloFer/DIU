@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GestionHotel.controller.TraductorController">
+    <WebView fx:id="webView" prefHeight="550.0" prefWidth="800.0"/>
+</AnchorPane>
+

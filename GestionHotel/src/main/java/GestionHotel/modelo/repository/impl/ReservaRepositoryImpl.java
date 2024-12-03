@@ -191,22 +191,22 @@ public class ReservaRepositoryImpl implements ReservaRepository {
 
     @Override
     public int obtenerHabitacionesDobles() throws ExcepcionHotel {
-        return contarPorTipoDeHabitacion("Doble");
+        return contarPorTipoDeHabitacion("DOBLE");
     }
 
     @Override
     public int obtenerHabitacionesIndividuales() throws ExcepcionHotel {
-        return contarPorTipoDeHabitacion("Doble_de_uso_individual");
+        return contarPorTipoDeHabitacion("DOBLE_DE_USO_INDIVIDUAL");
     }
 
     @Override
     public int obtenerHabitacionesJunior() throws ExcepcionHotel {
-        return contarPorTipoDeHabitacion("Junior_suite");
+        return contarPorTipoDeHabitacion("JUNIOR_SUITE");
     }
 
     @Override
     public int obtenerHabitacionesSuite() throws ExcepcionHotel {
-        return contarPorTipoDeHabitacion("Suite");
+        return contarPorTipoDeHabitacion("SUITE");
     }
 
     @Override

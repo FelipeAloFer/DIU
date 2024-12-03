@@ -1,6 +1,5 @@
 package GestionHotel.controller;
 
-import GestionHotel.modelo.ClienteModelo;
 import GestionHotel.modelo.ReservaModelo;
 import GestionHotel.util.Reserva;
 import javafx.collections.FXCollections;

@@ -188,10 +188,6 @@ public class Main extends Application {
             controller.setReserva(dni_cliente, reserva, 0);
 
             modeloReserva.setReservaModelo(reservaRepositoryImpl);
-            modeloReserva.obtenerHabitacionesDobles();
-            modeloReserva.obtenerHabitacionesIndividuales();
-            modeloReserva.obtenerHabitacionesJunior();
-            modeloReserva.obtenerHabitacionesSuite();
 
             dialogStage.showAndWait();
 
@@ -231,10 +227,6 @@ public class Main extends Application {
             controller.setReserva(dni_cliente, reserva);
 
             modeloReserva.setReservaModelo(reservaRepositoryImpl);
-            modeloReserva.obtenerHabitacionesDobles();
-            modeloReserva.obtenerHabitacionesIndividuales();
-            modeloReserva.obtenerHabitacionesJunior();
-            modeloReserva.obtenerHabitacionesSuite();
 
             dialogStage.showAndWait();
 
@@ -316,13 +308,33 @@ public class Main extends Application {
         controller2.setMeses(opcion);
 
         // Crear la escena y configurar la ventana
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(root, 800, 550);
         Stage stage = new Stage();
         stage.setTitle(opcion);
         stage.setScene(scene);
         stage.initModality(Modality.WINDOW_MODAL);
         stage.showAndWait();
     }
+
+    public void mostrarTraductor() throws IOException {
+        // Cargar el archivo FXML del traductor
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHotel/VistaTraductor.fxml"));
+        AnchorPane root = loader.load(); // Cargar la vista Traductor
+
+        // Obtener el controlador de Traductor
+        TraductorController controlador = loader.getController();
+
+        // Crear una nueva escena para el traductor
+        Scene escena = new Scene(root, 800, 500);
+        Stage ventana = new Stage();
+        ventana.setTitle("Traductor");
+        ventana.setScene(escena);
+        ventana.initModality(Modality.NONE);
+        ventana.initOwner(primaryStage);
+
+        ventana.show();
+    }
+
 
     public static void main(String[] args) {
         launch(args);

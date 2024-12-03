@@ -26,4 +26,9 @@ public class HotelController {
         String menuItemText = menuItem.getText();
         main.mostrarEstadisticas(menuItemText);
     }
+
+    @FXML
+    private void abrirTraductor(ActionEvent event) throws IOException {
+        main.mostrarTraductor();
+    }
 }

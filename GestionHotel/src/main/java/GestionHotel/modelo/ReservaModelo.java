@@ -18,53 +18,22 @@ public class ReservaModelo {
     DoubleProperty habitacionesJunior = new SimpleDoubleProperty(50);
     DoubleProperty habitacionesSuite = new SimpleDoubleProperty(50);
 
-    public double getHabitacionesDobles() {
-        return habitacionesDobles.get();
-    }
-
     public DoubleProperty habitacionesDoblesProperty() {
         return habitacionesDobles;
-    }
-
-    public void setHabitacionesDobles(double habitacionesDobles) {
-        this.habitacionesDobles.set(habitacionesDobles);
-    }
-
-    public double getHabitacionesIndividuales() {
-        return habitacionesIndividuales.get();
     }
 
     public DoubleProperty habitacionesIndividualesProperty() {
         return habitacionesIndividuales;
     }
 
-    public void setHabitacionesIndividuales(double habitacionesIndividuales) {
-        this.habitacionesIndividuales.set(habitacionesIndividuales);
-    }
-
-    public double getHabitacionesJunior() {
-        return habitacionesJunior.get();
-    }
-
     public DoubleProperty habitacionesJuniorProperty() {
         return habitacionesJunior;
-    }
-
-    public void setHabitacionesJunior(double habitacionesJunior) {
-        this.habitacionesJunior.set(habitacionesJunior);
-    }
-
-    public double getHabitacionesSuite() {
-        return habitacionesSuite.get();
     }
 
     public DoubleProperty habitacionesSuiteProperty() {
         return habitacionesSuite;
     }
 
-    public void setHabitacionesSuite(double habitacionesSuite) {
-        this.habitacionesSuite.set(habitacionesSuite);
-    }
 
     public void setReservaModelo(ReservaRepository implementacion) {
         this.reservaRepository = implementacion;
@@ -117,19 +86,19 @@ public class ReservaModelo {
         reservaRepository.deleteReserva(selectedReserva.getIdReserva());
         if (!selectedReserva.getFecha_llegada().isAfter(LocalDate.now()) && !selectedReserva.getFecha_salida().isBefore(LocalDate.now())) {
             switch (selectedReserva.getTipo_habitacion()) {
-                case "Doble":
+                case "DOBLE":
                     habitacionesDobles.set(habitacionesDobles.get() - 1);
                     break;
 
-                case "Doble_de_uso_individual":
+                case "DOBLE_DE_USO_INDIVIDUAL":
                     habitacionesIndividuales.set(habitacionesIndividuales.get() - 1);
                     break;
 
-                case "Junior_suite":
+                case "JUNIOR_SUITE":
                     habitacionesJunior.set(habitacionesJunior.get() - 1);
                     break;
 
-                case "Suite":
+                case "SUITE":
                     habitacionesSuite.set(habitacionesSuite.get() - 1);
                     break;
 
@@ -151,19 +120,19 @@ public class ReservaModelo {
     }
 
     public int[] contarReservasDobles() throws ExcepcionHotel {
-        return reservaRepository.contarMeses("Doble");
+        return reservaRepository.contarMeses("DOBLE");
     }
 
     public int[] contarReservasIndividual() throws ExcepcionHotel {
-        return reservaRepository.contarMeses("Doble_de_uso_individual");
+        return reservaRepository.contarMeses("DOBLE_DE_USO_INDIVIDUAL");
     }
 
     public int[] contarReservasJuniorSuite() throws ExcepcionHotel {
-        return reservaRepository.contarMeses("Junior_suite");
+        return reservaRepository.contarMeses("JUNIOR_SUITE");
     }
 
     public int[] contarReservasSuite() throws ExcepcionHotel {
-        return reservaRepository.contarMeses("Suite");
+        return reservaRepository.contarMeses("SUITE");
     }
 
     public void obtenerHabitacionesDobles() throws ExcepcionHotel {
