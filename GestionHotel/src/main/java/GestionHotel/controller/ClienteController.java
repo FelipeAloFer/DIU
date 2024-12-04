@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -158,10 +157,9 @@ public class ClienteController {
 
     @FXML
     private void handleNewCliente() {
-        Cliente clienteNuevo = new Cliente();
+        Cliente clienteNuevo = new Cliente();   
 
-        // Si todo esta bien, abrir el dialogo para editar el cliente
-        boolean okClicked = main.showPersonEditDialog(clienteNuevo);
+        boolean okClicked = main.showClienteEditDialog(clienteNuevo);
         if (okClicked) {
             // Verificar si el DNI es válido antes de continuar
             if (!esDniValido(clienteNuevo.getDni())) {
@@ -192,7 +190,7 @@ public class ClienteController {
     private void handleEditCliente() {
         Cliente selectedCliente = tablaClientes.getSelectionModel().getSelectedItem();
         if (selectedCliente != null) {
-            boolean okClicked = main.showPersonEditDialog(selectedCliente);
+            boolean okClicked = main.showClienteEditDialog(selectedCliente);
             if (okClicked) {
                 try {
                     showPersonDetails(selectedCliente);

@@ -127,7 +127,7 @@ public class Main extends Application {
 
     //Muestra el diálogo de edición de un cliente.
 
-    public boolean showPersonEditDialog(Cliente cliente) {
+    public boolean showClienteEditDialog(Cliente cliente) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("/GestionHotel/VistaDialogoCliente.fxml"));
