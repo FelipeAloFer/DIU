@@ -1,0 +1,25 @@
+.selected-pokemon {
+  display: flex;
+  justify-content: center;
+
+  .pokemon-container {
+    width: 300px;
+    height: 400px;
+    background-color: blueviolet;
+    color: white;
+    padding: 10px;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  
+    .text {
+      margin: 0;
+    }
+  
+    .pokemon-img {
+      width: 100%;
+    }
+  }
+}

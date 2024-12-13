@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class ClienteModelo {
     ClienteRepository clienteRepository;
-    ReservaRepository reservaRepository;
 
     public ClienteModelo() {
     }

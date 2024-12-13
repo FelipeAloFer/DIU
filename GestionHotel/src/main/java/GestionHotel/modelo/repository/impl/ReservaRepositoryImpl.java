@@ -213,7 +213,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
     public int[] contarMeses(String tipoHabitacion) throws ExcepcionHotel {
         int[] cuentaPorMes = new int[12];
 
-        String sql = "SELECT m.mes, COUNT(r.id_reserva) AS total " +
+        String sql = "SELECT mes, COUNT(r.id_reserva) AS total " +
                 "FROM ( " +
                 "    SELECT 1 AS mes UNION ALL " +
                 "    SELECT 2 UNION ALL " +
@@ -228,9 +228,7 @@ public class ReservaRepositoryImpl implements ReservaRepository {
                 "    SELECT 11 UNION ALL " +
                 "    SELECT 12 " +
                 ") AS m " +
-                "LEFT JOIN reservas r ON MONTH(r.fecha_llegada) = m.mes AND r.tipo_habitacion = ? " +
-                "GROUP BY m.mes " +
-                "ORDER BY m.mes";
+                "LEFT JOIN reservas r ON MONTH(r.fecha_llegada) = m.mes AND r.tipo_habitacion = ? ";
 
 
         try (Connection conn = this.conexion.conectarBD();
