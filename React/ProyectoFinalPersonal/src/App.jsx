@@ -11,8 +11,6 @@ function App() {
 
   return (
     <>
-      <CharacterList selectCharacter={selectCharacter} />
-
       {selectedCharacter && (
         <div className="character-details">
           <h3>{selectedCharacter.name}</h3>
@@ -20,6 +18,7 @@ function App() {
           <img src={selectedCharacter.image} alt={selectedCharacter.name} />
         </div>
       )}
+      <CharacterList selectCharacter={selectCharacter} />
     </>
   );
 }

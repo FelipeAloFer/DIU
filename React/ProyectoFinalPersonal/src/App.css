@@ -68,7 +68,7 @@ h2 {
 /* Detalles del personaje seleccionado */
 .character-details {
   text-align: center;
-  margin-top: 50px;
+  margin-bottom: 20px;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 10px;

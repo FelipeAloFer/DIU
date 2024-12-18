@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "contador": "contador-falofer",
+    "default": "contador-falofer"
+  },
+  "targets": {},
+  "etags": {}
+}
