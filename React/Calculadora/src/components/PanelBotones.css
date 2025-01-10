@@ -1,0 +1,38 @@
+.panel-botones {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Cuatro columnas de botones */
+  grid-gap: 15px; /* Más espacio entre botones */
+  max-width: 500px; /* Ancho máximo */
+  margin: 0 auto; /* Centrado en la página */
+  padding: 20px; /* Más espacio interior */
+}
+
+.boton {
+  background-color: #f0f0f0; /* Fondo de los botones */
+  border: 1px solid #ccc; /* Borde sutil */
+  padding: 30px; /* Más padding para aumentar el tamaño del botón */
+  font-size: 2rem; /* Texto más grande */
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Efecto de transición */
+}
+
+.boton:hover {
+  background-color: #ddd; /* Fondo al pasar el mouse */
+  transform: scale(1.1); /* Aumento de tamaño al pasar el mouse */
+}
+
+.boton:active {
+  background-color: #bbb; /* Fondo cuando se presiona */
+  transform: scale(0.95); /* Efecto de reducción al presionar */
+}
+
+.boton--especial {
+  background-color: #ff9800; /* Fondo de color especial para botones como "C" o "=" */
+  color: white;
+}
+
+.boton--especial:hover {
+  background-color: #ff7043; /* Cambio de color cuando pasa el mouse */
+}

@@ -1,0 +1,9 @@
+.calculadora {
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  width: 100vw; /* Ocupa toda la anchura de la pantalla */
+  background-color: #f4f4f4; /* Fondo gris claro */
+  display: flex; /* Asegura que todo esté centrado */
+  flex-direction: column; /* Alinea la pantalla y botones en columna */
+}

@@ -1,0 +1,14 @@
+.pantalla {
+  background-color: #706f6f; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+  font-size: 3.5rem; /* Tamaño grande para mostrar los números */
+  padding: 20px; /* Espaciado interno */
+  text-align: right; /* Alineación de los números a la derecha */
+  border-radius: 10px; /* Bordes redondeados */
+  margin-bottom: 20px; /* Espacio debajo de la pantalla */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  min-height: 60px; /* Mínima altura para asegurar espacio */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 430px; /* Coincide con el ancho de .panel-botones */
+  margin: 0 auto 20px auto; /* Centrado horizontal y margen inferior */
+}
