@@ -8,7 +8,6 @@ const App = () => {
   const [valorPantalla, setValorPantalla] = useState("0"); // Pantalla de la calculadora
   const [primerNumero, setPrimerNumero] = useState(null); // Primer número ingresado
   const [operador, setOperador] = useState(null); // Operador seleccionado
-  const [esperandoSegundoNumero, setEsperandoSegundoNumero] = useState(false); // Si estamos esperando el segundo número
 
   const manejarClickBoton = (valor) => {
     if (valor === "AC") {
@@ -16,7 +15,6 @@ const App = () => {
       setValorPantalla("0");
       setPrimerNumero(null);
       setOperador(null);
-      setEsperandoSegundoNumero(false);
       return;
     }
 
@@ -25,7 +23,6 @@ const App = () => {
       setOperador(valor);
       setPrimerNumero(valorPantalla);
       setValorPantalla("0");
-      setEsperandoSegundoNumero(true); // Esperamos el segundo número
       return;
     }
 
@@ -38,7 +35,6 @@ const App = () => {
           setValorPantalla(String(resultado)); // Mostramos el resultado
           setPrimerNumero(resultado); // Guardamos el resultado como primer número
           setOperador(null); // Reseteamos el operador
-          setEsperandoSegundoNumero(false); // No esperamos un segundo número
         } catch (error) {
           setValorPantalla("Error"); // Mostramos "Error" si algo falla
         }
