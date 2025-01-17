@@ -1,6 +1,8 @@
 {
   "projects": {
-    "calculadora": "calculadora-falofer"
+    "calculadora": "calculadora-falofer",
+    "default": "calculadora-falofer",
+    "calculadora-falofer2": "contador-falofer"
   },
   "targets": {},
   "etags": {}

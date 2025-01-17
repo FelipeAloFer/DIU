@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "calculadora-falofer2",
+    "site": "calculadoraapi-falofer",
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
