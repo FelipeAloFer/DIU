@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as math from "mathjs";
 import PanelBotones from "./components/PanelBotones";
 import Pantalla from "./components/Pantalla";
 import "./App.css";
@@ -10,7 +9,7 @@ const App = () => {
   const [operador, setOperador] = useState(null); // Operador seleccionado
   const [resultadoMostrado, setResultadoMostrado] = useState(false); // Indica si el último valor fue un resultado
 
-  const manejarClickBoton = (valor) => {
+  const manejarClickBoton = async (valor) => {
     if (valor === "AC") {
       // Reseteamos todos los estados
       setValorPantalla("0");
@@ -28,18 +27,23 @@ const App = () => {
       setResultadoMostrado(false);
       return;
     }
-
     if (valor === "=") {
       if (primerNumero !== null && operador !== null) {
         try {
           const expresion = `${primerNumero} ${operador} ${valorPantalla}`;
-          const resultado = math.evaluate(expresion); // Usamos math.js para evaluar la expresión
-          setValorPantalla(String(resultado)); // Mostramos el resultado
-          setPrimerNumero(resultado); // Guardamos el resultado como primer número
-          setOperador(null); // Reseteamos el operador
-          setResultadoMostrado(true); // Indicamos que se mostró un resultado
-        } catch (error) {
-          setValorPantalla("Error"); // Mostramos "Error" si algo falla
+          const data = await (
+            await fetch("http://api.mathjs.org/v4/", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ expr: expresion }),
+            })
+          ).json();
+          setValorPantalla(String(data.result));
+          setPrimerNumero(data.result);
+          setOperador(null);
+          setResultadoMostrado(true);
+        } catch {
+          setValorPantalla("Error");
           setResultadoMostrado(false);
         }
       }
@@ -62,7 +66,7 @@ const App = () => {
     }
 
     setValorPantalla(
-      (num) => (resultadoMostrado ? valor : num === "0" ? valor : num + valor) //if para controlar el reinicio del numero tras mostrar un resultado
+      (num) => (resultadoMostrado ? valor : num === "0" ? valor : num + valor) // Controlamos el reinicio del número tras mostrar un resultado
     );
     setResultadoMostrado(false); // Reiniciamos el indicador después de ingresar un número
   };
